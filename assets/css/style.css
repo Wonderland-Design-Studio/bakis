@@ -1353,7 +1353,7 @@ h1, h2, h3, h4 {
 }
 
 .mosaic-tile-media img {
-  width: 90%;
+  width: 88%;
   max-height: 72%;
   object-fit: contain;
   object-position: bottom left;
@@ -1364,6 +1364,29 @@ h1, h2, h3, h4 {
 .tile-span-large .mosaic-tile-media img {
   width: 95%;
   max-height: 68%;
+  object-position: bottom left;
+}
+
+/* Surge arrestor diagonal alignment for dramatic technical feel */
+.tile-slate .mosaic-tile-media img {
+  transform: rotate(-15deg) scale(1.05) translateY(10px);
+  transform-origin: center bottom;
+}
+.tile-slate:hover .mosaic-tile-media img {
+  transform: rotate(-12deg) scale(1.1) translateY(6px);
+}
+
+/* Fuse Link sizing in span-medium tile */
+.tile-cerulean .mosaic-tile-media img {
+  max-height: 78%;
+  width: auto;
+  object-position: bottom 25%;
+}
+
+/* Insulators positioning in forest green tile */
+.tile-forest .mosaic-tile-media img {
+  max-height: 76%;
+  width: auto;
   object-position: bottom left;
 }
 
