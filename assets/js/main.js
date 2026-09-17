@@ -1,4 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Ensure the brand logo is ALWAYS set as the favicon across all conditions
+  const enforceFavicon = () => {
+    let iconLink = document.querySelector("link[rel*='icon']");
+    if (!iconLink) {
+      iconLink = document.createElement('link');
+      iconLink.rel = 'icon';
+      document.head.appendChild(iconLink);
+    }
+    if (!iconLink.href.includes('favicon-32x32.png') && !iconLink.href.includes('favicon.ico')) {
+      iconLink.type = 'image/png';
+      iconLink.href = 'favicon-32x32.png';
+    }
+  };
+  enforceFavicon();
   // Mobile drawer toggle
   const mobileToggle = document.getElementById('mobileMenuToggle');
   const mobileDrawer = document.getElementById('mobileDrawer');
