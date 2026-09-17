@@ -223,15 +223,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // Product Detail Modal Controller & Catalog Dataset
+  // Product Catalog Dataset with LocalStorage Persistence & Dynamic Grid Sync
   // ==========================================================================
-  const productCatalog = {
+  const defaultProductCatalog = {
     'circuit-breakers': {
       title: 'Circuit Breakers',
       category: 'Electrical Protection',
       bgColor: '#253b58',
       image: 'assets/images/product-circuit-breakers-trans.png',
       tagline: 'High-performance trip mechanisms engineered for medium and low-voltage industrial distribution networks.',
+      spanClass: 'tile-span-large',
       specs: [
         { label: 'Voltage Range', value: '400V – 36kV' },
         { label: 'Breaking Capacity', value: 'Up to 50kA / 65kA' },
@@ -253,6 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
       bgColor: '#265953',
       image: 'assets/images/product-distribution-boards-trans.png',
       tagline: 'Precision-fabricated power enclosures, switchboards, and motor control centers engineered to client specifications.',
+      spanClass: '',
       specs: [
         { label: 'Ingress Protection', value: 'IP54 / IP65 Rated' },
         { label: 'Enclosure Material', value: '3CR12 / Mild / Stainless' },
@@ -274,6 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
       bgColor: '#398896',
       image: 'assets/images/product-switchgear-trans.png',
       tagline: 'State-of-the-art gas-insulated (GIS) and air-insulated (AIS) switchgear systems ensuring continuous grid reliability.',
+      spanClass: '',
       specs: [
         { label: 'Nominal Voltage', value: '11kV / 22kV / 33kV' },
         { label: 'Busbar Rating', value: '630A – 3150A' },
@@ -295,6 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
       bgColor: '#2e4d68',
       image: 'assets/images/product-surge-arrestors-trans.png',
       tagline: 'Heavy-duty metal-oxide polymer and porcelain surge arrestors defending transmission lines against lightning and switching surges.',
+      spanClass: '',
       specs: [
         { label: 'System Voltage', value: '1kV – 132kV' },
         { label: 'Discharge Current', value: '10kA / 20kA Nominal' },
@@ -316,6 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
       bgColor: '#4792a5',
       image: 'assets/images/product-fuse-link-trans.png',
       tagline: 'High Breaking Capacity (HRC) knife-blade and bolted fuse links engineered for selective low and medium voltage fault clearing.',
+      spanClass: 'tile-span-medium',
       specs: [
         { label: 'Current Ratings', value: '16A – 630A (NH00 to NH3)' },
         { label: 'Breaking Capacity', value: '120kA at 500VAC' },
@@ -337,6 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
       bgColor: '#8e393b',
       image: 'assets/images/product-cables-trans.png',
       tagline: 'Comprehensive LV, MV, and HV copper and aluminum conductors engineered for underground reticulation and overhead power lines.',
+      spanClass: 'tile-span-medium',
       specs: [
         { label: 'Voltage Classes', value: '600/1000V up to 33kV' },
         { label: 'Conductor Types', value: 'Stranded Copper / Aluminum' },
@@ -358,6 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
       bgColor: '#1e4a3b',
       image: 'assets/images/product-insulators-trans.png',
       tagline: 'High-voltage composite silicone and glazed porcelain disc insulators, post insulators, and substation busbar hardware.',
+      spanClass: '',
       specs: [
         { label: 'Creepage Distance', value: '25mm/kV – 31mm/kV Heavy' },
         { label: 'Mechanical Strength', value: '70kN – 300kN Cantilever' },
@@ -379,6 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
       bgColor: '#1e3352',
       image: 'assets/images/product-streetlighting-trans.png',
       tagline: 'High-efficiency LED luminaires, solar street poles, and floodlighting systems built for road networks and industrial perimeters.',
+      spanClass: '',
       specs: [
         { label: 'Power Output', value: '50W – 300W High Flux' },
         { label: 'Luminous Efficacy', value: '140+ Lumens/Watt' },
@@ -396,6 +404,85 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  const STORAGE_KEY = 'bakis_product_catalog_v1';
+  let productCatalog = {};
+
+  const loadCatalog = () => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        productCatalog = JSON.parse(stored);
+      } else {
+        productCatalog = JSON.parse(JSON.stringify(defaultProductCatalog));
+        saveCatalog();
+      }
+    } catch (e) {
+      productCatalog = JSON.parse(JSON.stringify(defaultProductCatalog));
+    }
+  };
+
+  const saveCatalog = () => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(productCatalog));
+    } catch (e) {
+      console.error('Failed to save to localStorage:', e);
+    }
+  };
+
+  loadCatalog();
+
+  // Render Front-End Mosaic Bento Grid from catalog
+  const mosaicGrid = document.querySelector('.products-mosaic-grid');
+  const renderMosaicGrid = () => {
+    if (!mosaicGrid) return;
+    const keys = Object.keys(productCatalog);
+    mosaicGrid.innerHTML = keys
+      .map((key, index) => {
+        const item = productCatalog[key];
+        const spanClass = item.spanClass || (index === 0 ? 'tile-span-large' : '');
+        return `
+        <div class="mosaic-product-tile ${spanClass}" data-product="${key}" role="button" tabindex="0" aria-label="View details for ${item.title}" style="background-color: ${item.bgColor || '#253b58'};">
+          <div class="mosaic-tile-top">
+            <span class="mosaic-tile-category">${item.category}</span>
+            <h3 class="mosaic-tile-title">${item.title}</h3>
+          </div>
+          <div class="mosaic-tile-media">
+            <img src="${item.image}" alt="${item.title}" loading="lazy">
+          </div>
+          <div class="mosaic-tile-action">
+            <span class="mosaic-btn-circle" aria-label="Enquire ${item.title}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="13 6 19 12 13 18"></polyline>
+              </svg>
+            </span>
+          </div>
+        </div>
+      `;
+      })
+      .join('');
+
+    // Rebind click & keyboard handlers to new mosaic tiles
+    mosaicGrid.querySelectorAll('.mosaic-product-tile[data-product]').forEach(tile => {
+      const productId = tile.getAttribute('data-product');
+
+      tile.addEventListener('click', (e) => {
+        e.preventDefault();
+        openProductModal(productId);
+      });
+
+      tile.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openProductModal(productId);
+        }
+      });
+    });
+  };
+
+  renderMosaicGrid();
+
+  // Detail Modal Elements
   const productModal = document.getElementById('productModal');
   const productModalClose = document.getElementById('productModalClose');
   const productModalDismissBtn = document.getElementById('productModalDismissBtn');
@@ -420,9 +507,8 @@ document.addEventListener('DOMContentLoaded', () => {
     productModalTagline.innerText = data.tagline;
     productModalDescription.innerHTML = data.description;
 
-    // Render specs
     if (productModalSpecs) {
-      productModalSpecs.innerHTML = data.specs
+      productModalSpecs.innerHTML = (data.specs || [])
         .map(
           spec => `
           <div class="spec-badge">
@@ -434,7 +520,6 @@ document.addEventListener('DOMContentLoaded', () => {
         .join('');
     }
 
-    // Set RFQ button context
     if (productModalRfqBtn) {
       productModalRfqBtn.onclick = () => {
         closeProductModal();
@@ -460,43 +545,345 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = '';
   };
 
-  // Bind click & keyboard handlers to mosaic product tiles
-  document.querySelectorAll('.mosaic-product-tile[data-product]').forEach(tile => {
-    const productId = tile.getAttribute('data-product');
-
-    tile.addEventListener('click', (e) => {
-      e.preventDefault();
-      openProductModal(productId);
-    });
-
-    tile.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openProductModal(productId);
-      }
-    });
-  });
-
-  if (productModalClose) {
-    productModalClose.addEventListener('click', closeProductModal);
-  }
-  if (productModalDismissBtn) {
-    productModalDismissBtn.addEventListener('click', closeProductModal);
-  }
-
-  // Close modal when clicking backdrop
+  if (productModalClose) productModalClose.addEventListener('click', closeProductModal);
+  if (productModalDismissBtn) productModalDismissBtn.addEventListener('click', closeProductModal);
   if (productModal) {
     productModal.addEventListener('click', (e) => {
-      if (e.target === productModal) {
-        closeProductModal();
+      if (e.target === productModal) closeProductModal();
+    });
+  }
+
+  // ==========================================================================
+  // Product Management / Admin Area Controller
+  // ==========================================================================
+  const adminModal = document.getElementById('adminModal');
+  const openAdminBtn = document.getElementById('openAdminBtn');
+  const adminModalClose = document.getElementById('adminModalClose');
+  const tabCatalogList = document.getElementById('tabCatalogList');
+  const tabAddProduct = document.getElementById('tabAddProduct');
+  const paneCatalogList = document.getElementById('paneCatalogList');
+  const paneAddProduct = document.getElementById('paneAddProduct');
+  const adminProductTableBody = document.getElementById('adminProductTableBody');
+  const adminProductCount = document.getElementById('adminProductCount');
+  const adminSearchInput = document.getElementById('adminSearchInput');
+  const btnUploadProductShortcut = document.getElementById('btnUploadProductShortcut');
+  const btnCancelProduct = document.getElementById('btnCancelProduct');
+  const btnResetCatalog = document.getElementById('btnResetCatalog');
+  const adminProductForm = document.getElementById('adminProductForm');
+
+  // Form Fields
+  const editProductId = document.getElementById('editProductId');
+  const prodTitle = document.getElementById('prodTitle');
+  const prodCategory = document.getElementById('prodCategory');
+  const prodTagline = document.getElementById('prodTagline');
+  const prodTheme = document.getElementById('prodTheme');
+  const prodDescription = document.getElementById('prodDescription');
+  const prodImageData = document.getElementById('prodImageData');
+  const prodImageFile = document.getElementById('prodImageFile');
+  const adminDropzone = document.getElementById('adminDropzone');
+  const dropzonePrompt = document.getElementById('dropzonePrompt');
+  const dropzonePreview = document.getElementById('dropzonePreview');
+  const previewImage = document.getElementById('previewImage');
+  const btnRemovePreview = document.getElementById('btnRemovePreview');
+  const btnSaveText = document.getElementById('btnSaveText');
+
+  const specLabel1 = document.getElementById('specLabel1');
+  const specVal1 = document.getElementById('specVal1');
+  const specLabel2 = document.getElementById('specLabel2');
+  const specVal2 = document.getElementById('specVal2');
+  const specLabel3 = document.getElementById('specLabel3');
+  const specVal3 = document.getElementById('specVal3');
+  const specLabel4 = document.getElementById('specLabel4');
+  const specVal4 = document.getElementById('specVal4');
+
+  const openAdminModal = () => {
+    if (!adminModal) return;
+    renderAdminTable();
+    switchAdminTab('list');
+    adminModal.classList.add('active');
+    adminModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeAdminModal = () => {
+    if (!adminModal) return;
+    adminModal.classList.remove('active');
+    adminModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+
+  const switchAdminTab = (tab) => {
+    if (tab === 'list') {
+      tabCatalogList.classList.add('active');
+      tabAddProduct.classList.remove('active');
+      paneCatalogList.classList.add('active');
+      paneAddProduct.classList.remove('active');
+    } else {
+      tabCatalogList.classList.remove('active');
+      tabAddProduct.classList.add('active');
+      paneCatalogList.classList.remove('active');
+      paneAddProduct.classList.add('active');
+    }
+  };
+
+  const renderAdminTable = (filterQuery = '') => {
+    if (!adminProductTableBody) return;
+    const q = filterQuery.trim().toLowerCase();
+    const keys = Object.keys(productCatalog);
+    if (adminProductCount) adminProductCount.innerText = keys.length;
+
+    const filteredKeys = keys.filter(key => {
+      const item = productCatalog[key];
+      if (!q) return true;
+      return (
+        item.title.toLowerCase().includes(q) ||
+        item.category.toLowerCase().includes(q) ||
+        (item.tagline && item.tagline.toLowerCase().includes(q))
+      );
+    });
+
+    if (filteredKeys.length === 0) {
+      adminProductTableBody.innerHTML = `
+        <tr>
+          <td colspan="5" style="text-align: center; padding: 2.5rem; color: #64748b;">
+            No matching products found. Click <strong>Upload New Product</strong> to add one.
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    adminProductTableBody.innerHTML = filteredKeys
+      .map(key => {
+        const item = productCatalog[key];
+        const specSummary = (item.specs || [])
+          .slice(0, 2)
+          .map(s => `<span>&bull; ${s.label}: <strong>${s.value}</strong></span>`)
+          .join('');
+
+        return `
+        <tr>
+          <td>
+            <div class="table-visual-thumb" style="background: ${item.bgColor || '#253b58'};">
+              <img src="${item.image}" alt="${item.title}">
+            </div>
+          </td>
+          <td>
+            <div class="table-title">${item.title}</div>
+            <div class="table-cat">${item.category}</div>
+          </td>
+          <td>
+            <div class="color-swatch-pill">
+              <span class="color-swatch-dot" style="background: ${item.bgColor || '#253b58'};"></span>
+              <span>${item.bgColor || '#253b58'}</span>
+            </div>
+          </td>
+          <td>
+            <div class="specs-mini-list">
+              ${specSummary || '<span>Custom specifications</span>'}
+            </div>
+          </td>
+          <td style="text-align: right;">
+            <div class="table-action-btns">
+              <button type="button" class="btn-table-action edit" data-action="edit" data-id="${key}" title="Edit product details">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+              </button>
+              <button type="button" class="btn-table-action delete" data-action="delete" data-id="${key}" title="Delete product">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+      })
+      .join('');
+
+    // Bind edit/delete table actions
+    adminProductTableBody.querySelectorAll('.btn-table-action[data-action]').forEach(btn => {
+      const action = btn.getAttribute('data-action');
+      const id = btn.getAttribute('data-id');
+
+      btn.addEventListener('click', () => {
+        if (action === 'edit') editProduct(id);
+        else if (action === 'delete') deleteProduct(id);
+      });
+    });
+  };
+
+  const resetForm = () => {
+    if (!adminProductForm) return;
+    adminProductForm.reset();
+    editProductId.value = '';
+    prodImageData.value = '';
+    dropzonePreview.style.display = 'none';
+    dropzonePrompt.style.display = 'block';
+    previewImage.src = '';
+    btnSaveText.innerText = 'Save & Publish Product';
+    tabAddProduct.innerHTML = `
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+      Upload New Product
+    `;
+  };
+
+  const editProduct = (id) => {
+    const item = productCatalog[id];
+    if (!item) return;
+
+    resetForm();
+    editProductId.value = id;
+    prodTitle.value = item.title;
+    prodCategory.value = item.category;
+    prodTagline.value = item.tagline || '';
+    prodTheme.value = item.bgColor || '#253b58';
+    prodDescription.value = (item.description || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    prodImageData.value = item.image;
+
+    previewImage.src = item.image;
+    dropzonePreview.style.display = 'block';
+    dropzonePrompt.style.display = 'none';
+
+    if (item.specs && item.specs.length > 0) {
+      if (item.specs[0]) { specLabel1.value = item.specs[0].label; specVal1.value = item.specs[0].value; }
+      if (item.specs[1]) { specLabel2.value = item.specs[1].label; specVal2.value = item.specs[1].value; }
+      if (item.specs[2]) { specLabel3.value = item.specs[2].label; specVal3.value = item.specs[2].value; }
+      if (item.specs[3]) { specLabel4.value = item.specs[3].label; specVal4.value = item.specs[3].value; }
+    }
+
+    btnSaveText.innerText = 'Update Product';
+    tabAddProduct.innerHTML = `
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+      </svg>
+      Edit Product
+    `;
+    switchAdminTab('form');
+  };
+
+  const deleteProduct = (id) => {
+    const item = productCatalog[id];
+    if (!item) return;
+    if (confirm(`Are you sure you want to remove "${item.title}" from the active product range?`)) {
+      delete productCatalog[id];
+      saveCatalog();
+      renderAdminTable();
+      renderMosaicGrid();
+    }
+  };
+
+  // Image Upload File Handling with Instant Data-URI preview
+  if (prodImageFile) {
+    prodImageFile.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const base64Data = event.target.result;
+        prodImageData.value = base64Data;
+        previewImage.src = base64Data;
+        dropzonePreview.style.display = 'block';
+        dropzonePrompt.style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  if (btnRemovePreview) {
+    btnRemovePreview.addEventListener('click', (e) => {
+      e.stopPropagation();
+      prodImageData.value = '';
+      if (prodImageFile) prodImageFile.value = '';
+      dropzonePreview.style.display = 'none';
+      dropzonePrompt.style.display = 'block';
+      previewImage.src = '';
+    });
+  }
+
+  // Admin Form Submit (Save / Update)
+  if (adminProductForm) {
+    adminProductForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const id = editProductId.value || prodTitle.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      const existing = productCatalog[id] || {};
+
+      const specs = [
+        { label: specLabel1.value.trim() || 'Voltage Range', value: specVal1.value.trim() || 'Industrial Grade' },
+        { label: specLabel2.value.trim() || 'Breaking Capacity', value: specVal2.value.trim() || 'Standard' },
+        { label: specLabel3.value.trim() || 'Standards', value: specVal3.value.trim() || 'SANS / IEC Compliant' },
+        { label: specLabel4.value.trim() || 'Mounting Type', value: specVal4.value.trim() || 'Modular' }
+      ];
+
+      const descText = prodDescription.value.trim();
+      const formattedDesc = descText.includes('<p>') ? descText : `<p>${descText}</p>`;
+
+      const imageSrc = prodImageData.value || existing.image || 'assets/images/product-circuit-breakers-trans.png';
+
+      productCatalog[id] = {
+        title: prodTitle.value.trim(),
+        category: prodCategory.value.trim(),
+        bgColor: prodTheme.value,
+        image: imageSrc,
+        tagline: prodTagline.value.trim(),
+        spanClass: existing.spanClass || '',
+        specs: specs,
+        description: formattedDesc
+      };
+
+      saveCatalog();
+      renderMosaicGrid();
+      renderAdminTable();
+      resetForm();
+      switchAdminTab('list');
+    });
+  }
+
+  // Tabs & Triggers
+  if (openAdminBtn) openAdminBtn.addEventListener('click', openAdminModal);
+  if (adminModalClose) adminModalClose.addEventListener('click', closeAdminModal);
+  if (tabCatalogList) tabCatalogList.addEventListener('click', () => switchAdminTab('list'));
+  if (tabAddProduct) tabAddProduct.addEventListener('click', () => { resetForm(); switchAdminTab('form'); });
+  if (btnUploadProductShortcut) btnUploadProductShortcut.addEventListener('click', () => { resetForm(); switchAdminTab('form'); });
+  if (btnCancelProduct) btnCancelProduct.addEventListener('click', () => switchAdminTab('list'));
+
+  if (btnResetCatalog) {
+    btnResetCatalog.addEventListener('click', () => {
+      if (confirm('Restore factory catalog? This will reset all products back to default.')) {
+        localStorage.removeItem(STORAGE_KEY);
+        loadCatalog();
+        renderAdminTable();
+        renderMosaicGrid();
+        switchAdminTab('list');
       }
     });
   }
 
-  // Close modal on Escape key
+  if (adminSearchInput) {
+    adminSearchInput.addEventListener('input', (e) => {
+      renderAdminTable(e.target.value);
+    });
+  }
+
+  if (adminModal) {
+    adminModal.addEventListener('click', (e) => {
+      if (e.target === adminModal) closeAdminModal();
+    });
+  }
+
+  // Close modals on Escape key
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && productModal && productModal.classList.contains('active')) {
-      closeProductModal();
+    if (e.key === 'Escape') {
+      if (adminModal && adminModal.classList.contains('active')) closeAdminModal();
+      if (productModal && productModal.classList.contains('active')) closeProductModal();
     }
   });
 });

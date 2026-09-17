@@ -392,13 +392,22 @@
             <h2>PRODUCT RANGE</h2>
             <p>Contact us to enquire about our full range of products</p>
           </div>
-          <a href="#contact" class="btn-primary">
-            <span>Enquire Now</span>
-            <svg class="bk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="13 6 19 12 13 18"></polyline>
-            </svg>
-          </a>
+          <div class="products-header-actions">
+            <button type="button" class="btn-admin-manage" id="openAdminBtn" aria-label="Manage products and commodities">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span>Manage Products</span>
+            </button>
+            <a href="#contact" class="btn-primary">
+              <span>Enquire Now</span>
+              <svg class="bk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="13 6 19 12 13 18"></polyline>
+              </svg>
+            </a>
+          </div>
         </div>
 
         <!-- Replicating exact design reference: Seamless Mosaic Bento Product Grid with rich jewel tones, edge-anchored equipment photography, and round arrow pills -->
@@ -980,6 +989,185 @@
             </a>
             <button type="button" class="btn-secondary product-modal-dismiss-btn" id="productModalDismissBtn">Close</button>
           </div>
+        </div>
+      </div>
+    </div>
+  <!-- Product Management / Admin Area Modal -->
+  <div class="admin-modal-backdrop" id="adminModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="admin-modal-box">
+      <div class="admin-modal-header">
+        <div class="admin-modal-title-group">
+          <div class="admin-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <span>Product Management Suite</span>
+          </div>
+          <h3>Product Catalog &amp; Commodity Manager</h3>
+        </div>
+        <button class="admin-modal-close" id="adminModalClose" aria-label="Close product manager">&times;</button>
+      </div>
+
+      <div class="admin-modal-nav">
+        <button type="button" class="admin-nav-btn active" id="tabCatalogList">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          Active Products (<span id="adminProductCount">8</span>)
+        </button>
+        <button type="button" class="admin-nav-btn" id="tabAddProduct">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Upload New Product
+        </button>
+      </div>
+
+      <div class="admin-modal-body">
+        <!-- View 1: Catalog List & Quick Actions -->
+        <div class="admin-tab-pane active" id="paneCatalogList">
+          <div class="admin-catalog-toolbar">
+            <div class="admin-search-wrap">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="adminSearchInput" placeholder="Filter products by title, category, or specs...">
+            </div>
+            <button type="button" class="btn-admin-primary" id="btnUploadProductShortcut">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              <span>Add Product</span>
+            </button>
+          </div>
+
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Product Visual</th>
+                  <th>Title &amp; Category</th>
+                  <th>Tile Color Theme</th>
+                  <th>Key Specifications</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminProductTableBody">
+                <!-- Dynamically rendered via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- View 2: Add / Edit Product Form -->
+        <div class="admin-tab-pane" id="paneAddProduct">
+          <form id="adminProductForm" class="admin-form">
+            <input type="hidden" id="editProductId" value="">
+            <div class="admin-form-grid">
+              <!-- Left Column: Details -->
+              <div class="admin-form-col">
+                <div class="form-group">
+                  <label for="prodTitle">Product Title *</label>
+                  <input type="text" id="prodTitle" class="form-control" placeholder="e.g. Ring Main Units (RMU)" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="prodCategory">Category / Engineering Segment *</label>
+                  <input type="text" id="prodCategory" class="form-control" placeholder="e.g. Medium & High Voltage" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="prodTagline">Technical Tagline *</label>
+                  <input type="text" id="prodTagline" class="form-control" placeholder="Brief technical summary for modal and RFQ cards..." required>
+                </div>
+
+                <div class="form-group">
+                  <label for="prodTheme">Tile Theme Color *</label>
+                  <select id="prodTheme" class="form-control">
+                    <option value="#253b58">Deep Turbine Navy (#253b58)</option>
+                    <option value="#265953">Spruce Green (#265953)</option>
+                    <option value="#398896">Slate Cyan (#398896)</option>
+                    <option value="#2e4d68">Steel Slate (#2e4d68)</option>
+                    <option value="#4792a5">Cerulean Teal (#4792a5)</option>
+                    <option value="#8e393b">Terracotta Crimson (#8e393b)</option>
+                    <option value="#1e4a3b">Grid Forest (#1e4a3b)</option>
+                    <option value="#1e3352">Dark Indigo (#1e3352)</option>
+                    <option value="#0d4737">Bakis Dark Green (#0d4737)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="prodDescription">Overview Description (HTML supported) *</label>
+                  <textarea id="prodDescription" class="form-control" rows="4" placeholder="Detailed engineering description of applications and build standards..." required></textarea>
+                </div>
+              </div>
+
+              <!-- Right Column: Image Upload & Specs -->
+              <div class="admin-form-col">
+                <div class="form-group">
+                  <label>Product Cutout Photograph (Transparent PNG recommended) *</label>
+                  <div class="admin-dropzone" id="adminDropzone">
+                    <input type="file" id="prodImageFile" accept="image/*" class="dropzone-file-input">
+                    <div class="dropzone-prompt" id="dropzonePrompt">
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                      </svg>
+                      <div class="dropzone-text">Click or drag &amp; drop product photo</div>
+                      <div class="dropzone-sub">Supports PNG, JPG, WebP</div>
+                    </div>
+                    <div class="dropzone-preview" id="dropzonePreview" style="display: none;">
+                      <img id="previewImage" src="" alt="Preview">
+                      <button type="button" class="btn-remove-preview" id="btnRemovePreview" title="Remove image">&times;</button>
+                    </div>
+                  </div>
+                  <input type="hidden" id="prodImageData" value="">
+                </div>
+
+                <div class="admin-specs-section">
+                  <label>Technical Specifications (4 Key Metrics)</label>
+                  <div class="specs-input-grid">
+                    <div class="spec-input-row">
+                      <input type="text" id="specLabel1" class="form-control" placeholder="Label (e.g. Voltage Range)" value="Voltage Range">
+                      <input type="text" id="specVal1" class="form-control" placeholder="Value (e.g. 400V – 36kV)">
+                    </div>
+                    <div class="spec-input-row">
+                      <input type="text" id="specLabel2" class="form-control" placeholder="Label (e.g. Breaking Capacity)" value="Breaking Capacity">
+                      <input type="text" id="specVal2" class="form-control" placeholder="Value (e.g. Up to 50kA)">
+                    </div>
+                    <div class="spec-input-row">
+                      <input type="text" id="specLabel3" class="form-control" placeholder="Label (e.g. Standards)" value="Standards">
+                      <input type="text" id="specVal3" class="form-control" placeholder="Value (e.g. IEC 60947 / SANS)">
+                    </div>
+                    <div class="spec-input-row">
+                      <input type="text" id="specLabel4" class="form-control" placeholder="Label (e.g. Ingress Protection)" value="Mounting Type">
+                      <input type="text" id="specVal4" class="form-control" placeholder="Value (e.g. Fixed / Modular)">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="admin-form-actions">
+              <button type="submit" class="btn-admin-primary" id="btnSaveProduct">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                  <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                  <polyline points="7 3 7 8 15 8"></polyline>
+                </svg>
+                <span id="btnSaveText">Save &amp; Publish Product</span>
+              </button>
+              <button type="button" class="btn-admin-secondary" id="btnCancelProduct">Cancel</button>
+              <button type="button" class="btn-admin-reset" id="btnResetCatalog" title="Reset catalog to factory defaults">Restore Factory Defaults</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
