@@ -1725,6 +1725,97 @@ textarea.form-control {
   border: 1px solid #bbf7d0;
 }
 
+/* Google Maps Integration Block */
+.contact-map-wrapper {
+  margin-top: 3.5rem;
+}
+
+.contact-map-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 20px 45px -10px rgba(0, 32, 16, 0.18);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.contact-map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.map-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #166534;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.map-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #111827;
+  margin: 0;
+  letter-spacing: -0.015em;
+}
+
+.btn-map-directions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f1f5f9;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+  padding: 0.55rem 1.15rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-map-directions:hover {
+  background: #00bf63;
+  color: #032010;
+  border-color: #00bf63;
+  transform: translateY(-2px);
+}
+
+.contact-map-frame-wrap {
+  width: 100%;
+  line-height: 0;
+}
+
+.contact-map-frame-wrap iframe {
+  display: block;
+  width: 100%;
+  height: 380px;
+}
+
+@media (max-width: 768px) {
+  .contact-map-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.25rem 1.25rem;
+  }
+  .btn-map-directions {
+    width: 100%;
+    justify-content: center;
+  }
+  .contact-map-frame-wrap iframe {
+    height: 280px;
+  }
+}
+
 /* ===================================================
    FOOTER (Verbatim Content)
    =================================================== */
