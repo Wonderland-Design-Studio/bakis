@@ -420,13 +420,6 @@
             <p>Contact us to enquire about our full range of products</p>
           </div>
           <div class="products-header-actions">
-            <button type="button" class="btn-admin-manage" id="openAdminBtn" aria-label="Manage products and commodities">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-              </svg>
-              <span>Manage Products</span>
-            </button>
             <a href="#contact" class="btn-primary">
               <span>Enquire Now</span>
               <svg class="bk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -446,7 +439,7 @@
               <h3 class="mosaic-tile-title">Circuit Breakers</h3>
             </div>
             <div class="mosaic-tile-media">
-              <img src="assets/images/product-circuit-breakers-trans.png" alt="Circuit Breakers" loading="lazy">
+              <img src="assets/images/product-circuit-breakers-new.png" alt="Circuit Breakers" loading="lazy">
             </div>
             <div class="mosaic-tile-action">
               <span class="mosaic-btn-circle" aria-label="Enquire Circuit Breakers">
@@ -465,7 +458,7 @@
               <h3 class="mosaic-tile-title">Distribution Boards</h3>
             </div>
             <div class="mosaic-tile-media">
-              <img src="assets/images/product-distribution-boards-trans.png" alt="Distribution boards" loading="lazy">
+              <img src="assets/images/product-distribution-boards-new.png" alt="Distribution boards" loading="lazy">
             </div>
             <div class="mosaic-tile-action">
               <span class="mosaic-btn-circle" aria-label="Enquire Distribution boards">
@@ -972,8 +965,15 @@
 
       <div class="footer-bottom">
         <div>Copyright &copy; 2026 Bakis Engineering | Powered by Bakis Engineering</div>
-        <div>
+        <div class="footer-meta-row">
           <span>Bakis Engineering (Pty) Ltd &bull; 100% Black Women Owned &bull; Level 1 BBBEE</span>
+          <button type="button" class="btn-footer-admin-lock" id="openAdminBtn" aria-label="Administrator Portal Login" title="Admin Portal">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>Staff Portal</span>
+          </button>
         </div>
       </div>
     </div>
@@ -988,34 +988,34 @@
           <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
         </svg>
         <input type="text" id="searchInput" placeholder="Search commodities, circuit breakers, cables, solar..." autocomplete="off">
-        <span class="search-modal-close" id="searchClose">&times;</span>
+        <button class="search-modal-close" id="searchCloseBtn" aria-label="Close search">&times;</button>
       </div>
-      <div class="search-results-list" id="searchResults">
-        <!-- Populated via JS -->
+      <div class="search-modal-body" id="searchResults">
+        <div class="search-idle-msg">Type a query to search catalog items, categories, or technical specifications...</div>
       </div>
     </div>
   </div>
 
-  <!-- Product Detail Modal (Engineering Spec Sheet & RFQ Quick Action) -->
+  <!-- Interactive Product Detail Modal -->
   <div class="product-modal-backdrop" id="productModal" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="product-modal-box">
-      <button class="product-modal-close" id="productModalClose" aria-label="Close product details">&times;</button>
-      <div class="product-modal-layout">
-        <!-- Left Visual Stage -->
-        <div class="product-modal-visual" id="productModalVisual">
-          <div class="product-modal-badge" id="productModalCategory">Electrical Protection</div>
+      <button class="product-modal-close" id="productModalClose" aria-label="Close product view">&times;</button>
+      <div class="product-modal-grid">
+        <div class="product-modal-image-col">
           <div class="product-modal-image-wrap">
-            <img id="productModalImage" src="" alt="" loading="eager">
+            <img src="" alt="" id="productModalImg">
+            <div class="product-modal-tag" id="productModalCategory"></div>
           </div>
         </div>
-        <!-- Right Specs & Content Stage -->
-        <div class="product-modal-info">
-          <div class="product-modal-header">
-            <h3 id="productModalTitle">Circuit Breakers</h3>
-            <p class="product-modal-tagline" id="productModalTagline">High-performance trip mechanisms engineered for medium and low-voltage industrial distribution.</p>
-          </div>
-          <div class="product-modal-specs" id="productModalSpecs">
-            <!-- Populated dynamically via JS -->
+        <div class="product-modal-info-col">
+          <div class="product-modal-badge">COMMODITY &amp; INSTRUMENTATION PROFILE</div>
+          <h2 class="product-modal-title" id="productModalTitle"></h2>
+          <p class="product-modal-subtitle" id="productModalSubtitle"></p>
+          <div class="product-modal-specs-wrap">
+            <div class="specs-heading">Technical Highlights</div>
+            <div class="product-modal-specs-grid" id="productModalSpecs">
+              <!-- Populated dynamically via JS -->
+            </div>
           </div>
           <div class="product-modal-description" id="productModalDescription">
             <!-- Populated dynamically via JS -->
@@ -1033,6 +1033,57 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Admin Login Gate Modal -->
+  <div class="admin-login-backdrop" id="adminLoginModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="admin-login-box">
+      <button class="admin-login-close" id="adminLoginClose" aria-label="Close admin login">&times;</button>
+      <div class="admin-login-header">
+        <div class="admin-login-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <h3>Admin Authentication</h3>
+        <p>Enter your administrator credentials to access the Product Management Suite.</p>
+      </div>
+
+      <form id="adminLoginForm" class="admin-login-form" novalidate>
+        <div class="admin-login-feedback error" id="adminLoginError" style="display: none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span id="adminLoginErrorText">Invalid administrator credentials.</span>
+        </div>
+
+        <div class="admin-input-group">
+          <label for="adminLoginEmail">Administrator Email</label>
+          <input type="email" id="adminLoginEmail" class="admin-input" placeholder="tsoanelomodise@gmail.com" autocomplete="username" required>
+        </div>
+
+        <div class="admin-input-group">
+          <label for="adminLoginPassword">Password</label>
+          <input type="password" id="adminLoginPassword" class="admin-input" placeholder="Enter administrator password" autocomplete="current-password" required>
+        </div>
+
+        <div class="admin-login-actions">
+          <button type="submit" class="btn-primary admin-login-submit-btn" id="btnAdminLoginSubmit">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+              <polyline points="10 17 15 12 10 7"></polyline>
+              <line x1="15" y1="12" x2="3" y2="12"></line>
+            </svg>
+            <span>Log In to Manager</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Product Management / Admin Area Modal -->
   <div class="admin-modal-backdrop" id="adminModal" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="admin-modal-box">
@@ -1046,7 +1097,24 @@
           </div>
           <h3>Product Catalog &amp; Commodity Manager</h3>
         </div>
-        <button class="admin-modal-close" id="adminModalClose" aria-label="Close product manager">&times;</button>
+        <div class="admin-modal-header-actions">
+          <div class="admin-user-tag" id="adminUserTag">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span id="adminUserEmailLabel">tsoanelomodise@gmail.com</span>
+          </div>
+          <button type="button" class="btn-admin-logout" id="btnAdminLogout" title="Log out from Admin Suite">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            <span>Log Out</span>
+          </button>
+          <button class="admin-modal-close" id="adminModalClose" aria-label="Close product manager">&times;</button>
+        </div>
       </div>
 
       <div class="admin-modal-nav">

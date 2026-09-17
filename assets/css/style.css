@@ -2838,6 +2838,206 @@ textarea.form-control {
   }
 }
 
+/* Footer Staff Portal Button */
+.footer-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-footer-admin-lock {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #94a3b8;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.btn-footer-admin-lock:hover {
+  background: rgba(0, 191, 99, 0.12);
+  border-color: #00bf63;
+  color: #00bf63;
+}
+
+/* Admin Login Modal Styling */
+.admin-login-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10005;
+  background: rgba(8, 18, 14, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.admin-login-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.admin-login-box {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 18px;
+  padding: 2.5rem 2.25rem;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  transform: scale(0.95) translateY(10px);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.admin-login-backdrop.active .admin-login-box {
+  transform: scale(1) translateY(0);
+}
+
+.admin-login-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: #94a3b8;
+  font-size: 1.5rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: all 0.2s ease;
+}
+
+.admin-login-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.admin-login-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.admin-login-icon {
+  width: 56px;
+  height: 56px;
+  background: rgba(0, 191, 99, 0.12);
+  border: 1px solid rgba(0, 191, 99, 0.3);
+  color: #00bf63;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+}
+
+.admin-login-header h3 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.4rem;
+}
+
+.admin-login-header p {
+  font-size: 0.88rem;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+.admin-login-feedback {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #f87171;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+}
+
+.admin-input-group {
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+
+.admin-input-group label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  margin-bottom: 0.45rem;
+}
+
+.admin-input-group input.admin-input {
+  width: 100%;
+  padding: 0.85rem 1.1rem;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-input-group input.admin-input:focus {
+  border-color: #00bf63;
+  box-shadow: 0 0 0 3px rgba(0, 191, 99, 0.2);
+}
+
+.admin-login-actions {
+  margin-top: 1.5rem;
+}
+
+.admin-login-submit-btn {
+  width: 100%;
+  justify-content: center;
+  padding: 0.9rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  background: #00bf63;
+  color: #032010;
+  border: none;
+  box-shadow: 0 4px 14px rgba(0, 191, 99, 0.35);
+  transition: all 0.2s ease;
+}
+
+.admin-login-submit-btn:hover {
+  background: #00d66f;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 191, 99, 0.45);
+}
+
 /* ==========================================================================
    Product Management / Admin Suite Styling
    ========================================================================== */
@@ -2885,10 +3085,54 @@ textarea.form-control {
 .admin-modal-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  padding: 1.75rem 2rem 1.25rem;
+  align-items: center;
+  padding: 1.5rem 2rem;
   background: #0f172a;
   color: #ffffff;
+  gap: 1rem;
+}
+
+.admin-modal-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.admin-user-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  color: #cbd5e1;
+}
+
+.admin-user-tag svg {
+  color: #00bf63;
+}
+
+.btn-admin-logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.38rem 0.85rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-admin-logout:hover {
+  background: rgba(239, 68, 68, 0.25);
+  color: #ffffff;
+  border-color: #ef4444;
 }
 
 .admin-modal-title-group h3 {

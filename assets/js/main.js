@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: 'Circuit Breakers',
       category: 'Electrical Protection',
       bgColor: '#253b58',
-      image: 'assets/images/product-circuit-breakers-trans.png',
+      image: 'assets/images/product-circuit-breakers-new.png',
       tagline: 'High-performance trip mechanisms engineered for medium and low-voltage industrial distribution networks.',
       spanClass: 'tile-span-large',
       specs: [
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: 'Distribution Boards',
       category: 'Power Enclosures',
       bgColor: '#265953',
-      image: 'assets/images/product-distribution-boards-trans.png',
+      image: 'assets/images/product-distribution-boards-new.png',
       tagline: 'Precision-fabricated power enclosures, switchboards, and motor control centers engineered to client specifications.',
       spanClass: '',
       specs: [
@@ -418,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const STORAGE_KEY = 'bakis_product_catalog_v1';
+  const STORAGE_KEY = 'bakis_product_catalog_v2';
   let productCatalog = {};
 
   const loadCatalog = () => {
@@ -427,6 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (stored) {
         productCatalog = JSON.parse(stored);
       } else {
+        // Migrate or initialize with default catalog
         productCatalog = JSON.parse(JSON.stringify(defaultProductCatalog));
         saveCatalog();
       }
@@ -573,6 +574,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const adminModal = document.getElementById('adminModal');
   const openAdminBtn = document.getElementById('openAdminBtn');
   const adminModalClose = document.getElementById('adminModalClose');
+  const adminLoginModal = document.getElementById('adminLoginModal');
+  const adminLoginClose = document.getElementById('adminLoginClose');
+  const adminLoginForm = document.getElementById('adminLoginForm');
+  const adminLoginEmail = document.getElementById('adminLoginEmail');
+  const adminLoginPassword = document.getElementById('adminLoginPassword');
+  const adminLoginError = document.getElementById('adminLoginError');
+  const adminLoginErrorText = document.getElementById('adminLoginErrorText');
+  const btnAdminLogout = document.getElementById('btnAdminLogout');
+  const adminUserEmailLabel = document.getElementById('adminUserEmailLabel');
+
   const tabCatalogList = document.getElementById('tabCatalogList');
   const tabAddProduct = document.getElementById('tabAddProduct');
   const tabMobileConnect = document.getElementById('tabMobileConnect');
@@ -615,8 +626,46 @@ document.addEventListener('DOMContentLoaded', () => {
   const specLabel4 = document.getElementById('specLabel4');
   const specVal4 = document.getElementById('specVal4');
 
+  const ADMIN_EMAIL = 'tsoanelomodise@gmail.com';
+  const ADMIN_PASS = 'qwe123';
+  const AUTH_STORAGE_KEY = 'bakis_admin_auth_v1';
+
+  const isUserAdmin = () => {
+    return sessionStorage.getItem(AUTH_STORAGE_KEY) === 'true';
+  };
+
+  const openAdminLoginModal = () => {
+    if (!adminLoginModal) return;
+    if (adminLoginError) adminLoginError.style.display = 'none';
+    if (adminLoginPassword) adminLoginPassword.value = '';
+    if (adminLoginEmail) adminLoginEmail.value = ADMIN_EMAIL;
+    adminLoginModal.classList.add('active');
+    adminLoginModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => {
+      if (adminLoginPassword) adminLoginPassword.focus();
+    }, 150);
+  };
+
+  const closeAdminLoginModal = () => {
+    if (!adminLoginModal) return;
+    adminLoginModal.classList.remove('active');
+    adminLoginModal.setAttribute('aria-hidden', 'true');
+    if (!adminModal || !adminModal.classList.contains('active')) {
+      document.body.style.overflow = '';
+    }
+  };
+
   const openAdminModal = () => {
     if (!adminModal) return;
+    // Authentication Check: only allow login for authorized admin
+    if (!isUserAdmin()) {
+      openAdminLoginModal();
+      return;
+    }
+    if (adminUserEmailLabel) {
+      adminUserEmailLabel.innerText = sessionStorage.getItem('bakis_admin_user') || ADMIN_EMAIL;
+    }
     renderAdminTable();
     switchAdminTab('list');
     adminModal.classList.add('active');
@@ -875,6 +924,47 @@ document.addEventListener('DOMContentLoaded', () => {
   // Tabs & Triggers
   if (openAdminBtn) openAdminBtn.addEventListener('click', openAdminModal);
   if (adminModalClose) adminModalClose.addEventListener('click', closeAdminModal);
+  if (adminLoginClose) adminLoginClose.addEventListener('click', closeAdminLoginModal);
+
+  // Admin Login Submission
+  if (adminLoginForm) {
+    adminLoginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = adminLoginEmail ? adminLoginEmail.value.trim() : '';
+      const pass = adminLoginPassword ? adminLoginPassword.value : '';
+
+      if (email.toLowerCase() === ADMIN_EMAIL.toLowerCase() && pass === ADMIN_PASS) {
+        if (adminLoginError) adminLoginError.style.display = 'none';
+        sessionStorage.setItem(AUTH_STORAGE_KEY, 'true');
+        sessionStorage.setItem('bakis_admin_user', ADMIN_EMAIL);
+        closeAdminLoginModal();
+        openAdminModal();
+      } else {
+        if (adminLoginError) {
+          adminLoginError.style.display = 'flex';
+          if (adminLoginErrorText) {
+            adminLoginErrorText.innerText = 'Invalid email or password. Access restricted to Bakis administrators.';
+          }
+        }
+        if (adminLoginPassword) {
+          adminLoginPassword.value = '';
+          adminLoginPassword.focus();
+        }
+      }
+    });
+  }
+
+  // Admin Logout
+  if (btnAdminLogout) {
+    btnAdminLogout.addEventListener('click', () => {
+      if (confirm('Log out from Administrator Suite?')) {
+        sessionStorage.removeItem(AUTH_STORAGE_KEY);
+        sessionStorage.removeItem('bakis_admin_user');
+        closeAdminModal();
+      }
+    });
+  }
+
   if (tabCatalogList) tabCatalogList.addEventListener('click', () => switchAdminTab('list'));
   if (tabAddProduct) tabAddProduct.addEventListener('click', () => { resetForm(); switchAdminTab('form'); });
   if (tabMobileConnect) tabMobileConnect.addEventListener('click', () => switchAdminTab('mobile'));
@@ -927,9 +1017,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  if (adminLoginModal) {
+    adminLoginModal.addEventListener('click', (e) => {
+      if (e.target === adminLoginModal) closeAdminLoginModal();
+    });
+  }
+
   // Close modals on Escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+      if (adminLoginModal && adminLoginModal.classList.contains('active')) closeAdminLoginModal();
       if (adminModal && adminModal.classList.contains('active')) closeAdminModal();
       if (productModal && productModal.classList.contains('active')) closeProductModal();
     }
