@@ -400,7 +400,7 @@
         <!-- Replicating exact design reference: Seamless Mosaic Bento Product Grid with rich jewel tones, edge-anchored equipment photography, and round arrow pills -->
         <div class="products-mosaic-grid">
           <!-- 1. Circuit Breakers (Large Anchor Navy Tile - Replicating left hero turbine block) -->
-          <div class="mosaic-product-tile tile-navy tile-span-large" onclick="location.href='#contact'">
+          <div class="mosaic-product-tile tile-navy tile-span-large" data-product="circuit-breakers" role="button" tabindex="0" aria-label="View details for Circuit Breakers">
             <div class="mosaic-tile-top">
               <span class="mosaic-tile-category">Electrical Protection</span>
               <h3 class="mosaic-tile-title">Circuit Breakers</h3>
@@ -419,7 +419,7 @@
           </div>
 
           <!-- 2. Distribution Boards (Deep Spruce Green Tile) -->
-          <div class="mosaic-product-tile tile-spruce" onclick="location.href='#contact'">
+          <div class="mosaic-product-tile tile-spruce" data-product="distribution-boards" role="button" tabindex="0" aria-label="View details for Distribution Boards">
             <div class="mosaic-tile-top">
               <span class="mosaic-tile-category">Power Enclosures</span>
               <h3 class="mosaic-tile-title">Distribution Boards</h3>
@@ -438,7 +438,7 @@
           </div>
 
           <!-- 3. Switchgear (Muted Cyan / Blue Horizon Tile) -->
-          <div class="mosaic-product-tile tile-cyan" onclick="location.href='#contact'">
+          <div class="mosaic-product-tile tile-cyan" data-product="switchgear" role="button" tabindex="0" aria-label="View details for Switchgear">
             <div class="mosaic-tile-top">
               <span class="mosaic-tile-category">Medium &amp; High Voltage</span>
               <h3 class="mosaic-tile-title">Switchgear</h3>
@@ -457,7 +457,7 @@
           </div>
 
           <!-- 4. Surge Arrestors (Steel Slate Navy Tile) -->
-          <div class="mosaic-product-tile tile-slate" onclick="location.href='#contact'">
+          <div class="mosaic-product-tile tile-slate" data-product="surge-arrestors" role="button" tabindex="0" aria-label="View details for Surge Arrestors">
             <div class="mosaic-tile-top">
               <span class="mosaic-tile-category">Overvoltage Defense</span>
               <h3 class="mosaic-tile-title">Surge Arrestors</h3>
@@ -476,7 +476,7 @@
           </div>
 
           <!-- 5. Fuse Links & Cutouts (Cerulean Teal Tile - Wide Row) -->
-          <div class="mosaic-product-tile tile-cerulean tile-span-medium" onclick="location.href='#contact'">
+          <div class="mosaic-product-tile tile-cerulean tile-span-medium" data-product="fuse-links" role="button" tabindex="0" aria-label="View details for Fuse Links">
             <div class="mosaic-tile-top">
               <span class="mosaic-tile-category">HRC Protection</span>
               <h3 class="mosaic-tile-title">Fuse Links</h3>
@@ -495,7 +495,7 @@
           </div>
 
           <!-- 6. Cables (Crimson Terracotta Tile - Replicating bottom-right red accent block) -->
-          <div class="mosaic-product-tile tile-crimson tile-span-medium" onclick="location.href='#contact'">
+          <div class="mosaic-product-tile tile-crimson tile-span-medium" data-product="cables" role="button" tabindex="0" aria-label="View details for Cables">
             <div class="mosaic-tile-top">
               <span class="mosaic-tile-category">Transmission &amp; Reticulation</span>
               <h3 class="mosaic-tile-title">Cables</h3>
@@ -514,7 +514,7 @@
           </div>
 
           <!-- 7. Sub Station Insulators & Equipment (Forest Green Tile) -->
-          <div class="mosaic-product-tile tile-forest" onclick="location.href='#contact'">
+          <div class="mosaic-product-tile tile-forest" data-product="insulators-substation" role="button" tabindex="0" aria-label="View details for Insulators & Substation">
             <div class="mosaic-tile-top">
               <span class="mosaic-tile-category">Grid Infrastructure</span>
               <h3 class="mosaic-tile-title">Insulators &amp; Substation</h3>
@@ -533,7 +533,7 @@
           </div>
 
           <!-- 8. Street Lighting (Deep Indigo Tile) -->
-          <div class="mosaic-product-tile tile-indigo" onclick="location.href='#contact'">
+          <div class="mosaic-product-tile tile-indigo" data-product="street-lighting" role="button" tabindex="0" aria-label="View details for Street Lighting">
             <div class="mosaic-tile-top">
               <span class="mosaic-tile-category">Municipal &amp; Industrial</span>
               <h3 class="mosaic-tile-title">Street Lighting</h3>
@@ -893,6 +893,45 @@
       </div>
       <div class="search-results-list" id="searchResults">
         <!-- Populated via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Detail Modal (Engineering Spec Sheet & RFQ Quick Action) -->
+  <div class="product-modal-backdrop" id="productModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="product-modal-box">
+      <button class="product-modal-close" id="productModalClose" aria-label="Close product details">&times;</button>
+      <div class="product-modal-layout">
+        <!-- Left Visual Stage -->
+        <div class="product-modal-visual" id="productModalVisual">
+          <div class="product-modal-badge" id="productModalCategory">Electrical Protection</div>
+          <div class="product-modal-image-wrap">
+            <img id="productModalImage" src="" alt="" loading="eager">
+          </div>
+        </div>
+        <!-- Right Specs & Content Stage -->
+        <div class="product-modal-info">
+          <div class="product-modal-header">
+            <h3 id="productModalTitle">Circuit Breakers</h3>
+            <p class="product-modal-tagline" id="productModalTagline">High-performance trip mechanisms engineered for medium and low-voltage industrial distribution.</p>
+          </div>
+          <div class="product-modal-specs" id="productModalSpecs">
+            <!-- Populated dynamically via JS -->
+          </div>
+          <div class="product-modal-description" id="productModalDescription">
+            <!-- Populated dynamically via JS -->
+          </div>
+          <div class="product-modal-actions">
+            <a href="#contact" class="btn-primary product-modal-rfq-btn" id="productModalRfqBtn">
+              Request Quotation / RFQ
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <button type="button" class="btn-secondary product-modal-dismiss-btn" id="productModalDismissBtn">Close</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
