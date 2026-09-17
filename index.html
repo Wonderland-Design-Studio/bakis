@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Bakis Engineering</title>
+  <meta name="description" content="A supplier of Electrical and Mechanical commodities. Bakis Engineering is a leading supplier of specialized instrumentation products, electrical equipment and consumables.">
+  <link rel="icon" type="image/png" href="assets/images/logo-dark.png">
+  <!-- Preload critical hero assets for instantaneous LCP -->
+  <link rel="preload" as="image" href="assets/images/hero-transmission-linemen.jpg">
+  <link rel="preload" as="image" href="assets/images/logo-dark-trimmed.png">
+  <!-- Google Fonts: Space Grotesk (Headings/Display), Inter Tight (Ultra-Bold Wordmark), Plus Jakarta Sans (Clean Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,700;0,800;0,900;1,700;1,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar (Inquiries & Hours) -->
+  <div class="hero-master-wrapper">
+    <!-- Whole-Hero Full Bleed Background Canvas with Animated Video Background -->
+    <div class="hero-bg-canvas" aria-hidden="true">
+      <video autoplay muted loop playsinline poster="assets/images/hero-transmission-linemen.jpg">
+        <source src="assets/videos/hero-transmission-linemen.webm" type="video/webm">
+        <source src="assets/videos/hero-transmission-linemen.mp4" type="video/mp4">
+        <img src="assets/images/hero-transmission-linemen.jpg" alt="Bakis Engineering Electrical and Transmission Specialists">
+      </video>
+      <div class="hero-bg-gradient-overlay"></div>
+    </div>
+
+    <!-- Architectural Grid Overlay across whole top -->
+    <div class="hero-grid-overlay" aria-hidden="true">
+      <div></div><div></div><div></div>
+      <div></div><div></div><div></div>
+      <div></div><div></div><div></div>
+    </div>
+
+    <aside class="top-announcement">
+      <div class="container">
+        <div class="top-announcement-left">
+          <div class="badge-hours">
+            <svg class="bk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;">
+              <circle cx="12" cy="12" r="9"></circle>
+              <polyline points="12 7 12 12 15 14"></polyline>
+            </svg>
+            We're on call Mon-Fri 8AM-5PM
+          </div>
+          <div>
+            <span>Inquiries: </span>
+            <a href="mailto:info@bakis.co.za">info@bakis.co.za</a>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Sticky Site Navigation -->
+    <header class="site-header" id="siteHeader">
+      <div class="container nav-container">
+        <a href="#home" class="brand-logo" aria-label="Bakis Engineering Home">
+          <img src="assets/images/logo-dark-trimmed.png" alt="Bakis Engineering Logo">
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="main-nav" aria-label="Main Navigation">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#products">Products</a>
+          <a href="#clients">Clients</a>
+          <a href="#contact">Contact Us</a>
+        </nav>
+
+        <!-- Nav Actions -->
+        <div class="nav-actions">
+          <button class="search-toggle-btn" id="searchBtn" title="Search products & commodities" aria-label="Search">
+            <!-- Bespoke minimal search glyph (Reference style: segmented circular lens + precision focal tail) -->
+            <svg class="bk-icon bk-icon-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+              <path d="M4 11a7 7 0 1 0 14 0 7 7 0 1 0 -14 0"></path>
+              <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+            </svg>
+          </button>
+          <a href="#contact" class="btn-primary">
+            <span>Contact Us</span>
+            <svg class="bk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="13 6 19 12 13 18"></polyline>
+            </svg>
+          </a>
+          <button class="mobile-nav-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobileDrawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+      <nav>
+        <a href="#home" class="mobile-nav-link">
+          <span>Home</span> 
+          <svg class="bk-icon bk-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+            <line x1="4" y1="12" x2="18" y2="12"></line>
+            <polyline points="12 6 18 12 12 18"></polyline>
+          </svg>
+        </a>
+        <a href="#about" class="mobile-nav-link">
+          <span>About</span> 
+          <svg class="bk-icon bk-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+            <line x1="4" y1="12" x2="18" y2="12"></line>
+            <polyline points="12 6 18 12 12 18"></polyline>
+          </svg>
+        </a>
+        <a href="#products" class="mobile-nav-link">
+          <span>Products</span> 
+          <svg class="bk-icon bk-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+            <line x1="4" y1="12" x2="18" y2="12"></line>
+            <polyline points="12 6 18 12 12 18"></polyline>
+          </svg>
+        </a>
+        <a href="#clients" class="mobile-nav-link">
+          <span>Clients</span> 
+          <svg class="bk-icon bk-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+            <line x1="4" y1="12" x2="18" y2="12"></line>
+            <polyline points="12 6 18 12 12 18"></polyline>
+          </svg>
+        </a>
+        <a href="#contact" class="mobile-nav-link" style="color: var(--primary-green);">
+          <span>Contact Us</span> 
+          <svg class="bk-icon bk-icon-light primary" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+            <line x1="4" y1="12" x2="18" y2="12"></line>
+            <polyline points="12 6 18 12 12 18"></polyline>
+          </svg>
+        </a>
+      </nav>
+      <div class="mobile-drawer-footer">
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.25rem;">Operating Hours</p>
+        <p style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.75rem;">Mon-Fri 8AM-5PM</p>
+        <a href="mailto:info@bakis.co.za">info@bakis.co.za</a>
+      </div>
+    </div>
+
+    <main id="home">
+      <!-- ===================================================
+           HERO SECTION (Replicating exact layout of design reference)
+           =================================================== -->
+      <section class="hero-editorial">
+        <div class="hero-layout">
+          <!-- Left Column: Editorial Headline & Floating Info Cards -->
+          <div class="hero-content-left">
+            <div>
+              <!-- Main Verbatim Headline -->
+              <div class="hero-title-group">
+                <h1 class="hero-headline"><span class="headline-line">A supplier of Electrical and</span> <span class="headline-line">Mechanical commodities</span></h1>
+                <p class="hero-subheadline">Nearing a decade of nothing but quality&#8230;</p>
+                
+                <div class="hero-cta-row">
+                  <a href="#products" class="btn-primary">
+                    <span>Enquire About Full Product Range</span>
+                    <svg class="bk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="13 6 19 12 13 18"></polyline>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Deck Cards -->
+            <div class="hero-bottom-deck">
+              <!-- Left Dark Metric Card (100% BWO & BBBEE with Executive Lady Image) -->
+              <div class="hero-metric-dark-box has-executive-media">
+                <div class="dark-box-bg-image" aria-hidden="true">
+                  <img src="assets/images/bwo-executive-lady.jpg" alt="Bakis Engineering 100% Black Women Owned">
+                  <div class="dark-box-overlay"></div>
+                </div>
+                <div class="dark-box-content">
+                  <div class="metric-top-row">
+                    <!-- Dark mode glyph: 4 precision vertical busbars from dark reference e6314aae91c9137289a3f4abba90272e -->
+                    <svg class="bk-icon bk-icon-dark" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                      <line x1="5" y1="3" x2="5" y2="21"></line>
+                      <line x1="10" y1="3" x2="10" y2="21"></line>
+                      <line x1="15" y1="3" x2="15" y2="21"></line>
+                      <line x1="20" y1="3" x2="20" y2="21"></line>
+                    </svg>
+                    <div class="big-number">100%</div>
+                  </div>
+                  <div class="caption">BWO &amp; LEVEL 1 BBBEE COMPANY</div>
+                </div>
+              </div>
+
+              <!-- Warm Spotlight Card with Rotating Product Carousel -->
+              <div class="hero-spotlight-card">
+                <div>
+                  <div class="spotlight-title">Tailor made solutions for sustainable benefits.</div>
+                  <div class="spotlight-tag">Electrical &amp; Mechanical Engineering</div>
+                </div>
+                
+                <!-- Rotating Carousel for the 3 Featured Commodities -->
+                <div class="spotlight-carousel-wrapper" id="heroProductCarousel" aria-label="Featured Bakis commodities carousel">
+                  <div class="carousel-track">
+                    <!-- Product 1: Porcelain & Post Insulator -->
+                    <div class="carousel-slide active" data-index="0">
+                      <img src="assets/images/product-insulator.jpg" alt="Bakis High-Voltage Porcelain &amp; Composite Insulators" class="spotlight-avatar spotlight-product-thumb" width="180" height="200">
+                      <div class="carousel-caption">Insulators &amp; Surge Arresters</div>
+                    </div>
+                    <!-- Product 2: 125A NH00 HRC Fuse -->
+                    <div class="carousel-slide" data-index="1">
+                      <img src="assets/images/product-fuse-125a.jpg" alt="Bakis Engineering Product - 125A NH00 HRC Fuse" class="spotlight-avatar spotlight-product-thumb" width="180" height="200">
+                      <div class="carousel-caption">125A NH00 HRC Fuse</div>
+                    </div>
+                    <!-- Product 3: Composite Long-Rod / Strain Insulator -->
+                    <div class="carousel-slide" data-index="2">
+                      <img src="assets/images/product-composite-strain-insulator.jpg" alt="Bakis Composite Long-Rod Transmission Strain Insulator" class="spotlight-avatar spotlight-product-thumb" width="180" height="200">
+                      <div class="carousel-caption">Composite Strain Insulator</div>
+                    </div>
+                  </div>
+                  <!-- Minimalist optical indicators -->
+                  <div class="carousel-indicators" role="tablist" aria-label="Carousel navigation">
+                    <button class="indicator active" aria-label="View product 1" data-slide="0"></button>
+                    <button class="indicator" aria-label="View product 2" data-slide="1"></button>
+                    <button class="indicator" aria-label="View product 3" data-slide="2"></button>
+                  </div>
+                </div>
+
+                <div class="spotlight-action">
+                  <a href="#about" class="btn-play-round" aria-label="Learn about Bakis">
+                    <!-- Bespoke forward chevron / triangle precision glyph -->
+                    <svg class="bk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="6 4 19 12 6 20 6 4" fill="currentColor"></polygon>
+                    </svg>
+                  </a>
+                  <span>About</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Side: Clean Visual Foreground / Accent Elements -->
+          <div class="hero-visual-right">
+            <!-- Bottom Right Floating Badge (Reference: "BUILD YOUR CAREER WITH LEADING COMPANIES") -->
+            <div class="hero-corner-badge">
+              <div class="corner-badge-logo-circle">
+                <img src="assets/images/logo-dark-trimmed.png" alt="Bakis Engineering Logo">
+              </div>
+              <div class="badge-text">
+                TRUSTED PARTNER FOR ALL YOUR ELECTRICAL NEEDS
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div> <!-- /hero-master-wrapper -->
+
+    <!-- ===================================================
+         VERBATIM METRIC COUNTERS (100% BWO, 7+ CLIENTS, 10+ YEARS)
+         =================================================== -->
+    <section class="stats-strip">
+      <div class="container">
+        <div class="stats-grid">
+          <!-- 1. BWO Metric with bespoke high-contrast concentric precision loop -->
+          <div class="stat-item">
+            <div style="margin-bottom: 0.75rem; display: flex; justify-content: center;">
+              <!-- Concentric precision radar/loop icon from dark reference e6314aae91c9137289a3f4abba90272e -->
+              <svg class="bk-icon bk-icon-dark accent" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <circle cx="12" cy="12" r="9"></circle>
+                <circle cx="12" cy="12" r="4"></circle>
+                <circle cx="12" cy="12" r="1.5" fill="currentColor"></circle>
+              </svg>
+            </div>
+            <div class="stat-number">100<span class="accent">%</span></div>
+            <div class="stat-title">BWO</div>
+          </div>
+
+          <!-- 2. Clients Metric with bespoke optical grid icon -->
+          <div class="stat-item">
+            <div style="margin-bottom: 0.75rem; display: flex; justify-content: center;">
+              <!-- 9-dot optical balance matrix from reference 0d6f13da97fb006a062b4525bb5612e6 / dark variant -->
+              <svg class="bk-icon bk-icon-dark" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <rect x="4" y="4" width="3" height="3" fill="currentColor"></rect>
+                <rect x="10.5" y="4" width="3" height="3" fill="currentColor"></rect>
+                <rect x="17" y="4" width="3" height="3" fill="currentColor"></rect>
+                <rect x="4" y="10.5" width="3" height="3" fill="currentColor"></rect>
+                <rect x="10.5" y="10.5" width="3" height="3" fill="currentColor"></rect>
+                <rect x="17" y="10.5" width="3" height="3" fill="currentColor"></rect>
+                <rect x="4" y="17" width="3" height="3" fill="currentColor"></rect>
+                <rect x="10.5" y="17" width="3" height="3" fill="currentColor"></rect>
+                <rect x="17" y="17" width="3" height="3" fill="currentColor"></rect>
+              </svg>
+            </div>
+            <div class="stat-number">LEVEL <span class="accent">1</span></div>
+            <div class="stat-title">BBBEE</div>
+          </div>
+
+          <!-- 3. Years Metric with bespoke radiant star / compass glyph -->
+          <div class="stat-item">
+            <div style="margin-bottom: 0.75rem; display: flex; justify-content: center;">
+              <!-- 8-point radiant star burst from reference e6314aae91c9137289a3f4abba90272e -->
+              <svg class="bk-icon bk-icon-dark" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <line x1="12" y1="2" x2="12" y2="7"></line>
+                <line x1="12" y1="17" x2="12" y2="22"></line>
+                <line x1="2" y1="12" x2="7" y2="12"></line>
+                <line x1="17" y1="12" x2="22" y2="12"></line>
+                <line x1="4.93" y1="4.93" x2="8.46" y2="8.46"></line>
+                <line x1="15.54" y1="15.54" x2="19.07" y2="19.07"></line>
+                <line x1="4.93" y1="19.07" x2="8.46" y2="15.54"></line>
+                <line x1="15.54" y1="8.46" x2="19.07" y2="4.93"></line>
+              </svg>
+            </div>
+            <div class="stat-number">10<span class="accent">+</span></div>
+            <div class="stat-title">YEARS</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         ABOUT SECTION (Verbatim text + Vision, Mission, Values)
+         =================================================== -->
+    <section class="section-about" id="about">
+      <div class="container">
+        <div class="about-header-grid">
+          <div>
+            <span class="section-label">ABOUT US</span>
+            <h2 class="about-main-title">A supplier of Electrical and Mechanical commodities</h2>
+          </div>
+          <div class="about-paragraphs">
+            <p>At Bakis Engineering, we aim to develop tailor made solutions that would meet our customer’s needs and provide sustainable benefits and create a shared value</p>
+            <p>Bakis Engineering (Pty) Ltd was founded in November 2016 and is 100% Black Women Owned (BWO), and a level 1 BBBEE, Engineering Company.</p>
+            <div class="about-highlight-box">
+              <p>Our core business is the supply of Electrical and Mechanical commodities.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vision, Mission, Values Cards with Bespoke Monoline Icons (Reference: 0d6f13da97fb006a062b4525bb5612e6) -->
+        <div class="vmv-grid">
+          <!-- Vision: Precision Apex Eye / Horizon Ray Glyph -->
+          <div class="vmv-card highlight">
+            <div class="vmv-icon">
+              <!-- Bespoke Optical Eye / Infinite Horizon Horizon Glyph -->
+              <svg class="bk-icon bk-icon-dark" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"></path>
+                <circle cx="12" cy="12" r="3.2" fill="currentColor"></circle>
+                <circle cx="12" cy="12" r="1" fill="#000000"></circle>
+              </svg>
+            </div>
+            <h3 class="vmv-title">VISION</h3>
+            <p class="vmv-text">“To offer customers world class solutions that adds value and gives them the competitive edge”</p>
+          </div>
+
+          <!-- Mission: Target Compass / Directed Trajectory Glyph -->
+          <div class="vmv-card">
+            <div class="vmv-icon">
+              <!-- Bespoke Target / Mission Trajectory Crosshair Glyph -->
+              <svg class="bk-icon bk-icon-dark" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <circle cx="12" cy="12" r="9"></circle>
+                <circle cx="12" cy="12" r="4.5"></circle>
+                <line x1="12" y1="2" x2="12" y2="5.5"></line>
+                <line x1="12" y1="18.5" x2="12" y2="22"></line>
+                <line x1="2" y1="12" x2="5.5" y2="12"></line>
+                <line x1="18.5" y1="12" x2="22" y2="12"></line>
+                <circle cx="12" cy="12" r="1.5" fill="currentColor"></circle>
+              </svg>
+            </div>
+            <h3 class="vmv-title">Mission</h3>
+            <p class="vmv-text">We aim to forge close and lasting relationships with our customers, attain the highest quality in our materials and service delivery, attain effective profit while maintaining customer satisfaction, and prioritize being sustainable.</p>
+          </div>
+
+          <!-- Values: Diamond Keystone / Unity Shield Glyph -->
+          <div class="vmv-card">
+            <div class="vmv-icon">
+              <!-- Bespoke Diamond Keystone / Integrity Pillar Glyph -->
+              <svg class="bk-icon bk-icon-dark" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <path d="M6 3h12l4 7-10 11L2 10l4-7z"></path>
+                <line x1="2" y1="10" x2="22" y2="10"></line>
+                <polyline points="7.5 3 12 10 16.5 3"></polyline>
+                <polyline points="12 10 12 21"></polyline>
+              </svg>
+            </div>
+            <h3 class="vmv-title">Values</h3>
+            <p class="vmv-text">We prioritize customer focus by anticipating and satisfying their needs, pursue excellence through high professional standards, prioritize safety by adopting best practices, uphold integrity by being consistently honest and transparent, and foster teamwork in our supportive environment.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         PRODUCT RANGE SECTION (Verbatim 8 products + Full supply list)
+         =================================================== -->
+    <section class="section-products" id="products">
+      <div class="container">
+        <div class="products-header">
+          <div class="products-title-group">
+            <span class="section-label">PRODUCTS</span>
+            <h2>PRODUCT RANGE</h2>
+            <p>Contact us to enquire about our full range of products</p>
+          </div>
+          <a href="#contact" class="btn-primary">
+            <span>Enquire Now</span>
+            <svg class="bk-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="13 6 19 12 13 18"></polyline>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Replicating exact design reference: Seamless Mosaic Bento Product Grid with rich jewel tones, edge-anchored equipment photography, and round arrow pills -->
+        <div class="products-mosaic-grid">
+          <!-- 1. Circuit Breakers (Large Anchor Navy Tile - Replicating left hero turbine block) -->
+          <div class="mosaic-product-tile tile-navy tile-span-large" onclick="location.href='#contact'">
+            <div class="mosaic-tile-top">
+              <span class="mosaic-tile-category">Electrical Protection</span>
+              <h3 class="mosaic-tile-title">Circuit Breakers</h3>
+            </div>
+            <div class="mosaic-tile-media">
+              <img src="assets/images/product-circuit-breakers.jpg" alt="Circuit Breakers" loading="lazy">
+            </div>
+            <div class="mosaic-tile-action">
+              <span class="mosaic-btn-circle" aria-label="Enquire Circuit Breakers">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="13 6 19 12 13 18"></polyline>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 2. Distribution Boards (Deep Spruce Green Tile) -->
+          <div class="mosaic-product-tile tile-spruce" onclick="location.href='#contact'">
+            <div class="mosaic-tile-top">
+              <span class="mosaic-tile-category">Power Enclosures</span>
+              <h3 class="mosaic-tile-title">Distribution Boards</h3>
+            </div>
+            <div class="mosaic-tile-media">
+              <img src="assets/images/product-distribution-boards.jpg" alt="Distribution boards" loading="lazy">
+            </div>
+            <div class="mosaic-tile-action">
+              <span class="mosaic-btn-circle" aria-label="Enquire Distribution boards">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="13 6 19 12 13 18"></polyline>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 3. Switchgear (Muted Cyan / Blue Horizon Tile) -->
+          <div class="mosaic-product-tile tile-cyan" onclick="location.href='#contact'">
+            <div class="mosaic-tile-top">
+              <span class="mosaic-tile-category">Medium &amp; High Voltage</span>
+              <h3 class="mosaic-tile-title">Switchgear</h3>
+            </div>
+            <div class="mosaic-tile-media">
+              <img src="assets/images/product-switchgear.jpg" alt="Switchgear" loading="lazy">
+            </div>
+            <div class="mosaic-tile-action">
+              <span class="mosaic-btn-circle" aria-label="Enquire Switchgear">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="13 6 19 12 13 18"></polyline>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 4. Surge Arrestors (Steel Slate Navy Tile) -->
+          <div class="mosaic-product-tile tile-slate" onclick="location.href='#contact'">
+            <div class="mosaic-tile-top">
+              <span class="mosaic-tile-category">Overvoltage Defense</span>
+              <h3 class="mosaic-tile-title">Surge Arrestors</h3>
+            </div>
+            <div class="mosaic-tile-media">
+              <img src="assets/images/product-surge-arrestors.png" alt="Surge Arrestors" loading="lazy">
+            </div>
+            <div class="mosaic-tile-action">
+              <span class="mosaic-btn-circle" aria-label="Enquire Surge Arrestors">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="13 6 19 12 13 18"></polyline>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 5. Solar Solutions (Cerulean Teal Tile - Wide Row Replicating lower turbine block) -->
+          <div class="mosaic-product-tile tile-cerulean tile-span-medium" onclick="location.href='#contact'">
+            <div class="mosaic-tile-top">
+              <span class="mosaic-tile-category">Renewable Power</span>
+              <h3 class="mosaic-tile-title">Solar Solutions</h3>
+            </div>
+            <div class="mosaic-tile-media">
+              <img src="assets/images/product-solar-solutions.jpg" alt="Solar Solutions" loading="lazy">
+            </div>
+            <div class="mosaic-tile-action">
+              <span class="mosaic-btn-circle" aria-label="Enquire Solar Solutions">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="13 6 19 12 13 18"></polyline>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 6. Cables (Crimson Terracotta Tile - Replicating bottom-right red accent block) -->
+          <div class="mosaic-product-tile tile-crimson tile-span-medium" onclick="location.href='#contact'">
+            <div class="mosaic-tile-top">
+              <span class="mosaic-tile-category">Transmission &amp; Reticulation</span>
+              <h3 class="mosaic-tile-title">Cables</h3>
+            </div>
+            <div class="mosaic-tile-media">
+              <img src="assets/images/product-cables.png" alt="Cables" loading="lazy">
+            </div>
+            <div class="mosaic-tile-action">
+              <span class="mosaic-btn-circle" aria-label="Enquire Cables">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="13 6 19 12 13 18"></polyline>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 7. Sub Station Equipment (Forest Green Tile) -->
+          <div class="mosaic-product-tile tile-forest" onclick="location.href='#contact'">
+            <div class="mosaic-tile-top">
+              <span class="mosaic-tile-category">Grid Infrastructure</span>
+              <h3 class="mosaic-tile-title">Sub Station Equipment</h3>
+            </div>
+            <div class="mosaic-tile-media">
+              <img src="assets/images/product-substation.jpg" alt="Sub Station Equipment" loading="lazy">
+            </div>
+            <div class="mosaic-tile-action">
+              <span class="mosaic-btn-circle" aria-label="Enquire Sub Station Equipment">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="13 6 19 12 13 18"></polyline>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 8. Street Lighting (Deep Indigo Tile) -->
+          <div class="mosaic-product-tile tile-indigo" onclick="location.href='#contact'">
+            <div class="mosaic-tile-top">
+              <span class="mosaic-tile-category">Municipal &amp; Industrial</span>
+              <h3 class="mosaic-tile-title">Street Lighting</h3>
+            </div>
+            <div class="mosaic-tile-media">
+              <img src="assets/images/product-streetlighting.jpg" alt="Street Lighting" loading="lazy">
+            </div>
+            <div class="mosaic-tile-action">
+              <span class="mosaic-btn-circle" aria-label="Enquire Street Lighting">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="13 6 19 12 13 18"></polyline>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Verbatim "Our product supply include" Showcase Block with Dark-Theme Bespoke Icons (Reference: e6314aae91c9137289a3f4abba90272e) -->
+        <div class="commodities-showcase">
+          <div class="commodities-header">
+            <span class="section-label" style="color: var(--accent-green-bright);">EXTENSIVE COMMODITIES</span>
+            <h3>Our product supply include</h3>
+            <p>Comprehensive electrical, mechanical and specialized engineering commodities delivered nationwide.</p>
+          </div>
+
+          <div class="commodities-grid">
+            <!-- 1. Cables, Switches, Fuses -->
+            <div class="commodity-item">
+              <!-- Dark reference glyph: 3 diagonal flow tracks / cable conductor runs -->
+              <svg class="bk-icon bk-icon-dark accent" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <line x1="4" y1="20" x2="10" y2="14"></line>
+                <line x1="9" y1="15" x2="15" y2="9"></line>
+                <line x1="14" y1="10" x2="20" y2="4"></line>
+                <circle cx="5" cy="19" r="1.5" fill="currentColor"></circle>
+                <circle cx="19" cy="5" r="1.5" fill="currentColor"></circle>
+              </svg>
+              <div class="commodity-item-text">Electrical Cables, Switches, Fuses, Meters, Hardware and Accessories</div>
+            </div>
+
+            <!-- 2. Clamps, Ferrules, Terminal Blocks -->
+            <div class="commodity-item">
+              <!-- Dark reference glyph: Precision framing brackets / mechanical clamp bounds -->
+              <svg class="bk-icon bk-icon-dark" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <path d="M7 4H4v4"></path>
+                <path d="M17 4h3v4"></path>
+                <path d="M7 20H4v-4"></path>
+                <path d="M17 20h3v-4"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              <div class="commodity-item-text">Clamps, Ferrules, Terminal Blocks, lugs, Joints, tapes, Locks, Pole Top Boxes</div>
+            </div>
+
+            <!-- 3. Copper Rods, busbars, strips -->
+            <div class="commodity-item">
+              <!-- Dark reference glyph: 4 parallel solid busbars / heavy conductive copper rails -->
+              <svg class="bk-icon bk-icon-dark" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <line x1="5" y1="4" x2="5" y2="20"></line>
+                <line x1="10" y1="4" x2="10" y2="20"></line>
+                <line x1="15" y1="4" x2="15" y2="20"></line>
+                <line x1="20" y1="4" x2="20" y2="20"></line>
+              </svg>
+              <div class="commodity-item-text">Copper Rods, busbars, strips, Fuses</div>
+            </div>
+
+            <!-- 4. Batteries, Relay, Street Lighting -->
+            <div class="commodity-item">
+              <!-- Dark reference glyph: Radiant luminaire crown / illumination rays -->
+              <svg class="bk-icon bk-icon-dark accent" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <circle cx="12" cy="14" r="5"></circle>
+                <line x1="12" y1="4" x2="12" y2="7"></line>
+                <line x1="6" y1="6" x2="8.5" y2="8.5"></line>
+                <line x1="18" y1="6" x2="15.5" y2="8.5"></line>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+              </svg>
+              <div class="commodity-item-text">Batteries, Relay, Street Lighting, Lamps</div>
+            </div>
+
+            <!-- 5. Joint Kits, Term Kits, Circuit Breakers -->
+            <div class="commodity-item">
+              <!-- Dark reference glyph: Precision electrical cross-switch contact / junction terminal -->
+              <svg class="bk-icon bk-icon-dark" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <line x1="12" y1="3" x2="12" y2="21"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <circle cx="12" cy="12" r="3" fill="#0f1914"></circle>
+              </svg>
+              <div class="commodity-item-text">Joint Kits, Term Kits, Circuit Breakers</div>
+            </div>
+
+            <!-- 6. Enclosures -->
+            <div class="commodity-item">
+              <!-- Dark reference glyph: Dual-compartment split cabinet / weatherproof enclosure -->
+              <svg class="bk-icon bk-icon-dark" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                <line x1="12" y1="4" x2="12" y2="20"></line>
+                <circle cx="8" cy="12" r="1" fill="currentColor"></circle>
+                <circle cx="16" cy="12" r="1" fill="currentColor"></circle>
+              </svg>
+              <div class="commodity-item-text">Enclosures</div>
+            </div>
+
+            <!-- 7. Cable, Tie Sides -->
+            <div class="commodity-item">
+              <!-- Dark reference glyph: 4 horizontal strata bands / organized bundle routing -->
+              <svg class="bk-icon bk-icon-dark" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <line x1="4" y1="6" x2="20" y2="6"></line>
+                <line x1="4" y1="10.5" x2="20" y2="10.5"></line>
+                <line x1="4" y1="15" x2="20" y2="15"></line>
+                <line x1="4" y1="19.5" x2="20" y2="19.5"></line>
+              </svg>
+              <div class="commodity-item-text">Cable, Tie Sides</div>
+            </div>
+
+            <!-- 8. Buckle Straps, Bird Divertors -->
+            <div class="commodity-item">
+              <!-- Dark reference glyph: Diagonal cross tension damper / safety bird diverter -->
+              <svg class="bk-icon bk-icon-dark" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <line x1="5" y1="5" x2="19" y2="19"></line>
+                <line x1="19" y1="5" x2="5" y2="19"></line>
+                <circle cx="5" cy="5" r="1.5" fill="currentColor"></circle>
+                <circle cx="19" cy="19" r="1.5" fill="currentColor"></circle>
+              </svg>
+              <div class="commodity-item-text">Buckle Straps, Bird Divertors</div>
+            </div>
+
+            <!-- 9. Surge Arrestors -->
+            <div class="commodity-item">
+              <!-- Dark reference glyph: High-voltage surge vector / precision chevron ground -->
+              <svg class="bk-icon bk-icon-dark accent" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <polyline points="13 2 4 14 12 14 11 22 20 10 12 10 13 2"></polyline>
+              </svg>
+              <div class="commodity-item-text">Surge Arrestors</div>
+            </div>
+
+            <!-- 10. Bearings -->
+            <div class="commodity-item">
+              <!-- Dark reference glyph: Precision concentric concentric race & rotor bearings -->
+              <svg class="bk-icon bk-icon-dark" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <circle cx="12" cy="12" r="9"></circle>
+                <circle cx="12" cy="12" r="4.5"></circle>
+                <circle cx="12" cy="5" r="1" fill="currentColor"></circle>
+                <circle cx="19" cy="12" r="1" fill="currentColor"></circle>
+                <circle cx="12" cy="19" r="1" fill="currentColor"></circle>
+                <circle cx="5" cy="12" r="1" fill="currentColor"></circle>
+              </svg>
+              <div class="commodity-item-text">Bearings</div>
+            </div>
+
+            <!-- 11. Anti-theft Conductor -->
+            <div class="commodity-item" style="grid-column: 1 / -1;">
+              <!-- Dark reference glyph: Security shield / guarded core interlocking loop -->
+              <svg class="bk-icon bk-icon-dark accent" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <path d="M12 3l8 4v6c0 5-4 9-8 10-4-1-8-5-8-10V7l8-4z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              <div class="commodity-item-text">Anti-theft conductor (Protected High-Security Transmission Wiring)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         CLIENTS SECTION (Verbatim: Our Amazing Clients)
+         =================================================== -->
+    <section class="section-clients" id="clients">
+      <div class="container">
+        <div class="clients-header">
+          <span class="section-label">CLIENTS</span>
+          <h2>Our Amazing Clients</h2>
+          <p>Bakis has provided services and products to the following brands</p>
+        </div>
+
+        <div class="clients-grid">
+          <div class="client-logo-card" title="eThekwini Municipality">
+            <img src="assets/images/client-ethekwini.png" alt="eThekwini Municipality" loading="lazy" width="160" height="52">
+          </div>
+          <div class="client-logo-card" title="City of Tshwane">
+            <img src="assets/images/client-tshwane.png" alt="City of Tshwane" loading="lazy" width="160" height="52">
+          </div>
+          <div class="client-logo-card" title="City of Cape Town">
+            <img src="assets/images/client-capetown.png" alt="City of Cape Town" loading="lazy" width="160" height="52">
+          </div>
+          <div class="client-logo-card" title="Armscor">
+            <img src="assets/images/client-armscor.png" alt="Armscor" loading="lazy" width="160" height="52">
+          </div>
+          <div class="client-logo-card" title="Eskom">
+            <img src="assets/images/client-eskom.png" alt="Eskom" loading="lazy" width="160" height="52">
+          </div>
+          <div class="client-logo-card" title="City Power">
+            <img src="assets/images/client-citypower.jpg" alt="City Power" loading="lazy" width="160" height="52">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         CONTACT SECTION (Verbatim text + Working Inquiry Form)
+         =================================================== -->
+    <section class="section-contact" id="contact">
+      <div class="container">
+        <div class="contact-layout">
+          <!-- Left Column: Verbatim Contact Info -->
+          <div class="contact-info-col">
+            <span class="section-label">CONTACT US</span>
+            <h2>Contact Info</h2>
+            <p class="lead">Whether you have a question about our features, service pricing or anything else our team is ready to answer all your questions.</p>
+
+            <div class="contact-detail-cards">
+              <!-- Operating Hours Card with Bespoke Chrono Loop -->
+              <div class="contact-detail-card">
+                <div class="contact-detail-icon">
+                  <!-- Bespoke clock / dial monoline glyph (Reference: 0d6f13da97fb006a062b4525bb5612e6) -->
+                  <svg class="bk-icon bk-icon-light primary" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <polyline points="12 7 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+                <div class="contact-detail-meta">
+                  <div class="label">Operating Hours</div>
+                  <div class="value">We're on call Mon-Fri 8AM-5PM</div>
+                </div>
+              </div>
+
+              <!-- Email Address Card with Bespoke Sealed Envelope Glyph -->
+              <div class="contact-detail-card">
+                <div class="contact-detail-icon">
+                  <!-- Bespoke mail seal glyph (Reference: 0d6f13da97fb006a062b4525bb5612e6) -->
+                  <svg class="bk-icon bk-icon-light primary" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                    <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                    <polyline points="3 7 12 13 21 7"></polyline>
+                  </svg>
+                </div>
+                <div class="contact-detail-meta">
+                  <div class="label">Email Address</div>
+                  <div class="value"><a href="mailto:info@bakis.co.za">info@bakis.co.za</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive Contact / RFQ Form -->
+          <div class="contact-form-box">
+            <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem;">Contact</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem;">Send us your commodity requirements or project specifications.</p>
+
+            <form id="contactForm">
+              <div class="form-group">
+                <label for="contactName">Your Name / Organization *</label>
+                <input type="text" id="contactName" class="form-control" placeholder="e.g. John Doe or Municipality Name" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contactEmail">Email Address *</label>
+                <input type="email" id="contactEmail" class="form-control" placeholder="name@domain.co.za" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contactProduct">Commodity / Product Interest</label>
+                <select id="contactProduct" class="form-control">
+                  <option value="General Enquiry">General Enquiry</option>
+                  <option value="Circuit Breakers">Circuit Breakers</option>
+                  <option value="Distribution boards">Distribution boards</option>
+                  <option value="Switchgear">Switchgear</option>
+                  <option value="Surge Arrestors">Surge Arrestors</option>
+                  <option value="Solar Solutions">Solar Solutions</option>
+                  <option value="Cables">Cables</option>
+                  <option value="Sub Station Equipment">Sub Station Equipment</option>
+                  <option value="Street Lighting">Street Lighting</option>
+                  <option value="Other Commodities">Other Electrical / Mechanical Commodities</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="contactMessage">Message / Request For Quote *</label>
+                <textarea id="contactMessage" class="form-control" placeholder="Describe the specifications, quantities, or delivery requirements..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 1rem;">
+                <span>Submit Inquiry</span>
+                <svg class="bk-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </button>
+
+              <div class="form-feedback-message success" id="formSuccessMessage">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <svg class="bk-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#166534" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                  <span>Thank you. Your inquiry has been logged and our engineering supply team will reach out to you shortly.</span>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================================================
+       FOOTER (Verbatim text and copyright)
+       =================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="assets/images/logo-white.png" alt="Bakis Engineering Logo" width="220" height="135">
+          <p>Bakis Engineering is a leading supplier of specialized instrumentation products, electrical equipment and consumables. Our focus on quality, reliability, and customer satisfaction sets us apart and makes us a trusted partner for all your electrical needs.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#home"><svg class="bk-icon bk-icon-dark" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><polyline points="9 18 15 12 9 6"></polyline></svg>Home</a></li>
+            <li><a href="#about"><svg class="bk-icon bk-icon-dark" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><polyline points="9 18 15 12 9 6"></polyline></svg>About Us</a></li>
+            <li><a href="#products"><svg class="bk-icon bk-icon-dark" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><polyline points="9 18 15 12 9 6"></polyline></svg>Product Range</a></li>
+            <li><a href="#clients"><svg class="bk-icon bk-icon-dark" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><polyline points="9 18 15 12 9 6"></polyline></svg>Our Clients</a></li>
+            <li><a href="#contact"><svg class="bk-icon bk-icon-dark" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><polyline points="9 18 15 12 9 6"></polyline></svg>Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Product Range</h4>
+          <ul class="footer-links">
+            <li><a href="#products"><svg class="bk-icon bk-icon-dark accent" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><circle cx="12" cy="12" r="3" fill="currentColor"></circle></svg>Circuit Breakers</a></li>
+            <li><a href="#products"><svg class="bk-icon bk-icon-dark accent" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><circle cx="12" cy="12" r="3" fill="currentColor"></circle></svg>Distribution boards</a></li>
+            <li><a href="#products"><svg class="bk-icon bk-icon-dark accent" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><circle cx="12" cy="12" r="3" fill="currentColor"></circle></svg>Switchgear</a></li>
+            <li><a href="#products"><svg class="bk-icon bk-icon-dark accent" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><circle cx="12" cy="12" r="3" fill="currentColor"></circle></svg>Surge Arrestors</a></li>
+            <li><a href="#products"><svg class="bk-icon bk-icon-dark accent" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><circle cx="12" cy="12" r="3" fill="currentColor"></circle></svg>Solar Solutions</a></li>
+            <li><a href="#products"><svg class="bk-icon bk-icon-dark accent" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><circle cx="12" cy="12" r="3" fill="currentColor"></circle></svg>Cables &amp; Sub Station</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>Copyright &copy; 2026 Bakis Engineering | Powered by Bakis Engineering</div>
+        <div>
+          <span>Bakis Engineering (Pty) Ltd &bull; 100% Black Women Owned &bull; Level 1 BBBEE</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Search Modal with Bespoke Precision Focal Search Icon -->
+  <div class="search-modal-backdrop" id="searchModal">
+    <div class="search-modal-box">
+      <div class="search-modal-header">
+        <svg class="bk-icon bk-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+          <path d="M4 11a7 7 0 1 0 14 0 7 7 0 1 0 -14 0"></path>
+          <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search commodities, circuit breakers, cables, solar..." autocomplete="off">
+        <span class="search-modal-close" id="searchClose">&times;</span>
+      </div>
+      <div class="search-results-list" id="searchResults">
+        <!-- Populated via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Scripts -->
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
