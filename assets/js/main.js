@@ -561,8 +561,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const adminModalClose = document.getElementById('adminModalClose');
   const tabCatalogList = document.getElementById('tabCatalogList');
   const tabAddProduct = document.getElementById('tabAddProduct');
+  const tabMobileConnect = document.getElementById('tabMobileConnect');
   const paneCatalogList = document.getElementById('paneCatalogList');
   const paneAddProduct = document.getElementById('paneAddProduct');
+  const paneMobileConnect = document.getElementById('paneMobileConnect');
+  const btnCopyMobileLink = document.getElementById('btnCopyMobileLink');
+  const copyLinkText = document.getElementById('copyLinkText');
+  const mobileAccessUrlInput = document.getElementById('mobileAccessUrlInput');
   const adminProductTableBody = document.getElementById('adminProductTableBody');
   const adminProductCount = document.getElementById('adminProductCount');
   const adminSearchInput = document.getElementById('adminSearchInput');
@@ -613,16 +618,22 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const switchAdminTab = (tab) => {
+    [tabCatalogList, tabAddProduct, tabMobileConnect].forEach(btn => {
+      if (btn) btn.classList.remove('active');
+    });
+    [paneCatalogList, paneAddProduct, paneMobileConnect].forEach(pane => {
+      if (pane) pane.classList.remove('active');
+    });
+
     if (tab === 'list') {
-      tabCatalogList.classList.add('active');
-      tabAddProduct.classList.remove('active');
-      paneCatalogList.classList.add('active');
-      paneAddProduct.classList.remove('active');
-    } else {
-      tabCatalogList.classList.remove('active');
-      tabAddProduct.classList.add('active');
-      paneCatalogList.classList.remove('active');
-      paneAddProduct.classList.add('active');
+      if (tabCatalogList) tabCatalogList.classList.add('active');
+      if (paneCatalogList) paneCatalogList.classList.add('active');
+    } else if (tab === 'form') {
+      if (tabAddProduct) tabAddProduct.classList.add('active');
+      if (paneAddProduct) paneAddProduct.classList.add('active');
+    } else if (tab === 'mobile') {
+      if (tabMobileConnect) tabMobileConnect.classList.add('active');
+      if (paneMobileConnect) paneMobileConnect.classList.add('active');
     }
   };
 
@@ -852,8 +863,31 @@ document.addEventListener('DOMContentLoaded', () => {
   if (adminModalClose) adminModalClose.addEventListener('click', closeAdminModal);
   if (tabCatalogList) tabCatalogList.addEventListener('click', () => switchAdminTab('list'));
   if (tabAddProduct) tabAddProduct.addEventListener('click', () => { resetForm(); switchAdminTab('form'); });
+  if (tabMobileConnect) tabMobileConnect.addEventListener('click', () => switchAdminTab('mobile'));
   if (btnUploadProductShortcut) btnUploadProductShortcut.addEventListener('click', () => { resetForm(); switchAdminTab('form'); });
   if (btnCancelProduct) btnCancelProduct.addEventListener('click', () => switchAdminTab('list'));
+
+  if (btnCopyMobileLink) {
+    btnCopyMobileLink.addEventListener('click', () => {
+      const url = mobileAccessUrlInput ? mobileAccessUrlInput.value : 'http://192.168.0.153:8080/';
+      navigator.clipboard.writeText(url).then(() => {
+        if (copyLinkText) copyLinkText.innerText = 'Copied!';
+        btnCopyMobileLink.style.background = '#00bf63';
+        btnCopyMobileLink.style.color = '#032010';
+        setTimeout(() => {
+          if (copyLinkText) copyLinkText.innerText = 'Copy Link';
+          btnCopyMobileLink.style.background = '';
+          btnCopyMobileLink.style.color = '';
+        }, 2500);
+      }).catch(() => {
+        if (mobileAccessUrlInput) {
+          mobileAccessUrlInput.select();
+          document.execCommand('copy');
+          if (copyLinkText) copyLinkText.innerText = 'Copied!';
+        }
+      });
+    });
+  }
 
   if (btnResetCatalog) {
     btnResetCatalog.addEventListener('click', () => {

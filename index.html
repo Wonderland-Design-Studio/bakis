@@ -1061,6 +1061,13 @@
           </svg>
           Upload New Product
         </button>
+        <button type="button" class="admin-nav-btn" id="tabMobileConnect">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+          </svg>
+          Mobile Access
+        </button>
       </div>
 
       <div class="admin-modal-body">
@@ -1204,6 +1211,65 @@
               <button type="button" class="btn-admin-reset" id="btnResetCatalog" title="Reset catalog to factory defaults">Restore Factory Defaults</button>
             </div>
           </form>
+        </div>
+
+        <!-- View 3: Mobile Access & QR Code -->
+        <div class="admin-tab-pane" id="paneMobileConnect">
+          <div class="admin-mobile-card">
+            <div class="admin-mobile-header">
+              <div class="admin-mobile-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00bf63" stroke-width="2">
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                  <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                </svg>
+              </div>
+              <div>
+                <h4 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 0.2rem;">Live Mobile Access</h4>
+                <p style="font-size: 0.88rem; color: #64748b;">Connect any smartphone, tablet, or external device on the same local Wi-Fi network.</p>
+              </div>
+            </div>
+
+            <div class="admin-mobile-grid">
+              <!-- Left: Live URL & One-Click Copy -->
+              <div class="admin-mobile-info">
+                <div class="mobile-status-indicator">
+                  <span class="status-pulse"></span>
+                  <span>Server Online &amp; Listening on Port 8080</span>
+                </div>
+
+                <label style="display: block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: #475569; margin-top: 1.25rem; margin-bottom: 0.4rem;">
+                  Direct Mobile Link:
+                </label>
+                <div class="mobile-url-box">
+                  <input type="text" id="mobileAccessUrlInput" value="http://192.168.0.153:8080/" readonly>
+                  <button type="button" id="btnCopyMobileLink" class="btn-copy-link" title="Copy to clipboard">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    <span id="copyLinkText">Copy Link</span>
+                  </button>
+                </div>
+
+                <div class="mobile-instructions">
+                  <h5>Quick Instructions for Mobile:</h5>
+                  <ol>
+                    <li>Make sure your phone is connected to the same Wi-Fi as this computer.</li>
+                    <li>Scan the QR code with your phone's camera, or type <strong>http://192.168.0.153:8080/</strong> in Chrome or Safari.</li>
+                    <li>The full Bakis Engineering website, product detail modal, and inquiries will load instantly.</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Right: Scan-to-Open QR Code -->
+              <div class="admin-mobile-qr-wrap">
+                <div class="qr-frame">
+                  <img src="assets/images/qr-mobile.png" alt="Scan to open website on mobile" width="180" height="180">
+                </div>
+                <div class="qr-caption">Scan with Phone Camera</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
