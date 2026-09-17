@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: 'Street Lighting & Luminaires',
       category: 'Municipal & Industrial',
       bgColor: '#1e3352',
-      image: 'assets/images/product-streetlighting-trans.png',
+      image: 'assets/images/product-street-lighting-new.png',
       tagline: 'High-efficiency LED luminaires, solar street poles, and floodlighting systems built for road networks and industrial perimeters.',
       spanClass: '',
       specs: [
@@ -418,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const STORAGE_KEY = 'bakis_product_catalog_v2';
+  const STORAGE_KEY = 'bakis_product_catalog_v3';
   let productCatalog = {};
 
   const loadCatalog = () => {
