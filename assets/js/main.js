@@ -31,6 +31,18 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
 
+  // Back to top smooth scroll handler
+  const backToTopBtn = document.getElementById('backToTopBtn');
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
   // Contact form handling
   const contactForm = document.getElementById('contactForm');
   const successMsg = document.getElementById('formSuccessMessage');

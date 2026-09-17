@@ -2648,3 +2648,54 @@ textarea.form-control {
   }
 }
 
+/* ==========================================================================
+   Back to Top Floating Action Button (Always Visible)
+   ========================================================================== */
+.back-to-top-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #00bf63;
+  color: #032010;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px -5px rgba(0, 191, 99, 0.5), 0 8px 16px -6px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.25s ease;
+}
+
+.back-to-top-btn:hover {
+  transform: translateY(-4px) scale(1.08);
+  background: #00da72;
+  color: #02140a;
+  box-shadow: 0 15px 30px -5px rgba(0, 191, 99, 0.65), 0 10px 20px -5px rgba(0, 0, 0, 0.4);
+}
+
+.back-to-top-btn:active {
+  transform: translateY(0) scale(0.95);
+}
+
+.back-to-top-btn svg {
+  transition: transform 0.25s ease;
+}
+
+.back-to-top-btn:hover svg {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .back-to-top-btn {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+  }
+}
+
