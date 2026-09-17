@@ -1799,6 +1799,14 @@ textarea.form-control {
   display: block;
   width: 100%;
   height: 380px;
+  filter: grayscale(100%) invert(8%) contrast(92%);
+  -webkit-filter: grayscale(100%) invert(8%) contrast(92%);
+  transition: filter 0.35s ease, -webkit-filter 0.35s ease;
+}
+
+.contact-map-card:hover .contact-map-frame-wrap iframe {
+  filter: grayscale(85%) contrast(96%);
+  -webkit-filter: grayscale(85%) contrast(96%);
 }
 
 @media (max-width: 768px) {
