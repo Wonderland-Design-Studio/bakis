@@ -1167,17 +1167,23 @@ h1, h2, h3, h4 {
   height: 52px;
   border-radius: var(--radius-sm);
   background: #000000;
-  color: #ffffff;
+  color: #00bf63;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+.vmv-icon svg,
+.vmv-card.highlight .vmv-icon svg {
+  color: #00bf63 !important;
+  stroke: #00bf63 !important;
 }
 
 .vmv-card.highlight .vmv-icon {
   background: #000000;
-  color: #ffffff;
+  color: #00bf63;
 }
 
 .vmv-title {
@@ -1274,12 +1280,13 @@ h1, h2, h3, h4 {
 .products-mosaic-grid {
   display: grid;
   grid-template-columns: 1.45fr 1fr 1fr 1fr;
-  grid-auto-rows: minmax(260px, auto);
-  gap: 3px;
-  background: #111827;
+  grid-auto-rows: minmax(285px, auto);
+  gap: 1px;
+  background: #e2e8f0;
+  border: 1px solid #e2e8f0;
   border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 20px 45px -12px rgba(15, 23, 42, 0.08);
 }
 
 .mosaic-product-tile {
@@ -1290,12 +1297,18 @@ h1, h2, h3, h4 {
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
-  min-height: 270px;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
+  min-height: 285px;
+  background-color: #f8fafc;
+  background-image: url('../images/product-card-bg-white.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, filter 0.25s ease;
 }
 
 .mosaic-product-tile:hover {
-  filter: brightness(1.05);
+  filter: brightness(0.98);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
   z-index: 2;
 }
 
@@ -1309,129 +1322,254 @@ h1, h2, h3, h4 {
   grid-column: span 1;
 }
 
-/* Color palettes extracted directly from reference image */
-.tile-navy {
-  background: #253b58; /* Deep engineering turbine navy */
-  color: #ffffff;
-}
-
-.tile-spruce {
-  background: #265953; /* Deep spruce green engine block */
-  color: #ffffff;
-}
-
-.tile-cyan {
-  background: #398896; /* Slate cyan blower unit */
-  color: #ffffff;
-}
-
-.tile-slate {
-  background: #2e4d68; /* Mid steel blue alternator */
-  color: #ffffff;
-}
-
-.tile-cerulean {
-  background: #4792a5; /* Bright cerulean turbine cutaway */
-  color: #ffffff;
-}
-
-.tile-crimson {
-  background: #8e393b; /* Industrial terracotta / deep crimson */
-  color: #ffffff;
-}
-
-.tile-forest {
-  background: #1e4a3b; /* Deep grid forest */
-  color: #ffffff;
-}
-
+/* Base card background with attached white texture */
+.mosaic-product-tile,
+.tile-navy,
+.tile-spruce,
+.tile-cyan,
+.tile-slate,
+.tile-cerulean,
+.tile-crimson,
+.tile-forest,
 .tile-indigo {
-  background: #1e3352; /* High-voltage dark indigo */
-  color: #ffffff;
+  background-color: #f8fafc;
+  background-image: url('../images/product-card-bg-white.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* Typography & Labels inside Mosaic Tile */
 .mosaic-tile-top {
   position: relative;
-  z-index: 3;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  max-width: 80%;
+  max-width: 92%;
+  pointer-events: none;
 }
 
 .mosaic-tile-category {
-  font-size: 0.72rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.72);
+  color: #64748b;
+  transition: color 0.2s ease;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.85);
 }
 
 .mosaic-tile-title {
   font-family: var(--font-display);
   font-size: clamp(1.15rem, 1.4vw, 1.45rem);
-  font-weight: 700;
-  color: #ffffff;
+  font-weight: 800;
+  color: #0f172a;
   letter-spacing: -0.015em;
   line-height: 1.25;
+  transition: color 0.2s ease;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.85);
 }
 
 .tile-span-large .mosaic-tile-title {
   font-size: clamp(1.45rem, 2vw, 1.95rem);
 }
 
-/* Edge-Anchored Product Imagery */
+/* Adopted multi-colours applied to headings, categories and accent badges */
+/* 1. Full Tension Joints / Spruce Green */
+.tile-spruce .mosaic-tile-title,
+[data-product="distribution-boards"] .mosaic-tile-title {
+  color: #1a4d44;
+}
+.tile-spruce .mosaic-tile-category,
+[data-product="distribution-boards"] .mosaic-tile-category {
+  color: #166534;
+}
+.tile-spruce .mosaic-btn-circle,
+[data-product="distribution-boards"] .mosaic-btn-circle {
+  border: 1.5px solid rgba(26, 77, 68, 0.2);
+  color: #1a4d44;
+}
+
+/* 2. Circuit Breakers / Deep Navy */
+.tile-navy .mosaic-tile-title,
+[data-product="circuit-breakers"] .mosaic-tile-title {
+  color: #1a2e47;
+}
+.tile-navy .mosaic-tile-category,
+[data-product="circuit-breakers"] .mosaic-tile-category {
+  color: #2563eb;
+}
+.tile-navy .mosaic-btn-circle,
+[data-product="circuit-breakers"] .mosaic-btn-circle {
+  border: 1.5px solid rgba(26, 46, 71, 0.2);
+  color: #1a2e47;
+}
+
+/* 3. Seals Tool-less / Slate Cyan */
+.tile-cyan .mosaic-tile-title,
+[data-product="seals-tool-less"] .mosaic-tile-title {
+  color: #0e7490;
+}
+.tile-cyan .mosaic-tile-category,
+[data-product="seals-tool-less"] .mosaic-tile-category {
+  color: #0284c7;
+}
+.tile-cyan .mosaic-btn-circle,
+[data-product="seals-tool-less"] .mosaic-btn-circle {
+  border: 1.5px solid rgba(14, 116, 144, 0.2);
+  color: #0e7490;
+}
+
+/* 4. Surge Arrestors / Steel Slate Blue */
+.tile-slate .mosaic-tile-title,
+[data-product="surge-arrestors"] .mosaic-tile-title {
+  color: #1e3a5f;
+}
+.tile-slate .mosaic-tile-category,
+[data-product="surge-arrestors"] .mosaic-tile-category {
+  color: #475569;
+}
+.tile-slate .mosaic-btn-circle,
+[data-product="surge-arrestors"] .mosaic-btn-circle {
+  border: 1.5px solid rgba(30, 58, 95, 0.2);
+  color: #1e3a5f;
+}
+
+/* 5. Fuse Links / Cerulean Teal */
+.tile-cerulean .mosaic-tile-title,
+[data-product="fuse-links"] .mosaic-tile-title {
+  color: #0d6d85;
+}
+.tile-cerulean .mosaic-tile-category,
+[data-product="fuse-links"] .mosaic-tile-category {
+  color: #0891b2;
+}
+.tile-cerulean .mosaic-btn-circle,
+[data-product="fuse-links"] .mosaic-btn-circle {
+  border: 1.5px solid rgba(13, 109, 133, 0.2);
+  color: #0d6d85;
+}
+
+/* 6. Cables / Crimson Terracotta */
+.tile-crimson .mosaic-tile-title,
+[data-product="cables"] .mosaic-tile-title {
+  color: #991b1b;
+}
+.tile-crimson .mosaic-tile-category,
+[data-product="cables"] .mosaic-tile-category {
+  color: #b91c1c;
+}
+.tile-crimson .mosaic-btn-circle,
+[data-product="cables"] .mosaic-btn-circle {
+  border: 1.5px solid rgba(153, 27, 27, 0.2);
+  color: #991b1b;
+}
+
+/* 7. Insulators & Substation / Deep Forest */
+.tile-forest .mosaic-tile-title,
+[data-product="insulators-substation"] .mosaic-tile-title {
+  color: #14532d;
+}
+.tile-forest .mosaic-tile-category,
+[data-product="insulators-substation"] .mosaic-tile-category {
+  color: #15803d;
+}
+.tile-forest .mosaic-btn-circle,
+[data-product="insulators-substation"] .mosaic-btn-circle {
+  border: 1.5px solid rgba(20, 83, 45, 0.2);
+  color: #14532d;
+}
+
+/* 8. Bi Metal Lugs & Connectors / High-Voltage Indigo */
+.tile-indigo .mosaic-tile-title,
+[data-product="bimetal-lugs"] .mosaic-tile-title {
+  color: #1e293b;
+}
+.tile-indigo .mosaic-tile-category,
+[data-product="bimetal-lugs"] .mosaic-tile-category {
+  color: #4338ca;
+}
+.tile-indigo .mosaic-btn-circle,
+[data-product="bimetal-lugs"] .mosaic-btn-circle {
+  border: 1.5px solid rgba(67, 56, 202, 0.2);
+  color: #4338ca;
+}
+
+/* Center-Aligned Product Imagery with Transparent Backgrounds & Text Clearance */
 .mosaic-tile-media {
   position: absolute;
-  inset: 0;
+  top: 6.25rem;
+  bottom: 0.5rem;
+  left: 0;
+  right: 0;
   z-index: 1;
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 1.5rem 1.25rem;
   pointer-events: none;
 }
 
 .mosaic-tile-media img {
-  width: 88%;
-  max-height: 72%;
+  max-width: 82%;
+  max-height: 92%;
   object-fit: contain;
-  object-position: bottom left;
-  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.35));
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  object-position: center center;
+  background: transparent;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.1));
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
+}
+
+.tile-span-large .mosaic-tile-media {
+  top: 7.25rem;
+  bottom: 1.5rem;
+  padding: 0.5rem 2rem 1.5rem;
 }
 
 .tile-span-large .mosaic-tile-media img {
-  width: 95%;
-  max-height: 68%;
-  object-position: bottom left;
+  max-width: 88%;
+  max-height: 90%;
+  object-position: center center;
 }
 
-/* Surge arrestor diagonal alignment for dramatic technical feel */
+/* Individual product proportional balancing while maintaining true center below headers */
 .tile-slate .mosaic-tile-media img {
-  transform: rotate(-15deg) scale(1.05) translateY(10px);
-  transform-origin: center bottom;
+  max-height: 88%;
+  transform: rotate(-10deg) scale(0.98);
+  transform-origin: center center;
 }
 .tile-slate:hover .mosaic-tile-media img {
-  transform: rotate(-12deg) scale(1.1) translateY(6px);
+  transform: rotate(-6deg) scale(1.04) translateY(-3px);
 }
 
-/* Fuse Link sizing in span-medium tile */
 .tile-cerulean .mosaic-tile-media img {
-  max-height: 78%;
+  max-height: 88%;
   width: auto;
-  object-position: bottom 25%;
+  object-position: center center;
 }
 
-/* Insulators positioning in forest green tile */
 .tile-forest .mosaic-tile-media img {
-  max-height: 76%;
+  max-height: 88%;
   width: auto;
-  object-position: bottom left;
+  object-position: center center;
+}
+
+.tile-crimson .mosaic-tile-media img {
+  max-height: 84%;
+  max-width: 78%;
+  object-position: center center;
+}
+
+.tile-indigo .mosaic-tile-media img {
+  max-height: 86%;
+  max-width: 82%;
+  object-position: center center;
 }
 
 .mosaic-product-tile:hover .mosaic-tile-media img {
-  transform: scale(1.04) translateY(-3px);
+  transform: scale(1.05) translateY(-3px);
+  filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.15));
 }
 
 /* Circular Right-Arrow Action Button */
@@ -1453,14 +1591,15 @@ h1, h2, h3, h4 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .mosaic-product-tile:hover .mosaic-btn-circle {
   transform: scale(1.1);
   background: #00bf63;
   color: #032010;
+  border-color: #00bf63;
 }
 
 /* Comprehensive Commodities Supply Checklist */
@@ -1516,12 +1655,22 @@ h1, h2, h3, h4 {
   transform: translateX(4px);
 }
 
-.commodity-item-icon {
+.commodity-item-icon,
+.commodity-item svg,
+.commodity-item .bk-icon {
   width: 22px;
   height: 22px;
-  color: var(--accent-green-bright);
+  color: #00bf63 !important;
+  stroke: #00bf63 !important;
   flex-shrink: 0;
   margin-top: 2px;
+}
+
+.commodity-item svg circle[fill="currentColor"],
+.commodity-item .bk-icon circle[fill="currentColor"],
+.commodity-item svg path[fill="currentColor"],
+.commodity-item .bk-icon path[fill="currentColor"] {
+  fill: #00bf63 !important;
 }
 
 .commodity-item-text {
@@ -1763,6 +1912,20 @@ textarea.form-control {
   background: #dcfce7;
   color: #166534;
   border: 1px solid #bbf7d0;
+}
+
+.form-feedback-message.error {
+  display: block;
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.form-feedback-message.loading {
+  display: block;
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
 }
 
 /* Google Maps Integration Block */
@@ -2537,7 +2700,9 @@ textarea.form-control {
   background: #ffffff;
   border-radius: var(--radius-lg);
   box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.5);
-  overflow-y: auto;
+  overflow: hidden; /* Clips all child content and scrollbars cleanly to rounded corners */
+  display: flex;
+  flex-direction: column;
   border: 1px solid rgba(255, 255, 255, 0.2);
   transform: scale(0.94) translateY(20px);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -2551,14 +2716,14 @@ textarea.form-control {
   position: absolute;
   top: 1rem;
   right: 1.25rem;
-  z-index: 25;
+  z-index: 30; /* Pinned above scrolling layout */
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   font-size: 1.5rem;
   line-height: 1;
   display: flex;
@@ -2580,30 +2745,60 @@ textarea.form-control {
   display: flex;
   flex-direction: column;
   width: 100%;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* Sleek modern scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.5) transparent;
 }
 
-/* Top Visual Stage (Image always visible at the top) */
+/* Custom Webkit scrollbar for Chromium / Edge / Safari */
+.product-modal-layout::-webkit-scrollbar {
+  width: 7px;
+}
+
+.product-modal-layout::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 12px 0; /* Insets scrollbar from top & bottom rounded corners */
+}
+
+.product-modal-layout::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.5);
+  border-radius: 9999px;
+}
+
+.product-modal-layout::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.8);
+}
+
+/* Top Visual Stage (Image always visible at the top with subtle grey textured background) */
 .product-modal-visual {
   position: relative;
-  background: #253b58; /* Dynamic color applied via JS */
+  background-color: #f8fafc;
+  background-image: url('../images/product-card-bg-white.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem 1.5rem 1.75rem;
+  padding: 1.75rem 1.5rem 1.75rem;
   overflow: hidden;
-  transition: background-color 0.3s ease;
   min-height: 250px;
   border-top-left-radius: var(--radius-lg);
   border-top-right-radius: var(--radius-lg);
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .product-modal-visual::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.22), transparent 70%),
-              linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.4) 100%);
+  background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.6), transparent 70%),
+              linear-gradient(180deg, transparent 60%, rgba(0, 0, 0, 0.04) 100%);
   pointer-events: none;
 }
 
@@ -2612,17 +2807,18 @@ textarea.form-control {
   top: 1.25rem;
   left: 1.5rem;
   z-index: 5;
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  color: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   padding: 0.35rem 0.85rem;
   border-radius: var(--radius-full);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .product-modal-image-wrap {
@@ -2641,7 +2837,7 @@ textarea.form-control {
   max-width: 100%;
   max-height: 195px;
   object-fit: contain;
-  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.45));
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.12));
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 

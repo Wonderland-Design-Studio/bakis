@@ -57,29 +57,134 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Contact form handling
+  // Contact form handling with FormSubmit.co integration
   const contactForm = document.getElementById('contactForm');
   const successMsg = document.getElementById('formSuccessMessage');
+  const errorMsg = document.getElementById('formErrorMessage');
+  const formSuccessText = document.getElementById('formSuccessText');
+  const formErrorText = document.getElementById('formErrorText');
+
+  // FormSubmit.co Configuration
+  // Primary recipient: tsoanelomodise@gmail.com
+  // CC recipient: krubashni@bakis.co.za
+  const FORMSUBMIT_PRIMARY = 'tsoanelomodise@gmail.com';
+  const FORMSUBMIT_CC = 'krubashni@bakis.co.za';
+  const FORMSUBMIT_ENDPOINT = `https://formsubmit.co/ajax/${FORMSUBMIT_PRIMARY}`;
 
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const submitBtn = contactForm.querySelector('button[type="submit"]');
-      const originalText = submitBtn.innerText;
-      submitBtn.innerText = 'Submitting...';
+      const originalHtml = submitBtn.innerHTML;
+
+      // Extract form fields
+      const name = (document.getElementById('contactName')?.value || '').trim();
+      const email = (document.getElementById('contactEmail')?.value || '').trim();
+      const product = (document.getElementById('contactProduct')?.value || 'General Enquiry').trim();
+      const message = (document.getElementById('contactMessage')?.value || '').trim();
+
+      if (!name || !email || !message) {
+        if (errorMsg) {
+          formErrorText.innerText = 'Please complete all required fields.';
+          errorMsg.style.display = 'block';
+        }
+        return;
+      }
+
+      // Hide prior alerts
+      if (successMsg) successMsg.style.display = 'none';
+      if (errorMsg) errorMsg.style.display = 'none';
+
+      submitBtn.innerHTML = `
+        <span>Sending Message...</span>
+        <svg class="bk-icon spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+          <path d="M12 2a10 10 0 0 1 10 10"></path>
+        </svg>
+      `;
       submitBtn.disabled = true;
 
-      setTimeout(() => {
+      const payload = {
+        name,
+        email,
+        product_interest: product,
+        message,
+        _cc: FORMSUBMIT_CC,
+        _subject: `New Inquiry / RFQ: ${name} [${product}]`,
+        _template: 'table',
+        _captcha: 'false'
+      };
+
+      try {
+        let sentSuccessfully = false;
+
+        // 1. Submit asynchronously via FormSubmit AJAX endpoint
+        try {
+          const response = await fetch(FORMSUBMIT_ENDPOINT, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            if (data && (data.success === 'true' || data.success === true || response.status === 200)) {
+              sentSuccessfully = true;
+            }
+          }
+        } catch (fetchErr) {
+          console.warn('FormSubmit AJAX fetch failed, attempting standard form fallback:', fetchErr);
+        }
+
+        // 2. Backup lead record in localStorage vault so no quotation request is ever lost
+        try {
+          const log = JSON.parse(localStorage.getItem('bakis_inquiry_leads') || '[]');
+          log.unshift({
+            name,
+            email,
+            product,
+            message,
+            recipients: [FORMSUBMIT_PRIMARY, FORMSUBMIT_CC],
+            submittedAt: new Date().toISOString()
+          });
+          localStorage.setItem('bakis_inquiry_leads', JSON.stringify(log.slice(0, 50)));
+        } catch (e) {}
+
+        // If AJAX request wasn't acknowledged (e.g. offline or strict browser CORS), submit standard form to FormSubmit
+        if (!sentSuccessfully) {
+          // As standard HTML form POST to ensure delivery
+          contactForm.submit();
+          return;
+        }
+
+        // Reset form and reset button
         contactForm.reset();
-        submitBtn.innerText = originalText;
+        submitBtn.innerHTML = originalHtml;
         submitBtn.disabled = false;
+
         if (successMsg) {
+          if (formSuccessText) {
+            formSuccessText.innerText = `Thank you ${name}. Your inquiry has been sent to our engineering team (${FORMSUBMIT_PRIMARY} & ${FORMSUBMIT_CC}). We will respond promptly.`;
+          }
           successMsg.style.display = 'block';
           setTimeout(() => {
             successMsg.style.display = 'none';
-          }, 6000);
+          }, 9000);
         }
-      }, 700);
+      } catch (err) {
+        console.error('Submission handling error:', err);
+        submitBtn.innerHTML = originalHtml;
+        submitBtn.disabled = false;
+        if (errorMsg) {
+          if (formErrorText) {
+            formErrorText.innerText = `Unable to send message automatically. Please email us directly at ${FORMSUBMIT_PRIMARY} or ${FORMSUBMIT_CC}.`;
+          }
+          errorMsg.style.display = 'block';
+        }
+      }
     });
   }
 
@@ -240,35 +345,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Product Catalog Dataset with LocalStorage Persistence & Dynamic Grid Sync
   // ==========================================================================
   const defaultProductCatalog = {
-    'circuit-breakers': {
-      title: 'Circuit Breakers',
-      category: 'Electrical Protection',
-      bgColor: '#253b58',
-      image: 'assets/images/product-circuit-breakers-new.png',
-      tagline: 'High-performance trip mechanisms engineered for medium and low-voltage industrial distribution networks.',
-      spanClass: 'tile-span-large',
-      specs: [
-        { label: 'Voltage Range', value: '400V – 36kV' },
-        { label: 'Breaking Capacity', value: 'Up to 50kA / 65kA' },
-        { label: 'Standards', value: 'IEC 60947-2 / SANS' },
-        { label: 'Mounting Type', value: 'Fixed & Withdrawable' }
-      ],
-      description: `
-        <p>Bakis Engineering delivers robust, precision-calibrated circuit breakers designed to safeguard transformers, distribution feeders, and high-load industrial machinery from overloads, short-circuits, and earth faults.</p>
-        <ul>
-          <li>Thermal-magnetic and microprocessor-based electronic trip units.</li>
-          <li>High fault withstand capabilities with rapid arc quenching chambers.</li>
-          <li>Seamless integration into motor control centers (MCC) and main distribution boards.</li>
-        </ul>
-      `
-    },
     'distribution-boards': {
       title: 'Full Tension Joints',
       category: 'Automatic Line Splices',
       bgColor: '#1d483f',
       image: 'assets/images/product-full-tension-joints-trans.png',
       tagline: 'Exclusive Distribution Product Range: Automatic line splices for full tension overhead compression connections.',
-      spanClass: '',
+      spanClass: 'tile-span-large',
       specs: [
         { label: 'Installation', value: 'Simple & Fast (No Crimping)' },
         { label: 'Connection Type', value: 'Full Tension Compression' },
@@ -311,11 +394,33 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `
     },
+    'circuit-breakers': {
+      title: 'Circuit Breakers',
+      category: 'Electrical Protection',
+      bgColor: '#253b58',
+      image: 'assets/images/product-circuit-breakers-new.png',
+      tagline: 'High-performance trip mechanisms engineered for medium and low-voltage industrial distribution networks.',
+      spanClass: '',
+      specs: [
+        { label: 'Voltage Range', value: '400V – 36kV' },
+        { label: 'Breaking Capacity', value: 'Up to 50kA / 65kA' },
+        { label: 'Standards', value: 'IEC 60947-2 / SANS' },
+        { label: 'Mounting Type', value: 'Fixed & Withdrawable' }
+      ],
+      description: `
+        <p>Bakis Engineering delivers robust, precision-calibrated circuit breakers designed to safeguard transformers, distribution feeders, and high-load industrial machinery from overloads, short-circuits, and earth faults.</p>
+        <ul>
+          <li>Thermal-magnetic and microprocessor-based electronic trip units.</li>
+          <li>High fault withstand capabilities with rapid arc quenching chambers.</li>
+          <li>Seamless integration into motor control centers (MCC) and main distribution boards.</li>
+        </ul>
+      `
+    },
     'seals-tool-less': {
       title: 'Seals Tool-less (All Colours)',
       category: 'Tamper-Evident Security',
       bgColor: '#1a365d',
-      image: 'assets/images/product-seals-tool-less.jpg',
+      image: 'assets/images/product-seals-tool-less.png',
       tagline: 'High-security tamper-evident polycarbonate meter and infrastructure seals (All Colours) engineered for Eskom, municipal utility metering, and substation distribution panels.',
       spanClass: '',
       specs: [
@@ -455,7 +560,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: 'Bi Metal Lugs & Connectors',
       category: 'Cable Termination & Jointing',
       bgColor: '#1e3352',
-      image: 'assets/images/product-bimetal-lugs-connectors.jpg',
+      image: 'assets/images/product-bimetal-lugs-connectors.png',
       tagline: 'Friction-welded bi-metallic cable lugs, pin terminals, and connecting ferrules engineered for seamless aluminum-to-copper cable transitions and terminations.',
       spanClass: '',
       specs: [
@@ -505,7 +610,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const STORAGE_KEY = 'bakis_product_catalog_v8';
+  const STORAGE_KEY = 'bakis_product_catalog_v13';
   let productCatalog = {};
 
   const loadCatalog = () => {
@@ -543,7 +648,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const item = productCatalog[key];
         const spanClass = item.spanClass || (index === 0 ? 'tile-span-large' : '');
         return `
-        <div class="mosaic-product-tile ${spanClass}" data-product="${key}" role="button" tabindex="0" aria-label="View details for ${item.title}" style="background-color: ${item.bgColor || '#253b58'};">
+        <div class="mosaic-product-tile ${spanClass}" data-product="${key}" role="button" tabindex="0" aria-label="View details for ${item.title}">
           <div class="mosaic-tile-top">
             <span class="mosaic-tile-category">${item.category}</span>
             <h3 class="mosaic-tile-title">${item.title}</h3>
@@ -601,8 +706,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = productCatalog[productId];
     if (!data || !productModal) return;
 
-    productModalVisual.style.backgroundColor = data.bgColor || '#253b58';
+    // Apply subtle grey background to visual banner stage and color-code the category badge
+    productModalVisual.style.backgroundColor = '';
     productModalBadge.innerText = data.category || 'Product';
+    if (data.bgColor) {
+      productModalBadge.style.borderColor = data.bgColor;
+      productModalBadge.style.color = data.bgColor;
+    }
     productModalImage.src = data.image;
     productModalImage.alt = data.title;
     productModalTitle.innerText = data.title;
