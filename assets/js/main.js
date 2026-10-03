@@ -263,46 +263,103 @@ document.addEventListener('DOMContentLoaded', () => {
       `
     },
     'distribution-boards': {
-      title: 'Distribution Boards',
-      category: 'Power Enclosures',
-      bgColor: '#265953',
-      image: 'assets/images/product-distribution-boards-new.png',
-      tagline: 'Precision-fabricated power enclosures, switchboards, and motor control centers engineered to client specifications.',
+      title: 'Full Tension Joints',
+      category: 'Automatic Line Splices',
+      bgColor: '#1d483f',
+      image: 'assets/images/product-full-tension-joints-trans.png',
+      tagline: 'Exclusive Distribution Product Range: Automatic line splices for full tension overhead compression connections.',
       spanClass: '',
       specs: [
-        { label: 'Ingress Protection', value: 'IP54 / IP65 Rated' },
-        { label: 'Enclosure Material', value: '3CR12 / Mild / Stainless' },
-        { label: 'Rated Current', value: '100A – 4000A Busbars' },
-        { label: 'Compliance', value: 'SANS 10142 / IEC 61439' }
+        { label: 'Installation', value: 'Simple & Fast (No Crimping)' },
+        { label: 'Connection Type', value: 'Full Tension Compression' },
+        { label: 'Conductor Sizes', value: 'Fox / Mink / Pine / Hare / Oak' },
+        { label: 'Utility Standards', value: 'Eskom & SANS Applicable' }
       ],
       description: `
-        <p>Custom-built low voltage and medium voltage distribution boards engineered for mining, commercial utilities, and municipal power distribution infrastructure.</p>
+        <div style="margin-bottom: 1.25rem;">
+          <h4 style="font-size: 0.95rem; font-weight: 700; color: #166534; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;">Exclusive Distribution Range &bull; Conductor Sizes</h4>
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1rem; margin-bottom: 1rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem;">
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6rem 0.75rem; text-align: center;">
+                <div style="font-size: 0.7rem; font-weight: 700; color: #dc2626; text-transform: uppercase;">Red End Cap</div>
+                <div style="font-size: 0.95rem; font-weight: 800; color: #0f172a; margin-top: 2px;">FOX</div>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6rem 0.75rem; text-align: center;">
+                <div style="font-size: 0.7rem; font-weight: 700; color: #ca8a04; text-transform: uppercase;">Yellow End Cap</div>
+                <div style="font-size: 0.95rem; font-weight: 800; color: #0f172a; margin-top: 2px;">MINK / PINE</div>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6rem 0.75rem; text-align: center;">
+                <div style="font-size: 0.7rem; font-weight: 700; color: #db2777; text-transform: uppercase;">Pink End Cap</div>
+                <div style="font-size: 0.95rem; font-weight: 800; color: #0f172a; margin-top: 2px;">HARE / OAK</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="font-size: 0.95rem; font-weight: 700; color: #166534; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;">Features &amp; Benefits</h4>
         <ul>
-          <li>Modular compartmentalized designs with Form 1 through Form 4 segregation.</li>
-          <li>Electrostatic powder-coated finishes for extreme ambient and outdoor durability.</li>
-          <li>Pre-wired with certified metering, surge suppressors, and isolators.</li>
+          <li><strong>Full Tension Compression Line Splices:</strong> Engineered for overhead power lines requiring maximum tensile strength and uninterrupted electrical conductivity.</li>
+          <li><strong>Simple and Fast Installation:</strong> Saves substantial line crew installation time during reticulation builds and emergency repairs.</li>
+          <li><strong>No Crimping Tools Required:</strong> Positive automatic self-locking internal jaw mechanism locks the conductor securely upon insertion.</li>
+          <li><strong>Accommodates Various Conductor Sizes:</strong> Color-coded end caps for immediate on-site identification across transmission spans.</li>
+          <li><strong>Aluminium Body Construction:</strong> High-purity, corrosion-resistant alloy provides high mechanical integrity and excellent conductivity.</li>
+          <li><strong>Suitable for Overhead Line Applications:</strong> Rigorously tested and fully compliant for utility networks, Eskom, and municipal power grids.</li>
         </ul>
+
+        <div style="margin-top: 1.25rem; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+          <img src="assets/images/product-automatic-line-splices-range.jpg" alt="Bakis Automatic Line Splices Full Range - Fox, Mink/Pine, Hare/Oak" style="width: 100%; height: auto; display: block;">
+        </div>
       `
     },
-    'switchgear': {
-      title: 'Switchgear',
-      category: 'Medium & High Voltage',
-      bgColor: '#398896',
-      image: 'assets/images/product-switchgear-trans.png',
-      tagline: 'State-of-the-art gas-insulated (GIS) and air-insulated (AIS) switchgear systems ensuring continuous grid reliability.',
+    'seals-tool-less': {
+      title: 'Seals Tool-less (All Colours)',
+      category: 'Tamper-Evident Security',
+      bgColor: '#1a365d',
+      image: 'assets/images/product-seals-tool-less.jpg',
+      tagline: 'High-security tamper-evident polycarbonate meter and infrastructure seals (All Colours) engineered for Eskom, municipal utility metering, and substation distribution panels.',
       spanClass: '',
       specs: [
-        { label: 'Nominal Voltage', value: '11kV / 22kV / 33kV' },
-        { label: 'Busbar Rating', value: '630A – 3150A' },
-        { label: 'Short-Time Current', value: '25kA / 31.5kA (3s)' },
-        { label: 'Arc Classification', value: 'IAC AFLR Certified' }
+        { label: 'Available Colours', value: 'Red, Blue, Green, Yellow, Orange' },
+        { label: 'Installation', value: 'Tool-Less Manual Twist / Snap' },
+        { label: 'Body Material', value: 'UV Polycarbonate (Clear Body)' },
+        { label: 'Utility Approval', value: 'Eskom & Municipal Approved' }
       ],
       description: `
-        <p>Advanced primary and secondary distribution switchgear engineered for utility substations, renewable energy farms, and critical industrial processing plants.</p>
+        <div style="margin-bottom: 1.25rem;">
+          <h4 style="font-size: 0.95rem; font-weight: 700; color: #166534; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;">Securing Critical Infrastructure &bull; Colour Coding</h4>
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1rem; margin-bottom: 1rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem;">
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6rem 0.75rem; text-align: center;">
+                <div style="font-size: 0.7rem; font-weight: 700; color: #dc2626; text-transform: uppercase;">Red Core</div>
+                <div style="font-size: 0.85rem; font-weight: 800; color: #0f172a; margin-top: 2px;">Feeder Isolations</div>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6frem 0.75rem; text-align: center;">
+                <div style="font-size: 0.7rem; font-weight: 700; color: #2563eb; text-transform: uppercase;">Blue Core</div>
+                <div style="font-size: 0.85rem; font-weight: 800; color: #0f172a; margin-top: 2px;">Tariff &amp; CT Meters</div>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6rem 0.75rem; text-align: center;">
+                <div style="font-size: 0.7rem; font-weight: 700; color: #059669; text-transform: uppercase;">Green Core</div>
+                <div style="font-size: 0.85rem; font-weight: 800; color: #0f172a; margin-top: 2px;">Substation Enclosures</div>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6rem 0.75rem; text-align: center;">
+                <div style="font-size: 0.7rem; font-weight: 700; color: #ca8a04; text-transform: uppercase;">Yellow Core</div>
+                <div style="font-size: 0.85rem; font-weight: 800; color: #0f172a; margin-top: 2px;">Revenue Protection</div>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6rem 0.75rem; text-align: center;">
+                <div style="font-size: 0.7rem; font-weight: 700; color: #ea580c; text-transform: uppercase;">Orange Core</div>
+                <div style="font-size: 0.85rem; font-weight: 800; color: #0f172a; margin-top: 2px;">Emergency Locking</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="font-size: 0.95rem; font-weight: 700; color: #166534; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;">Security &amp; Engineering Specifications</h4>
         <ul>
-          <li>Internal arc-classified architecture protecting personnel and surrounding infrastructure.</li>
-          <li>Vacuum circuit breaker (VCB) technology offering maintenance-free contact cycles.</li>
-          <li>SCADA-ready protection relays with comprehensive remote telecontrol capabilities.</li>
+          <li><strong>100% Tool-less Hand Application:</strong> Smooth wire threading and manual twisting wing mechanism allows fast, reliable sealing without costly crimping tools.</li>
+          <li><strong>Tamper-Evident Polycarbonate Body:</strong> Transparent outer casing provides instant visual inspection of internal locking core mechanism and wire engagement.</li>
+          <li><strong>Galvanized / Stainless Steel Sealing Wire:</strong> High-tensile stranded multi-core wire resists cutting, atmospheric corrosion, and mechanical tampering.</li>
+          <li><strong>Unique Laser Marking &amp; Numbering:</strong> Permanent laser-marked sequential numbering, company logo (Eskom / Municipal), and barcode options prevent fraudulent replica substitution.</li>
+          <li><strong>Non-Reversible One-Way Ratchet:</strong> Locking rotor cannot be wound backwards without permanently fracturing the body, guaranteeing indisputable evidence of tamper attempts.</li>
         </ul>
       `
     },
@@ -394,31 +451,61 @@ document.addEventListener('DOMContentLoaded', () => {
         </ul>
       `
     },
-    'street-lighting': {
-      title: 'Street Lighting & Luminaires',
-      category: 'Municipal & Industrial',
+    'bimetal-lugs': {
+      title: 'Bi Metal Lugs & Connectors',
+      category: 'Cable Termination & Jointing',
       bgColor: '#1e3352',
-      image: 'assets/images/product-street-lighting-new.png',
-      tagline: 'High-efficiency LED luminaires, solar street poles, and floodlighting systems built for road networks and industrial perimeters.',
+      image: 'assets/images/product-bimetal-lugs-connectors.jpg',
+      tagline: 'Friction-welded bi-metallic cable lugs, pin terminals, and connecting ferrules engineered for seamless aluminum-to-copper cable transitions and terminations.',
       spanClass: '',
       specs: [
-        { label: 'Power Output', value: '50W – 300W High Flux' },
-        { label: 'Luminous Efficacy', value: '140+ Lumens/Watt' },
-        { label: 'Surge Protection', value: '10kV / 20kV SPD Integrated' },
-        { label: 'IP & IK Rating', value: 'IP66 / IK09 Ruggedized' }
+        { label: 'Conductor Sizes', value: '16mm² – 630mm² (Al to Cu)' },
+        { label: 'Manufacturing Process', value: 'Friction Welding (Solid Bond)' },
+        { label: 'Voltage Application', value: '1kV – 36kV (LV & MV)' },
+        { label: 'Standards', value: 'IEC 61238-1 / SANS / Eskom' }
       ],
       description: `
-        <p>Rugged, energy-saving public and industrial illumination solutions engineered for municipal roads, mining compounds, substations, and commercial parks.</p>
+        <div style="margin-bottom: 1.25rem;">
+          <h4 style="font-size: 0.95rem; font-weight: 700; color: #166534; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;">Available Range &amp; Terminal Configurations</h4>
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1rem; margin-bottom: 1rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem;">
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.65rem 0.75rem; text-align: center;">
+                <div style="font-size: 0.7rem; font-weight: 700; color: #b45309; text-transform: uppercase;">Bi-Metal Cable Lugs</div>
+                <div style="font-size: 0.85rem; font-weight: 800; color: #0f172a; margin-top: 2px;">16mm² to 630mm²</div>
+                <div style="font-size: 0.8rem; font-weight: 600; color: #475569;">Stud Sizes: M8 to M20</div>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.65rem 0.75rem; text-align: center;">
+                <div style="font-size: 0.7rem; font-weight: 700; color: #2563eb; text-transform: uppercase;">Bi-Metal Ferrules</div>
+                <div style="font-size: 0.85rem; font-weight: 800; color: #0f172a; margin-top: 2px;">Through Connectors</div>
+                <div style="font-size: 0.8rem; font-weight: 600; color: #475569;">Al-Cable to Cu-Cable</div>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.65rem 0.75rem; text-align: center;">
+                <div style="font-size: 0.7rem; font-weight: 700; color: #059669; text-transform: uppercase;">Bi-Metal Pin Terminals</div>
+                <div style="font-size: 0.85rem; font-weight: 800; color: #0f172a; margin-top: 2px;">Circuit Breakers / Isolators</div>
+                <div style="font-size: 0.8rem; font-weight: 600; color: #475569;">Direct Tunnel Insertion</div>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.65rem 0.75rem; text-align: center;">
+                <div style="font-size: 0.7rem; font-weight: 700; color: #7c3aed; text-transform: uppercase;">Compound Pre-Filled</div>
+                <div style="font-size: 0.85rem; font-weight: 800; color: #0f172a; margin-top: 2px;">Anti-Oxide Grease</div>
+                <div style="font-size: 0.8rem; font-weight: 600; color: #475569;">Sealed Capped Barrels</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="font-size: 0.95rem; font-weight: 700; color: #166534; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;">Key Engineering Advantages</h4>
         <ul>
-          <li>Die-cast corrosion-resistant aluminum housing with tempered glass optical lens.</li>
-          <li>Intelligent photocell twilight switching and optional solar battery reticulation.</li>
-          <li>Optically optimized light distribution angles ensuring uniform road illumination.</li>
+          <li><strong>Eliminates Galvanic Corrosion:</strong> Friction-welded transition joint prevents electrochemical galvanic reaction between electrolytic copper palm and high-purity aluminium barrel.</li>
+          <li><strong>Pre-Filled with Neutral Contact Grease:</strong> Aluminium barrel interior is factory pre-filled with high-grade anti-oxidation paste and capped to avoid ambient oxidation prior to crimping.</li>
+          <li><strong>High Electrical Conductivity:</strong> 99.9% pure forged electrolytic copper palm combined with 99.5% electrical grade aluminium barrel ensures minimal contact resistance and optimal thermal cycling.</li>
+          <li><strong>Robust Mechanical Tensile Strength:</strong> Friction-welded interface exceeds tensile strength requirements of IEC 61238-1 Class A and Eskom distribution specifications.</li>
+          <li><strong>Clear Crimp Markings:</strong> Laser etched or stamped with cable conductor cross-section (mm²), crimp die index, and insertion depth indicators.</li>
         </ul>
       `
     }
   };
 
-  const STORAGE_KEY = 'bakis_product_catalog_v3';
+  const STORAGE_KEY = 'bakis_product_catalog_v8';
   let productCatalog = {};
 
   const loadCatalog = () => {
