@@ -1737,14 +1737,14 @@ h1, h2, h3, h4 {
   max-height: 52px;
   max-width: 100%;
   object-fit: contain;
-  filter: grayscale(100%);
-  opacity: 0.75;
-  transition: var(--transition);
+  filter: none;
+  opacity: 1;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
 }
 
 .client-logo-card:hover img {
-  filter: grayscale(0%);
-  opacity: 1;
+  transform: scale(1.06);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08));
 }
 
 /* ===================================================
