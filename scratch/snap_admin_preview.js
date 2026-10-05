@@ -1,0 +1,178 @@
+const { execSync } = require('child_process');
+const fs = require('fs');
+const path = require('path');
+
+const edgePath = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe';
+const outFile = path.resolve(__dirname, 'admin_enquiries_preview.png');
+
+// We create an HTML page that imports the CSS and directly renders the admin modal active
+const previewHtml = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    body { background: #0f172a; margin: 0; padding: 20px; font-family: 'Inter', sans-serif; }
+    .admin-modal-backdrop { display: flex !important; opacity: 1 !important; visibility: visible !important; position: static !important; }
+    .admin-modal-box { transform: none !important; max-width: 1200px; margin: 0 auto; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important; }
+  </style>
+</head>
+<body>
+  <div class="admin-modal-backdrop active">
+    <div class="admin-modal-box">
+      <div class="admin-modal-header">
+        <div class="admin-header-title-wrap">
+          <div class="admin-brand-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00bf63" stroke-width="2.2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="admin-modal-title">Product &amp; Operations Management Suite</h3>
+            <p class="admin-modal-subtitle">Logged in as: <strong style="color: #00bf63;">tsoanelomodise@gmail.com</strong> (Primary Administrator)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-modal-nav">
+        <button type="button" class="admin-nav-btn">Catalog Inventory (9)</button>
+        <button type="button" class="admin-nav-btn">Upload New Product</button>
+        <button type="button" class="admin-nav-btn">Mobile Access</button>
+        <button type="button" class="admin-nav-btn active">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          Customer Enquiries (4)
+        </button>
+      </div>
+
+      <div class="admin-modal-body">
+        <div class="admin-tab-pane active" id="paneEnquiries">
+          <div class="admin-catalog-toolbar">
+            <div class="admin-search-wrap">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" placeholder="Filter enquiries by customer name, email, or product..." value="">
+            </div>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button type="button" class="btn-admin-secondary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Export CSV</span>
+              </button>
+              <button type="button" class="btn-admin-reset">
+                <span>Clear All</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th style="min-width: 140px;">Date &amp; Time</th>
+                  <th>Customer / Org</th>
+                  <th>Email Contact</th>
+                  <th>Product / Commodity</th>
+                  <th>Message / Specs</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="enquiry-date">05 Oct 2026, 17:55</td>
+                  <td><div class="enquiry-user-name">City Power Johannesburg</div></td>
+                  <td>
+                    <a href="mailto:procurement@citypower.co.za" class="enquiry-user-email">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                      <span>procurement@citypower.co.za</span>
+                    </a>
+                  </td>
+                  <td>
+                    <span class="enquiry-badge-product">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      Circuit Breakers
+                    </span>
+                  </td>
+                  <td><div class="enquiry-message-cell">Urgent RFQ for 50x 400V - 36kV Vacuum &amp; SF6 Circuit Breakers for substation upgrade.</div></td>
+                  <td style="text-align: right;"><button class="btn-table-action delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button></td>
+                </tr>
+                <tr>
+                  <td class="enquiry-date">05 Oct 2026, 17:30</td>
+                  <td><div class="enquiry-user-name">Eskom Distribution East</div></td>
+                  <td>
+                    <a href="mailto:leads@eskom.co.za" class="enquiry-user-email">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                      <span>leads@eskom.co.za</span>
+                    </a>
+                  </td>
+                  <td>
+                    <span class="enquiry-badge-product">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      Bi Metal Lugs &amp; Connectors
+                    </span>
+                  </td>
+                  <td><div class="enquiry-message-cell">Need technical datasheets and volume quotation for 1200x 16mm² - 630mm² friction-welded bi-metal cable lugs.</div></td>
+                  <td style="text-align: right;"><button class="btn-table-action delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button></td>
+                </tr>
+                <tr>
+                  <td class="enquiry-date">05 Oct 2026, 16:15</td>
+                  <td><div class="enquiry-user-name">Ekurhuleni Energy Directorate</div></td>
+                  <td>
+                    <a href="mailto:energy@ekurhuleni.gov.za" class="enquiry-user-email">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                      <span>energy@ekurhuleni.gov.za</span>
+                    </a>
+                  </td>
+                  <td>
+                    <span class="enquiry-badge-product">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      Insulation Piercing Connectors (IPC)
+                    </span>
+                  </td>
+                  <td><div class="enquiry-message-cell">Requesting RFQ for IPC connectors across all tap ranges for overhead ABC line reticulation.</div></td>
+                  <td style="text-align: right;"><button class="btn-table-action delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button></td>
+                </tr>
+                <tr>
+                  <td class="enquiry-date">05 Oct 2026, 14:05</td>
+                  <td><div class="enquiry-user-name">Kempton Engineering Services</div></td>
+                  <td>
+                    <a href="mailto:info@kemptoneng.co.za" class="enquiry-user-email">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                      <span>info@kemptoneng.co.za</span>
+                    </a>
+                  </td>
+                  <td>
+                    <span class="enquiry-badge-general">General Enquiry</span>
+                  </td>
+                  <td><div class="enquiry-message-cell">Requesting company profile and full product catalogue for municipal tender submission.</div></td>
+                  <td style="text-align: right;"><button class="btn-table-action delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+`;
+
+fs.writeFileSync('scratch/preview_admin_enquiries.html', previewHtml);
+const url = 'http://127.0.0.1:8080/scratch/preview_admin_enquiries.html';
+
+try {
+  execSync(`"${edgePath}" --headless --disable-gpu --screenshot="${outFile}" --window-size=1280,850 ${url}`);
+  console.log('Admin enquiries preview screenshot saved to:', outFile);
+} catch (e) {
+  console.error('Error:', e.message);
+}

@@ -57,8 +57,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Contact form handling with FormSubmit.co integration
+  // Contact form handling with FormSubmit.co integration & Active Product Sync
   const contactForm = document.getElementById('contactForm');
+  const contactNameInput = document.getElementById('contactName');
+  const contactEmailInput = document.getElementById('contactEmail');
+  const contactProductSelect = document.getElementById('contactProduct');
+  const contactMessageInput = document.getElementById('contactMessage');
+  const formSubjectHidden = document.getElementById('formSubjectHidden');
+  const formCommodityHidden = document.getElementById('formCommodityHidden');
+  const formProductInterestHidden = document.getElementById('formProductInterestHidden');
   const successMsg = document.getElementById('formSuccessMessage');
   const errorMsg = document.getElementById('formErrorMessage');
   const formSuccessText = document.getElementById('formSuccessText');
@@ -71,17 +78,50 @@ document.addEventListener('DOMContentLoaded', () => {
   const FORMSUBMIT_CC = 'krubashni@bakis.co.za';
   const FORMSUBMIT_ENDPOINT = `https://formsubmit.co/ajax/${FORMSUBMIT_PRIMARY}`;
 
+  // Real-time synchronization of selected product & subject line across all fields
+  const syncContactProductState = () => {
+    if (!contactProductSelect) return;
+    const selectedOption = contactProductSelect.options[contactProductSelect.selectedIndex];
+    const selectedVal = (contactProductSelect.value || selectedOption?.text || 'General Enquiry').trim();
+    const customerName = (contactNameInput?.value || 'Website Customer').trim();
+
+    if (formCommodityHidden) formCommodityHidden.value = selectedVal;
+    if (formProductInterestHidden) formProductInterestHidden.value = selectedVal;
+    if (formSubjectHidden) {
+      formSubjectHidden.value = (selectedVal && selectedVal !== 'General Enquiry')
+        ? `New Inquiry / RFQ: ${customerName} [${selectedVal}]`
+        : `New General Inquiry: ${customerName}`;
+    }
+  };
+
+  if (contactProductSelect) {
+    contactProductSelect.addEventListener('change', syncContactProductState);
+  }
+  if (contactNameInput) {
+    contactNameInput.addEventListener('input', syncContactProductState);
+  }
+
+  // Pre-sync state immediately
+  syncContactProductState();
+
   if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const submitBtn = contactForm.querySelector('button[type="submit"]');
       const originalHtml = submitBtn.innerHTML;
 
+      // Ensure latest product sync is active
+      syncContactProductState();
+
       // Extract form fields
-      const name = (document.getElementById('contactName')?.value || '').trim();
-      const email = (document.getElementById('contactEmail')?.value || '').trim();
-      const product = (document.getElementById('contactProduct')?.value || 'General Enquiry').trim();
-      const message = (document.getElementById('contactMessage')?.value || '').trim();
+      const name = (contactNameInput?.value || '').trim();
+      const email = (contactEmailInput?.value || '').trim();
+      
+      const selectedOption = contactProductSelect?.options[contactProductSelect?.selectedIndex];
+      let product = (contactProductSelect?.value || selectedOption?.text || '').trim();
+      if (!product || product === '') product = 'General Enquiry';
+
+      const message = (contactMessageInput?.value || '').trim();
 
       if (!name || !email || !message) {
         if (errorMsg) {
@@ -104,13 +144,24 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       submitBtn.disabled = true;
 
+      // Update the subject line right on the DOM form element before any dispatch
+      const dynamicSubject = (product && product !== 'General Enquiry')
+        ? `New Inquiry / RFQ: ${name} [${product}]`
+        : `New General Inquiry: ${name}`;
+
+      if (formSubjectHidden) formSubjectHidden.value = dynamicSubject;
+      if (formCommodityHidden) formCommodityHidden.value = product;
+      if (formProductInterestHidden) formProductInterestHidden.value = product;
+
       const payload = {
         name,
         email,
+        Product: product,
+        Commodity: product,
         product_interest: product,
         message,
         _cc: FORMSUBMIT_CC,
-        _subject: `New Inquiry / RFQ: ${name} [${product}]`,
+        _subject: dynamicSubject,
         _template: 'table',
         _captcha: 'false'
       };
@@ -139,10 +190,11 @@ document.addEventListener('DOMContentLoaded', () => {
           console.warn('FormSubmit AJAX fetch failed, attempting standard form fallback:', fetchErr);
         }
 
-        // 2. Backup lead record in localStorage vault so no quotation request is ever lost
+        // 2. Backup lead record in localStorage vault so no quotation request or chosen product is ever lost
         try {
           const log = JSON.parse(localStorage.getItem('bakis_inquiry_leads') || '[]');
           log.unshift({
+            id: 'lead_' + Date.now(),
             name,
             email,
             product,
@@ -150,24 +202,30 @@ document.addEventListener('DOMContentLoaded', () => {
             recipients: [FORMSUBMIT_PRIMARY, FORMSUBMIT_CC],
             submittedAt: new Date().toISOString()
           });
-          localStorage.setItem('bakis_inquiry_leads', JSON.stringify(log.slice(0, 50)));
-        } catch (e) {}
+          localStorage.setItem('bakis_inquiry_leads', JSON.stringify(log.slice(0, 100)));
+          if (typeof renderAdminEnquiries === 'function') {
+            renderAdminEnquiries();
+          }
+        } catch (e) {
+          console.error('Failed to log lead:', e);
+        }
 
         // If AJAX request wasn't acknowledged (e.g. offline or strict browser CORS), submit standard form to FormSubmit
         if (!sentSuccessfully) {
-          // As standard HTML form POST to ensure delivery
+          // As standard HTML form POST to ensure delivery with full product & dynamic subject intact
           contactForm.submit();
           return;
         }
 
         // Reset form and reset button
         contactForm.reset();
+        syncContactProductState();
         submitBtn.innerHTML = originalHtml;
         submitBtn.disabled = false;
 
         if (successMsg) {
           if (formSuccessText) {
-            formSuccessText.innerText = `Thank you ${name}. Your inquiry has been sent to our engineering team (${FORMSUBMIT_PRIMARY} & ${FORMSUBMIT_CC}). We will respond promptly.`;
+            formSuccessText.innerText = `Thank you ${name}. Your inquiry for "${product}" has been sent to our engineering team (${FORMSUBMIT_PRIMARY} & ${FORMSUBMIT_CC}). We will respond promptly.`;
           }
           successMsg.style.display = 'block';
           setTimeout(() => {
@@ -190,13 +248,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Commodities & Products search dataset
   const catalogItems = [
+    { title: 'Full Tension Joints', category: 'Product Range', hash: '#products' },
     { title: 'Circuit Breakers', category: 'Product Range', hash: '#products' },
+    { title: 'Seals Tool-less (All Colours)', category: 'Product Range', hash: '#products' },
+    { title: 'Surge Arrestors', category: 'Product Range', hash: '#products' },
+    { title: 'HRC Fuse Links', category: 'Product Range', hash: '#products' },
+    { title: 'Cables', category: 'Product Range', hash: '#products' },
+    { title: 'Insulators & Sub Station Equipment', category: 'Product Range', hash: '#products' },
+    { title: 'Bi Metal Lugs & Connectors', category: 'Product Range', hash: '#products' },
+    { title: 'Insulation Piercing Connectors (IPC)', category: 'Product Range', hash: '#products' },
+    { title: 'Insulating Piercing Connector', category: 'Product Range', hash: '#products' },
+    { title: 'Aerial Bundled Cables (ABC)', category: 'Product Range', hash: '#products' },
     { title: 'Distribution boards', category: 'Product Range', hash: '#products' },
     { title: 'Switchgear', category: 'Product Range', hash: '#products' },
-    { title: 'Surge Arrestors', category: 'Product Range', hash: '#products' },
     { title: 'Solar Solutions', category: 'Product Range', hash: '#products' },
-    { title: 'Cables', category: 'Product Range', hash: '#products' },
-    { title: 'Sub Station Equipment', category: 'Product Range', hash: '#products' },
     { title: 'Street Lighting', category: 'Product Range', hash: '#products' },
     { title: 'Electrical Cables, Switches, Fuses, Meters, Hardware and Accessories', category: 'Commodities', hash: '#products' },
     { title: 'Clamps, Ferrules, Terminal Blocks, lugs, Joints, tapes, Locks, Pole Top Boxes', category: 'Commodities', hash: '#products' },
@@ -206,7 +271,6 @@ document.addEventListener('DOMContentLoaded', () => {
     { title: 'Enclosures', category: 'Commodities', hash: '#products' },
     { title: 'Cable, Tie Sides', category: 'Commodities', hash: '#products' },
     { title: 'Buckle Straps, Bird Divertors', category: 'Commodities', hash: '#products' },
-    { title: 'Surge Arrestors', category: 'Commodities', hash: '#products' },
     { title: 'Bearings', category: 'Commodities', hash: '#products' },
     { title: 'Anti-theft conductor', category: 'Commodities', hash: '#products' },
     { title: '100% Black Women Owned (BWO)', category: 'About Bakis', hash: '#about' },
@@ -496,7 +560,7 @@ document.addEventListener('DOMContentLoaded', () => {
       bgColor: '#4792a5',
       image: 'assets/images/product-fuse-link-trans.png',
       tagline: 'High Breaking Capacity (HRC) knife-blade and bolted fuse links engineered for selective low and medium voltage fault clearing.',
-      spanClass: 'tile-span-medium',
+      spanClass: '',
       specs: [
         { label: 'Current Ratings', value: '16A – 630A (NH00 to NH3)' },
         { label: 'Breaking Capacity', value: '120kA at 500VAC' },
@@ -518,7 +582,7 @@ document.addEventListener('DOMContentLoaded', () => {
       bgColor: '#8e393b',
       image: 'assets/images/product-cables-trans.png',
       tagline: 'Comprehensive LV, MV, and HV copper and aluminum conductors engineered for underground reticulation and overhead power lines.',
-      spanClass: 'tile-span-medium',
+      spanClass: '',
       specs: [
         { label: 'Voltage Classes', value: '600/1000V up to 33kV' },
         { label: 'Conductor Types', value: 'Stranded Copper / Aluminum' },
@@ -562,7 +626,7 @@ document.addEventListener('DOMContentLoaded', () => {
       bgColor: '#1e3352',
       image: 'assets/images/product-bimetal-lugs-connectors.png',
       tagline: 'Friction-welded bi-metallic cable lugs, pin terminals, and connecting ferrules engineered for seamless aluminum-to-copper cable transitions and terminations.',
-      spanClass: '',
+      spanClass: 'tile-span-medium',
       specs: [
         { label: 'Conductor Sizes', value: '16mm² – 630mm² (Al to Cu)' },
         { label: 'Manufacturing Process', value: 'Friction Welding (Solid Bond)' },
@@ -607,10 +671,62 @@ document.addEventListener('DOMContentLoaded', () => {
           <li><strong>Clear Crimp Markings:</strong> Laser etched or stamped with cable conductor cross-section (mm²), crimp die index, and insertion depth indicators.</li>
         </ul>
       `
+    },
+    'ipc-connectors': {
+      title: 'Insulation Piercing Connectors (IPC)',
+      category: 'Aerial Bundled Cables (ABC)',
+      bgColor: '#1d483f',
+      image: 'assets/images/product-ipc-connector-trans.png',
+      tagline: 'High-reliability waterproof Insulation Piercing Connectors (IPC - All Sizes) engineered for low and medium voltage Aerial Bundled Conductor (ABC) distribution and service connections.',
+      spanClass: 'tile-span-medium',
+      specs: [
+        { label: 'Voltage Rating', value: '1kV / Up to 6kV Withstand' },
+        { label: 'Main Conductor', value: '1.5mm² – 240mm² (Al/Cu)' },
+        { label: 'Tap Conductor', value: '1.5mm² – 150mm² (Al/Cu)' },
+        { label: 'Standards', value: 'NFC 33-020 / EN 50483-4' }
+      ],
+      description: `
+        <div style="margin-bottom: 1.25rem;">
+          <h4 style="font-size: 0.95rem; font-weight: 700; color: #166534; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;">Conductor Capacities &bull; Tap Range</h4>
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1rem; margin-bottom: 1rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem;">
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6rem 0.75rem; text-align: center;">
+                <div style="font-size: 0.7rem; font-weight: 700; color: #059669; text-transform: uppercase;">Standard Service</div>
+                <div style="font-size: 0.95rem; font-weight: 800; color: #0f172a; margin-top: 2px;">1.5 – 25mm²</div>
+                <div style="font-size: 0.75rem; color: #64748b;">Main Conductor</div>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6rem 0.75rem; text-align: center;">
+                <div style="font-size: 0.7rem; font-weight: 700; color: #2563eb; text-transform: uppercase;">Customer Tap</div>
+                <div style="font-size: 0.95rem; font-weight: 800; color: #0f172a; margin-top: 2px;">1.5 – 6mm²</div>
+                <div style="font-size: 0.75rem; color: #64748b;">Tap Conductor</div>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6rem 0.75rem; text-align: center;">
+                <div style="font-size: 0.7rem; font-weight: 700; color: #b45309; text-transform: uppercase;">Distribution Mains</div>
+                <div style="font-size: 0.95rem; font-weight: 800; color: #0f172a; margin-top: 2px;">Up to 240mm²</div>
+                <div style="font-size: 0.75rem; color: #64748b;">Feeder Trunks</div>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6rem 0.75rem; text-align: center;">
+                <div style="font-size: 0.7rem; font-weight: 700; color: #7c3aed; text-transform: uppercase;">Heavy Tap Lines</div>
+                <div style="font-size: 0.95rem; font-weight: 800; color: #0f172a; margin-top: 2px;">Up to 150mm²</div>
+                <div style="font-size: 0.75rem; color: #64748b;">Sub-mains / Services</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="font-size: 0.95rem; font-weight: 700; color: #166534; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;">Engineering Features &amp; Standards Compliance</h4>
+        <ul>
+          <li><strong>Shear-Head Torque Nut:</strong> Calibrated shear-off bolt guarantees exact contact pressure without damaging individual conductor strands or puncturing too deep.</li>
+          <li><strong>IP68 Waterproof Seal:</strong> Heavy elastomeric insulating body and pre-molded seal cap pre-greased with silicone compound to eliminate water ingress and galvanic oxidation.</li>
+          <li><strong>Bi-Metallic Tooth Plates:</strong> High-tensile tinned copper or aluminum teeth allow transition between aluminum and copper conductors without corrosion.</li>
+          <li><strong>Live-Line Installation:</strong> Fully insulated body permits safe installation on energized aerial bundled cables (ABC) without stripping outer insulation.</li>
+          <li><strong>Utility Tested:</strong> Meets and exceeds NFC 33-020, EN 50483-4, and Eskom low-voltage service connection specifications.</li>
+        </ul>
+      `
     }
   };
 
-  const STORAGE_KEY = 'bakis_product_catalog_v13';
+  const STORAGE_KEY = 'bakis_product_catalog_v14';
   let productCatalog = {};
 
   const loadCatalog = () => {
@@ -618,6 +734,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         productCatalog = JSON.parse(stored);
+        // Ensure new default catalog products exist
+        Object.keys(defaultProductCatalog).forEach(key => {
+          if (!productCatalog[key]) {
+            productCatalog[key] = defaultProductCatalog[key];
+          }
+        });
       } else {
         // Migrate or initialize with default catalog
         productCatalog = JSON.parse(JSON.stringify(defaultProductCatalog));
@@ -702,6 +824,89 @@ document.addEventListener('DOMContentLoaded', () => {
   const productModalDescription = document.getElementById('productModalDescription');
   const productModalRfqBtn = document.getElementById('productModalRfqBtn');
 
+  const selectProductInContactForm = (productTitle, productCategory) => {
+    if (!contactProductSelect) return;
+    const cleanTitle = (productTitle || '').trim();
+    const cleanCat = (productCategory || '').trim();
+    const lower = cleanTitle.toLowerCase();
+    let matchedIndex = -1;
+
+    for (let i = 0; i < contactProductSelect.options.length; i++) {
+      const opt = contactProductSelect.options[i];
+      const optVal = (opt.value || '').toLowerCase();
+      const optText = (opt.text || '').toLowerCase();
+
+      if (optVal === lower || optText === lower) {
+        matchedIndex = i;
+        break;
+      }
+      if (lower.includes('circuit breaker') && (optVal.includes('circuit breaker') || optText.includes('circuit breaker'))) {
+        matchedIndex = i;
+        break;
+      }
+      if ((lower.includes('bimetal') || lower.includes('bi metal') || lower.includes('bi-metal')) &&
+          (optVal.includes('metal') || optText.includes('metal'))) {
+        matchedIndex = i;
+        break;
+      }
+      if ((lower.includes('piercing') || lower.includes('ipc')) &&
+          (optVal.includes('piercing') || optVal.includes('ipc') || optText.includes('piercing') || optText.includes('ipc'))) {
+        matchedIndex = i;
+        break;
+      }
+      if ((lower.includes('tension joint') || lower.includes('splice')) &&
+          (optVal.includes('tension') || optText.includes('tension'))) {
+        matchedIndex = i;
+        break;
+      }
+      if (lower.includes('seal') && (optVal.includes('seal') || optText.includes('seal'))) {
+        matchedIndex = i;
+        break;
+      }
+      if (lower.includes('surge') && (optVal.includes('surge') || optText.includes('surge'))) {
+        matchedIndex = i;
+        break;
+      }
+      if (lower.includes('fuse') && (optVal.includes('fuse') || optText.includes('fuse'))) {
+        matchedIndex = i;
+        break;
+      }
+      if (lower.includes('cable') && (optVal.includes('cable') || optText.includes('cable'))) {
+        matchedIndex = i;
+        break;
+      }
+      if (lower.includes('solar') && (optVal.includes('solar') || optText.includes('solar'))) {
+        matchedIndex = i;
+        break;
+      }
+      if (lower.includes('insulator') && (optVal.includes('insulator') || optText.includes('insulator'))) {
+        matchedIndex = i;
+        break;
+      }
+    }
+
+    if (matchedIndex >= 0) {
+      contactProductSelect.selectedIndex = matchedIndex;
+    } else if (cleanTitle) {
+      const opt = document.createElement('option');
+      opt.value = cleanTitle;
+      opt.text = cleanTitle + (cleanCat ? ` (${cleanCat})` : '');
+      opt.selected = true;
+      contactProductSelect.appendChild(opt);
+      contactProductSelect.selectedIndex = contactProductSelect.options.length - 1;
+    }
+
+    syncContactProductState();
+
+    contactProductSelect.style.transition = 'all 0.3s ease';
+    contactProductSelect.style.borderColor = '#00bf63';
+    contactProductSelect.style.boxShadow = '0 0 0 3px rgba(0, 191, 99, 0.3)';
+    setTimeout(() => {
+      contactProductSelect.style.borderColor = '';
+      contactProductSelect.style.boxShadow = '';
+    }, 2500);
+  };
+
   const openProductModal = (productId) => {
     const data = productCatalog[productId];
     if (!data || !productModal) return;
@@ -735,13 +940,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (productModalRfqBtn) {
       productModalRfqBtn.onclick = () => {
         closeProductModal();
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-          const messageField = contactForm.querySelector('textarea[name="message"], textarea');
-          if (messageField) {
-            messageField.value = `Hi Bakis Engineering, I would like to request an RFQ / technical quotation for: ${data.title} (${data.category}).`;
-          }
+        selectProductInContactForm(data.title, data.category);
+
+        if (contactMessageInput) {
+          contactMessageInput.value = `Hi Bakis Engineering,\n\nI would like to request an RFQ / technical quotation for: ${data.title} (${data.category}).\n\nPlease provide specifications, volume pricing, and delivery timeline.`;
         }
+
+        const contactSec = document.getElementById('contact');
+        if (contactSec) {
+          contactSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        setTimeout(() => {
+          if (contactNameInput) contactNameInput.focus();
+        }, 500);
       };
     }
 
@@ -784,9 +996,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const tabCatalogList = document.getElementById('tabCatalogList');
   const tabAddProduct = document.getElementById('tabAddProduct');
   const tabMobileConnect = document.getElementById('tabMobileConnect');
+  const tabEnquiries = document.getElementById('tabEnquiries');
   const paneCatalogList = document.getElementById('paneCatalogList');
   const paneAddProduct = document.getElementById('paneAddProduct');
   const paneMobileConnect = document.getElementById('paneMobileConnect');
+  const paneEnquiries = document.getElementById('paneEnquiries');
+  const adminEnquiriesCount = document.getElementById('adminEnquiriesCount');
+  const adminEnquiriesTableBody = document.getElementById('adminEnquiriesTableBody');
+  const adminEnquiriesSearchInput = document.getElementById('adminEnquiriesSearchInput');
+  const btnExportEnquiries = document.getElementById('btnExportEnquiries');
+  const btnClearEnquiries = document.getElementById('btnClearEnquiries');
   const btnCopyMobileLink = document.getElementById('btnCopyMobileLink');
   const copyLinkText = document.getElementById('copyLinkText');
   const mobileAccessUrlInput = document.getElementById('mobileAccessUrlInput');
@@ -864,6 +1083,7 @@ document.addEventListener('DOMContentLoaded', () => {
       adminUserEmailLabel.innerText = sessionStorage.getItem('bakis_admin_user') || ADMIN_EMAIL;
     }
     renderAdminTable();
+    renderAdminEnquiries();
     switchAdminTab('list');
     adminModal.classList.add('active');
     adminModal.setAttribute('aria-hidden', 'false');
@@ -878,10 +1098,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const switchAdminTab = (tab) => {
-    [tabCatalogList, tabAddProduct, tabMobileConnect].forEach(btn => {
+    [tabCatalogList, tabAddProduct, tabMobileConnect, tabEnquiries].forEach(btn => {
       if (btn) btn.classList.remove('active');
     });
-    [paneCatalogList, paneAddProduct, paneMobileConnect].forEach(pane => {
+    [paneCatalogList, paneAddProduct, paneMobileConnect, paneEnquiries].forEach(pane => {
       if (pane) pane.classList.remove('active');
     });
 
@@ -894,6 +1114,9 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (tab === 'mobile') {
       if (tabMobileConnect) tabMobileConnect.classList.add('active');
       if (paneMobileConnect) paneMobileConnect.classList.add('active');
+    } else if (tab === 'enquiries') {
+      if (tabEnquiries) tabEnquiries.classList.add('active');
+      if (paneEnquiries) paneEnquiries.classList.add('active');
     }
   };
 
@@ -1207,6 +1430,184 @@ document.addEventListener('DOMContentLoaded', () => {
       renderAdminTable(e.target.value);
     });
   }
+
+  // ==========================================================================
+  // Customer Enquiries Management Controller
+  // ==========================================================================
+  const escapeHtml = (str) => {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  };
+
+  const getSavedEnquiries = () => {
+    try {
+      return JSON.parse(localStorage.getItem('bakis_inquiry_leads') || '[]');
+    } catch (e) {
+      console.error('Failed to parse bakis_inquiry_leads:', e);
+      return [];
+    }
+  };
+
+  const saveEnquiries = (list) => {
+    try {
+      localStorage.setItem('bakis_inquiry_leads', JSON.stringify(list));
+    } catch (e) {
+      console.error('Failed to save bakis_inquiry_leads:', e);
+    }
+  };
+
+  const deleteEnquiry = (id) => {
+    if (confirm('Delete this customer inquiry record?')) {
+      const list = getSavedEnquiries().filter(item => item.id !== id);
+      saveEnquiries(list);
+      renderAdminEnquiries(adminEnquiriesSearchInput ? adminEnquiriesSearchInput.value : '');
+    }
+  };
+
+  const renderAdminEnquiries = (filterQuery = '') => {
+    const list = getSavedEnquiries();
+    if (adminEnquiriesCount) {
+      adminEnquiriesCount.innerText = list.length;
+    }
+    if (!adminEnquiriesTableBody) return;
+
+    const q = filterQuery.trim().toLowerCase();
+    const filtered = list.filter(item => {
+      if (!q) return true;
+      return (
+        (item.name && item.name.toLowerCase().includes(q)) ||
+        (item.email && item.email.toLowerCase().includes(q)) ||
+        (item.product && item.product.toLowerCase().includes(q)) ||
+        (item.message && item.message.toLowerCase().includes(q))
+      );
+    });
+
+    if (filtered.length === 0) {
+      adminEnquiriesTableBody.innerHTML = `
+        <tr>
+          <td colspan="6" style="text-align: center; padding: 2.5rem; color: #64748b;">
+            ${q ? 'No enquiries match your search query.' : 'No customer enquiries or RFQs saved yet.'}
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    adminEnquiriesTableBody.innerHTML = filtered.map(item => {
+      const dateStr = item.submittedAt ? new Date(item.submittedAt).toLocaleString('en-ZA', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }) : 'Recent';
+
+      const isGeneral = !item.product || item.product.toLowerCase() === 'general enquiry';
+      const badgeHtml = isGeneral
+        ? `<span class="enquiry-badge-general">General Enquiry</span>`
+        : `<span class="enquiry-badge-product">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            ${escapeHtml(item.product)}
+          </span>`;
+
+      return `
+        <tr>
+          <td class="enquiry-date">${dateStr}</td>
+          <td>
+            <div class="enquiry-user-name">${escapeHtml(item.name || 'Website Customer')}</div>
+          </td>
+          <td>
+            <a href="mailto:${escapeHtml(item.email)}?subject=Re:%20Bakis%20Engineering%20Inquiry%20-%20${encodeURIComponent(item.product || 'Quotation')}" class="enquiry-user-email">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <span>${escapeHtml(item.email)}</span>
+            </a>
+          </td>
+          <td>${badgeHtml}</td>
+          <td>
+            <div class="enquiry-message-cell">${escapeHtml(item.message)}</div>
+          </td>
+          <td style="text-align: right;">
+            <button type="button" class="btn-table-action delete" data-delete-id="${item.id}" title="Delete enquiry">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+            </button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    adminEnquiriesTableBody.querySelectorAll('.btn-table-action.delete').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-delete-id');
+        if (id) deleteEnquiry(id);
+      });
+    });
+  };
+
+  const exportEnquiriesCsv = () => {
+    const list = getSavedEnquiries();
+    if (list.length === 0) {
+      alert('No enquiries to export.');
+      return;
+    }
+
+    const headers = ['Date Submitted', 'Customer / Organization', 'Email', 'Product / Commodity', 'Message / Specs', 'Recipients'];
+    const rows = list.map(item => [
+      item.submittedAt || '',
+      item.name || '',
+      item.email || '',
+      item.product || 'General Enquiry',
+      (item.message || '').replace(/"/g, '""'),
+      (item.recipients || []).join('; ')
+    ]);
+
+    let csvContent = '\uFEFF';
+    csvContent += headers.map(h => `"${h}"`).join(',') + '\r\n';
+    rows.forEach(row => {
+      csvContent += row.map(col => `"${String(col).replace(/"/g, '""')}"`).join(',') + '\r\n';
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `bakis_customer_enquiries_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const clearAllEnquiries = () => {
+    const list = getSavedEnquiries();
+    if (list.length === 0) {
+      alert('Enquiry vault is already empty.');
+      return;
+    }
+    if (confirm(`Are you sure you want to permanently clear all ${list.length} saved customer enquiries?`)) {
+      localStorage.removeItem('bakis_inquiry_leads');
+      renderAdminEnquiries();
+    }
+  };
+
+  if (tabEnquiries) tabEnquiries.addEventListener('click', () => { renderAdminEnquiries(); switchAdminTab('enquiries'); });
+  if (adminEnquiriesSearchInput) {
+    adminEnquiriesSearchInput.addEventListener('input', (e) => {
+      renderAdminEnquiries(e.target.value);
+    });
+  }
+  if (btnExportEnquiries) btnExportEnquiries.addEventListener('click', exportEnquiriesCsv);
+  if (btnClearEnquiries) btnClearEnquiries.addEventListener('click', clearAllEnquiries);
+
+  // Initialize enquiry badge count on load
+  renderAdminEnquiries();
 
   if (adminModal) {
     adminModal.addEventListener('click', (e) => {
