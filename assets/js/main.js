@@ -347,22 +347,121 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Hero Featured Commodities Rotating Carousel
+  // Global Product Catalog reference
+  let productCatalog = {};
+
+  // Hero Featured Commodities Rotating Carousel with Synchronized Text Animation
   const heroCarousel = document.getElementById('heroProductCarousel');
+  const heroSpotlightCard = document.getElementById('heroSpotlightCard');
+  const spotlightText = document.getElementById('heroSpotlightText');
+  const spotlightTag = document.getElementById('heroSpotlightTag');
+  const spotlightTitle = document.getElementById('heroSpotlightTitle');
+  const spotlightDesc = document.getElementById('heroSpotlightDesc');
+
   if (heroCarousel) {
     const slides = heroCarousel.querySelectorAll('.carousel-slide');
     const indicators = heroCarousel.querySelectorAll('.carousel-indicators .indicator');
     let currentIndex = 0;
     let timer = null;
-    const intervalTime = 3200; // 3.2 seconds rotation
+    const intervalTime = 3600; // 3.6 seconds smooth rotation
+
+    const heroProductsData = [
+      {
+        key: 'distribution-boards',
+        title: 'Full Tension Joints',
+        category: 'Automatic Line Splices',
+        description: 'Automatic line splices for full tension overhead compression connections.'
+      },
+      {
+        key: 'circuit-breakers',
+        title: 'Circuit Breakers',
+        category: 'Electrical Protection',
+        description: 'High-performance trip mechanisms engineered for medium and low-voltage industrial distribution networks.'
+      },
+      {
+        key: 'seals-tool-less',
+        title: 'Seals Tool-less (All Colours)',
+        category: 'Tamper-Evident Security',
+        description: 'High-security tamper-evident polycarbonate meter and infrastructure seals (All Colours) engineered for utility metering.'
+      },
+      {
+        key: 'surge-arrestors',
+        title: 'Surge Arrestors',
+        category: 'Overvoltage Defense',
+        description: 'Heavy-duty metal-oxide polymer and porcelain surge arrestors defending transmission lines against lightning and switching surges.'
+      },
+      {
+        key: 'fuse-links',
+        title: 'HRC Fuse Links',
+        category: 'HRC Protection',
+        description: 'High Breaking Capacity (HRC) knife-blade and bolted fuse links engineered for selective low and medium voltage fault clearing.'
+      },
+      {
+        key: 'cables',
+        title: 'Electrical Cables',
+        category: 'Transmission & Reticulation',
+        description: 'Comprehensive LV, MV, and HV copper and aluminum conductors engineered for underground reticulation and overhead power lines.'
+      },
+      {
+        key: 'insulators-substation',
+        title: 'Insulators & Substation Equipment',
+        category: 'Grid Infrastructure',
+        description: 'High-voltage composite silicone and glazed porcelain disc insulators, post insulators, substation busbar clamps, and connecting hardware.'
+      },
+      {
+        key: 'bimetal-lugs',
+        title: 'Bi Metal Lugs & Connectors',
+        category: 'Cable Termination & Jointing',
+        description: 'Friction-welded bi-metallic cable lugs, pin terminals, and connecting ferrules engineered for seamless aluminum-to-copper cable transitions.'
+      },
+      {
+        key: 'ipc-connectors',
+        title: 'Aerial bundled conductor accessories',
+        category: 'Aerial Bundled Cables (ABC)',
+        description: 'Comprehensive range of low and medium voltage Aerial Bundled Conductor (ABC) hardware, suspension assemblies, anchoring clamps, and connection accessories.'
+      }
+    ];
+
+    let currentHeroKey = heroProductsData[0].key;
+
+    const updateSpotlightText = (index, immediate = false) => {
+      const prodInfo = heroProductsData[index];
+      if (!prodInfo || !spotlightText) return;
+
+      currentHeroKey = prodInfo.key;
+      const catalogProd = (productCatalog && productCatalog[prodInfo.key]) ? productCatalog[prodInfo.key] : null;
+      const targetTitle = catalogProd?.title || prodInfo.title;
+      const targetCategory = catalogProd?.category || prodInfo.category;
+      const targetDesc = catalogProd?.tagline || prodInfo.description;
+
+      if (immediate) {
+        if (spotlightTag) spotlightTag.textContent = targetCategory;
+        if (spotlightTitle) spotlightTitle.textContent = targetTitle;
+        if (spotlightDesc) spotlightDesc.textContent = targetDesc;
+        return;
+      }
+
+      spotlightText.classList.remove('animate-swap');
+      spotlightText.classList.add('text-anim-out');
+
+      setTimeout(() => {
+        if (spotlightTag) spotlightTag.textContent = targetCategory;
+        if (spotlightTitle) spotlightTitle.textContent = targetTitle;
+        if (spotlightDesc) spotlightDesc.textContent = targetDesc;
+        spotlightText.classList.remove('text-anim-out');
+        spotlightText.classList.add('animate-swap');
+      }, 200);
+    };
 
     const showSlide = (index) => {
+      if (index === currentIndex && slides[index].classList.contains('active')) return;
       slides.forEach((slide, i) => {
         slide.classList.toggle('active', i === index);
       });
       indicators.forEach((indicator, i) => {
         indicator.classList.toggle('active', i === index);
       });
+      updateSpotlightText(index, false);
       currentIndex = index;
     };
 
@@ -386,8 +485,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Indicators click
     indicators.forEach((indicator) => {
-      indicator.addEventListener('click', (e) => {
-        const slideIndex = parseInt(e.target.getAttribute('data-slide'), 10);
+      indicator.addEventListener('click', () => {
+        const slideIndex = parseInt(indicator.getAttribute('data-slide'), 10);
         if (!isNaN(slideIndex)) {
           showSlide(slideIndex);
           stopRotation();
@@ -402,6 +501,19 @@ document.addEventListener('DOMContentLoaded', () => {
     heroCarousel.addEventListener('touchstart', stopRotation, { passive: true });
     heroCarousel.addEventListener('touchend', startRotation, { passive: true });
 
+    // Click spotlight card to open that product in the modal
+    if (heroSpotlightCard) {
+      heroSpotlightCard.style.cursor = 'pointer';
+      heroSpotlightCard.addEventListener('click', (e) => {
+        if (e.target.closest('.carousel-indicators')) return;
+        if (typeof openProductModal === 'function') {
+          openProductModal(currentHeroKey);
+        }
+      });
+    }
+
+    // Initialize with first product
+    updateSpotlightText(0, true);
     startRotation();
   }
 
@@ -974,7 +1086,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const STORAGE_KEY = 'bakis_product_catalog_v21';
-  let productCatalog = {};
 
   const loadCatalog = () => {
     try {
