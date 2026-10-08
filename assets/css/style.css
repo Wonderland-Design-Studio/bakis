@@ -221,10 +221,11 @@ h1, h2, h3, h4 {
   font-weight: 900;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  font-size: clamp(2.45rem, 3.2vw, 3.85rem);
-  line-height: 1.08;
+  font-size: clamp(2.85rem, 4.4vw, 5rem);
+  line-height: 1.05;
   color: var(--text-main);
   margin-bottom: 1.5rem;
+  width: 100%;
   max-width: 100%;
   word-break: normal;
   overflow-wrap: break-word;
@@ -238,10 +239,10 @@ h1, h2, h3, h4 {
 .hero-subheadline {
   font-family: var(--font-sans);
   font-style: italic;
-  font-size: 1.45rem;
+  font-size: 1.55rem;
   font-weight: 500;
   color: var(--text-muted);
-  max-width: 620px;
+  max-width: 850px;
   line-height: 1.5;
   margin-bottom: 2rem;
   letter-spacing: normal;
@@ -582,17 +583,18 @@ h1, h2, h3, h4 {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+  display: flex;
+  flex-direction: column;
   padding: 3.5rem 2.5rem 2.5rem;
   gap: 2rem;
 }
 
 .hero-content-left {
+  width: 100%;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding-right: 1.5rem;
+  padding-right: 0;
 }
 
 .hero-stat-bubble-top {
@@ -642,10 +644,10 @@ h1, h2, h3, h4 {
 }
 
 .hero-subheadline {
-  font-size: 1.45rem;
+  font-size: 1.55rem;
   font-weight: 500;
   color: var(--text-muted);
-  max-width: 620px;
+  max-width: 850px;
   line-height: 1.5;
   margin-bottom: 2rem;
 }
@@ -2211,15 +2213,14 @@ textarea.form-control {
     grid-template-columns: repeat(3, 1fr);
   }
   .hero-layout {
-    grid-template-columns: 1fr;
     padding-top: 2rem;
   }
   .hero-headline {
-    font-size: clamp(2.25rem, 3.6vw, 3.1rem);
-    line-height: 1.1;
+    font-size: clamp(2.65rem, 4.2vw, 4rem);
+    line-height: 1.08;
   }
   .hero-subheadline {
-    font-size: 1.35rem;
+    font-size: 1.45rem;
   }
   .hero-visual-right {
     position: relative;
@@ -2400,8 +2401,8 @@ textarea.form-control {
   }
 
   .hero-headline {
-    font-size: clamp(2.05rem, 5.5vw, 2.65rem);
-    line-height: 1.12;
+    font-size: clamp(2.25rem, 5.8vw, 3.1rem);
+    line-height: 1.1;
     letter-spacing: -0.025em;
     max-width: 100%;
     word-break: normal;
@@ -2414,7 +2415,7 @@ textarea.form-control {
   }
 
   .hero-subheadline {
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     line-height: 1.48;
     margin-bottom: 1.75rem;
   }
@@ -4569,11 +4570,11 @@ textarea.form-control {
     padding: 1.5rem 0.85rem 1.75rem;
   }
   .hero-headline {
-    font-size: clamp(1.85rem, 6.5vw, 2.25rem);
-    line-height: 1.15;
+    font-size: clamp(2.05rem, 6.8vw, 2.55rem);
+    line-height: 1.12;
   }
   .hero-subheadline {
-    font-size: 1.18rem;
+    font-size: 1.25rem;
     line-height: 1.48;
     margin-bottom: 1.5rem;
   }
@@ -4581,11 +4582,11 @@ textarea.form-control {
 
 @media (max-width: 360px) {
   .hero-headline {
-    font-size: 1.75rem;
-    line-height: 1.18;
+    font-size: 1.95rem;
+    line-height: 1.14;
   }
   .hero-subheadline {
-    font-size: 1.1rem;
+    font-size: 1.18rem;
     line-height: 1.48;
   }
   .container {
