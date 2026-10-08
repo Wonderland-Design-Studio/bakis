@@ -18,15 +18,16 @@ setTimeout(() => {
       if (!page) { console.log('no page'); edge.kill(); return; }
       
       const ws = new WebSocket(page.webSocketDebuggerUrl);
+      const testWidth = parseInt(process.argv[2]) || 375;
       ws.onopen = () => {
-        // Set emulation device metrics to 320 x 600
+        // Set emulation device metrics to testWidth x 800
         ws.send(JSON.stringify({
           id: 1,
           method: 'Emulation.setDeviceMetricsOverride',
           params: {
-            width: 320,
-            height: 600,
-            deviceScaleFactor: 1,
+            width: testWidth,
+            height: 800,
+            deviceScaleFactor: 2,
             mobile: true
           }
         }));

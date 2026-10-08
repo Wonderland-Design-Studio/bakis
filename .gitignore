@@ -1,4 +1,5 @@
-﻿*.exe
+*.exe
 *.pdb
 .vs/
 *.log
+desktop.ini

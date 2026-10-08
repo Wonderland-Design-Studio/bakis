@@ -2395,10 +2395,17 @@ textarea.form-control {
   }
 
   .hero-headline {
-    font-size: clamp(1.35rem, 3.8vw, 2.05rem);
-    line-height: 1.1;
+    font-size: clamp(1.5rem, 5.5vw, 2.15rem);
+    line-height: 1.15;
     letter-spacing: -0.025em;
     max-width: 100%;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  .hero-headline .headline-line {
+    display: inline;
+    white-space: normal;
   }
 
   .hero-subheadline {
@@ -2456,6 +2463,21 @@ textarea.form-control {
 
   .hero-spotlight-card .spotlight-action {
     display: none;
+  }
+
+  .carousel-indicators {
+    max-width: 100%;
+    gap: 4px;
+    margin-top: 0.35rem;
+  }
+
+  .carousel-indicators .indicator {
+    width: 8px;
+    height: 3px;
+  }
+
+  .carousel-indicators .indicator.active {
+    width: 14px;
   }
 
   .hero-corner-badge {
@@ -4402,10 +4424,21 @@ textarea.form-control {
     border-radius: var(--radius-md);
   }
   .admin-modal-header {
-    padding: 1.25rem 1.25rem 1rem;
+    padding: 1rem 1rem 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .admin-modal-header-actions {
+    gap: 0.5rem;
+  }
+  .admin-user-tag {
+    display: none;
   }
   .admin-modal-nav {
-    padding: 0.5rem 1.25rem 0;
+    padding: 0.5rem 1rem 0;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
   }
   .admin-modal-body {
     padding: 1.25rem;
@@ -4522,8 +4555,8 @@ textarea.form-control {
     padding: 1.5rem 0.85rem 1.75rem;
   }
   .hero-headline {
-    font-size: clamp(0.98rem, 4.3vw, 1.35rem);
-    line-height: 1.12;
+    font-size: clamp(1.35rem, 6vw, 1.75rem);
+    line-height: 1.18;
   }
   .hero-subheadline {
     font-size: 0.95rem;
@@ -4533,8 +4566,8 @@ textarea.form-control {
 
 @media (max-width: 360px) {
   .hero-headline {
-    font-size: clamp(0.85rem, 4.35vw, 1.02rem);
-    line-height: 1.15;
+    font-size: 1.25rem;
+    line-height: 1.2;
   }
   .container {
     padding-left: 0.65rem;
