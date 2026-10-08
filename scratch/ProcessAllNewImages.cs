@@ -4,7 +4,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Collections.Generic;
 
-public class ImageProcessor {
+public class ProcessImages {
     private static bool IsWhiteOrLight(Color c, int threshold) {
         return c.R >= threshold && c.G >= threshold && c.B >= threshold;
     }
@@ -18,6 +18,7 @@ public class ImageProcessor {
 
             Queue<Point> q = new Queue<Point>();
 
+            // Seed border pixels
             for (int x = 0; x < w; x++) {
                 if (IsWhiteOrLight(src.GetPixel(x, 0), threshold)) { q.Enqueue(new Point(x, 0)); visited[x, 0] = true; }
                 if (IsWhiteOrLight(src.GetPixel(x, h - 1), threshold)) { q.Enqueue(new Point(x, h - 1)); visited[x, h - 1] = true; }
@@ -54,7 +55,6 @@ public class ImageProcessor {
                         if (isBg[x, y]) {
                             dest.SetPixel(x, y, Color.FromArgb(0, 0, 0, 0));
                         } else {
-                            // Check if near background for soft edge
                             bool nearBg = false;
                             for (int d = 1; d <= featherPx && !nearBg; d++) {
                                 if ((x >= d && isBg[x - d, y]) ||
@@ -65,9 +65,9 @@ public class ImageProcessor {
                                 }
                             }
 
-                            if (nearBg && c.R >= 230 && c.G >= 230 && c.B >= 230) {
+                            if (nearBg && c.R >= 220 && c.G >= 220 && c.B >= 220) {
                                 double brightness = (c.R + c.G + c.B) / 3.0;
-                                int alpha = (int)Math.Max(0, Math.Min(255, (255 - brightness) * 10));
+                                int alpha = (int)Math.Max(0, Math.Min(255, (255 - brightness) * 8));
                                 dest.SetPixel(x, y, Color.FromArgb(alpha, c.R, c.G, c.B));
                             } else {
                                 dest.SetPixel(x, y, Color.FromArgb(255, c.R, c.G, c.B));
@@ -82,33 +82,33 @@ public class ImageProcessor {
     }
 
     public static void Main(string[] args) {
-        string brainUploads = @"C:\Users\tsoan\.gemini\antigravity-ide\brain\9e34c8d7-f139-4d58-9006-02a807b07f04\.user_uploaded";
+        string uploadsDir = @"C:\Users\tsoan\.gemini\antigravity-ide\brain\9e34c8d7-f139-4d58-9006-02a807b07f04\.user_uploaded";
         string assetsImages = @"assets\images";
 
-        // 1. Full Tension Joints
-        string jointSrc = Path.Combine(brainUploads, "media_1791301290506.jpg");
-        string jointDstModal = Path.Combine(assetsImages, "product-full-tension-joints-modal.jpg");
-        string jointDstRange = Path.Combine(assetsImages, "product-automatic-line-splices-range.jpg");
-        File.Copy(jointSrc, jointDstModal, true);
-        File.Copy(jointSrc, jointDstRange, true);
-        Console.WriteLine("Copied Full Tension Joints modal image to: " + jointDstModal);
+        // 1. Process Aerial Bundled Conductor Accessories
+        string abcInput = Path.Combine(uploadsDir, "media_1791347112264.jpg");
+        string abcJpg = Path.Combine(assetsImages, "product-abc-accessories.jpg");
+        string abcTrans = Path.Combine(assetsImages, "product-abc-accessories-trans.png");
+        string ipcJpg = Path.Combine(assetsImages, "product-ipc-connector.jpg");
+        string ipcTrans = Path.Combine(assetsImages, "product-ipc-connector-trans.png");
 
-        // 2. Surge Arrestors
-        string surgeSrc = Path.Combine(brainUploads, "media_1791301476339.jpg");
-        string surgeTransPng = Path.Combine(assetsImages, "product-surge-arrestors-trans.png");
-        string surgePng = Path.Combine(assetsImages, "product-surge-arrestors.png");
-        string surgeJpg = Path.Combine(assetsImages, "product-surge-arrestors.jpg");
-        File.Copy(surgeSrc, surgeJpg, true);
-        RemoveBackgroundFloodFill(surgeSrc, surgeTransPng, 245, 2);
-        File.Copy(surgeTransPng, surgePng, true);
+        File.Copy(abcInput, abcJpg, true);
+        File.Copy(abcInput, ipcJpg, true);
+        RemoveBackgroundFloodFill(abcInput, abcTrans, 240, 2);
+        File.Copy(abcTrans, ipcTrans, true);
+        Console.WriteLine("ABC Accessories images updated successfully.");
 
-        // 3. Substation Equipment Clamp (to right of Insulator)
-        string clampSrc = Path.Combine(brainUploads, "media_1791301635898.jpg");
-        string clampTransPng = Path.Combine(assetsImages, "product-substation-clamp.png");
-        string clampJpg = Path.Combine(assetsImages, "product-substation-clamp.jpg");
-        File.Copy(clampSrc, clampJpg, true);
-        RemoveBackgroundFloodFill(clampSrc, clampTransPng, 238, 2);
+        // 2. Process Full Tension Joints
+        string ftjInput = Path.Combine(uploadsDir, "media_1791347551365.jpg");
+        string ftjJpgModal = Path.Combine(assetsImages, "product-full-tension-joints-modal.jpg");
+        string ftjJpgRange = Path.Combine(assetsImages, "product-automatic-line-splices-range.jpg");
+        string ftjTrans = Path.Combine(assetsImages, "product-full-tension-joints-trans.png");
+        string ftjPng = Path.Combine(assetsImages, "product-full-tension-joints.png");
 
-        Console.WriteLine("All image assets processed successfully!");
+        File.Copy(ftjInput, ftjJpgModal, true);
+        File.Copy(ftjInput, ftjJpgRange, true);
+        RemoveBackgroundFloodFill(ftjInput, ftjTrans, 245, 2);
+        File.Copy(ftjTrans, ftjPng, true);
+        Console.WriteLine("Full Tension Joints images updated successfully.");
     }
 }

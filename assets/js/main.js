@@ -256,8 +256,8 @@ document.addEventListener('DOMContentLoaded', () => {
     { title: 'Cables', category: 'Product Range', hash: '#products' },
     { title: 'Insulators & Sub Station Equipment', category: 'Product Range', hash: '#products' },
     { title: 'Bi Metal Lugs & Connectors', category: 'Product Range', hash: '#products' },
+    { title: 'Aerial bundled conductor accessories', category: 'Product Range', hash: '#products' },
     { title: 'Insulation Piercing Connectors (IPC)', category: 'Product Range', hash: '#products' },
-    { title: 'Insulating Piercing Connector', category: 'Product Range', hash: '#products' },
     { title: 'Aerial Bundled Cables (ABC)', category: 'Product Range', hash: '#products' },
     { title: 'Distribution boards', category: 'Product Range', hash: '#products' },
     { title: 'Switchgear', category: 'Product Range', hash: '#products' },
@@ -414,6 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
       category: 'Automatic Line Splices',
       bgColor: '#1d483f',
       image: 'assets/images/product-full-tension-joints-trans.png',
+      modalImage: 'assets/images/product-full-tension-joints-trans.png',
       tagline: 'Exclusive Distribution Product Range: Automatic line splices for full tension overhead compression connections.',
       spanClass: 'tile-span-large',
       specs: [
@@ -454,7 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </ul>
 
         <div style="margin-top: 1.25rem; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
-          <img src="assets/images/product-automatic-line-splices-range.jpg" alt="Bakis Automatic Line Splices Full Range - Fox, Mink/Pine, Hare/Oak" style="width: 100%; height: auto; display: block;">
+          <img src="assets/images/product-full-tension-joints-modal.jpg" alt="Bakis Automatic Line Splices Full Range - Fox, Mink/Pine, Hare/Oak" style="width: 100%; height: auto; display: block;">
         </div>
       `
     },
@@ -603,18 +604,22 @@ document.addEventListener('DOMContentLoaded', () => {
       category: 'Grid Infrastructure',
       bgColor: '#1e4a3b',
       image: 'assets/images/product-insulators-trans.png',
-      tagline: 'High-voltage composite silicone and glazed porcelain disc insulators, post insulators, and substation busbar hardware.',
+      modalImage: 'assets/images/product-insulator-bushing-main-trans.png',
+      secondaryImage: 'assets/images/product-substation-clamp.png',
+      secondaryImageAlt: 'Substation Busbar & Terminal Connector Clamp',
+      tagline: 'High-voltage composite silicone and glazed porcelain disc insulators, post insulators, substation busbar clamps, and connecting hardware.',
       spanClass: '',
       specs: [
         { label: 'Creepage Distance', value: '25mm/kV – 31mm/kV Heavy' },
         { label: 'Mechanical Strength', value: '70kN – 300kN Cantilever' },
         { label: 'Voltage Rating', value: '11kV up to 400kV' },
-        { label: 'Insulator Material', value: 'High-Strength Glazed Porcelain / Polymeric' }
+        { label: 'Equipment Range', value: 'Insulators, Busbar Clamps & Fittings' }
       ],
       description: `
         <p>Engineered substation and overhead line insulators designed to withstand mechanical cantilever loads, high pollution levels, and severe environmental lightning impulses.</p>
         <ul>
           <li>Pin, post, strain, and suspension configurations with galvanized end fittings.</li>
+          <li>High-conductivity substation busbar terminal clamps and 4-bolt connector hardware.</li>
           <li>High thermal-shock resistance with superior puncture withstand capabilities.</li>
           <li>Supplied with clamps, terminal blocks, disconnectors, and earthing assemblies.</li>
         </ul>
@@ -673,42 +678,303 @@ document.addEventListener('DOMContentLoaded', () => {
       `
     },
     'ipc-connectors': {
-      title: 'Insulation Piercing Connectors (IPC)',
+      title: 'Aerial bundled conductor accessories',
       category: 'Aerial Bundled Cables (ABC)',
       bgColor: '#1d483f',
-      image: 'assets/images/product-ipc-connector-trans.png',
-      tagline: 'High-reliability waterproof Insulation Piercing Connectors (IPC - All Sizes) engineered for low and medium voltage Aerial Bundled Conductor (ABC) distribution and service connections.',
+      image: 'assets/images/product-abc-accessories-trans.png',
+      modalImage: 'assets/images/product-abc-accessories-trans.png',
+      tagline: 'Comprehensive range of low and medium voltage Aerial Bundled Conductor (ABC) hardware, suspension assemblies, anchoring clamps, and connection accessories.',
       spanClass: 'tile-span-medium',
-      specs: [
-        { label: 'Voltage Rating', value: '1kV / Up to 6kV Withstand' },
-        { label: 'Main Conductor', value: '1.5mm² – 240mm² (Al/Cu)' },
-        { label: 'Tap Conductor', value: '1.5mm² – 150mm² (Al/Cu)' },
-        { label: 'Standards', value: 'NFC 33-020 / EN 50483-4' }
-      ],
+      specs: [],
       description: `
-        <div style="margin-bottom: 1.25rem;">
-          <h4 style="font-size: 0.95rem; font-weight: 700; color: #166534; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;">Conductor Capacities &bull; Tap Range</h4>
-          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1rem; margin-bottom: 1rem;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem;">
-              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6rem 0.75rem; text-align: center;">
-                <div style="font-size: 0.7rem; font-weight: 700; color: #059669; text-transform: uppercase;">Standard Service</div>
-                <div style="font-size: 0.95rem; font-weight: 800; color: #0f172a; margin-top: 2px;">1.5 – 25mm²</div>
-                <div style="font-size: 0.75rem; color: #64748b;">Main Conductor</div>
+        <div class="abc-tabs-container">
+          <!-- Interactive Sub-Products Tabs Navigation -->
+          <div class="abc-tabs-nav-wrapper">
+            <div class="abc-tabs-nav" role="tablist" aria-label="Aerial Bundled Conductor Sub-Products">
+              <button type="button" class="abc-tab-btn active" role="tab" aria-selected="true" aria-controls="subtab-1" data-tab="subtab-1">
+                <span class="abc-tab-num">01</span>
+                <span>Suspension Clamp</span>
+              </button>
+              <button type="button" class="abc-tab-btn" role="tab" aria-selected="false" aria-controls="subtab-2" data-tab="subtab-2">
+                <span class="abc-tab-num">02</span>
+                <span>Anchoring / Dead-End</span>
+              </button>
+              <button type="button" class="abc-tab-btn" role="tab" aria-selected="false" aria-controls="subtab-3" data-tab="subtab-3">
+                <span class="abc-tab-num">03</span>
+                <span>IPC Connector</span>
+              </button>
+              <button type="button" class="abc-tab-btn" role="tab" aria-selected="false" aria-controls="subtab-4" data-tab="subtab-4">
+                <span class="abc-tab-num">04</span>
+                <span>Service Clamp</span>
+              </button>
+              <button type="button" class="abc-tab-btn" role="tab" aria-selected="false" aria-controls="subtab-5" data-tab="subtab-5">
+                <span class="abc-tab-num">05</span>
+                <span>Pre-Insulated Lug</span>
+              </button>
+              <button type="button" class="abc-tab-btn" role="tab" aria-selected="false" aria-controls="subtab-6" data-tab="subtab-6">
+                <span class="abc-tab-num">06</span>
+                <span>Pre-Insulated Ferrule</span>
+              </button>
+              <button type="button" class="abc-tab-btn" role="tab" aria-selected="false" aria-controls="subtab-7" data-tab="subtab-7">
+                <span class="abc-tab-num">07</span>
+                <span>Cable Spacer</span>
+              </button>
+              <button type="button" class="abc-tab-btn" role="tab" aria-selected="false" aria-controls="subtab-8" data-tab="subtab-8">
+                <span class="abc-tab-num">08</span>
+                <span>Cable Tie / Strap</span>
+              </button>
+              <button type="button" class="abc-tab-btn" role="tab" aria-selected="false" aria-controls="subtab-9" data-tab="subtab-9">
+                <span class="abc-tab-num">09</span>
+                <span>Pole Bracket</span>
+              </button>
+              <button type="button" class="abc-tab-btn" role="tab" aria-selected="false" aria-controls="subtab-10" data-tab="subtab-10">
+                <span class="abc-tab-num">10</span>
+                <span>Protective End Cap</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Tab Panels -->
+          <!-- 1. Suspension Clamp -->
+          <div class="abc-tab-panel active" id="subtab-1" role="tabpanel" aria-labelledby="subtab-1">
+            <div class="abc-panel-card">
+              <div class="abc-panel-top">
+                <span class="abc-panel-badge">Sub-Product 01 of 10</span>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Suspension Assembly</span>
               </div>
-              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6rem 0.75rem; text-align: center;">
-                <div style="font-size: 0.7rem; font-weight: 700; color: #2563eb; text-transform: uppercase;">Customer Tap</div>
-                <div style="font-size: 0.95rem; font-weight: 800; color: #0f172a; margin-top: 2px;">1.5 – 6mm²</div>
-                <div style="font-size: 0.75rem; color: #64748b;">Tap Conductor</div>
+              <h5 class="abc-panel-title">Suspension Clamp</h5>
+              <p class="abc-panel-desc">Designed to securely support aerial bundled conductors on poles while allowing the cable to withstand mechanical loads and movement.</p>
+              <div class="abc-panel-specs-box">
+                <div class="abc-panel-specs-label">Available Sizes</div>
+                <div class="abc-panel-chips">
+                  <span class="abc-size-chip">16–35 mm²</span>
+                  <span class="abc-size-chip">35–70 mm²</span>
+                  <span class="abc-size-chip">70–120 mm²</span>
+                  <span class="abc-size-chip">120–150 mm²</span>
+                </div>
               </div>
-              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6rem 0.75rem; text-align: center;">
-                <div style="font-size: 0.7rem; font-weight: 700; color: #b45309; text-transform: uppercase;">Distribution Mains</div>
-                <div style="font-size: 0.95rem; font-weight: 800; color: #0f172a; margin-top: 2px;">Up to 240mm²</div>
-                <div style="font-size: 0.75rem; color: #64748b;">Feeder Trunks</div>
+              <div class="abc-panel-footer-nav">
+                <button type="button" class="abc-panel-nav-btn" disabled>&larr; Previous</button>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">1 / 10</span>
+                <button type="button" class="abc-panel-nav-btn" data-target-tab="subtab-2">Next: Anchoring / Dead-End &rarr;</button>
               </div>
-              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6rem 0.75rem; text-align: center;">
-                <div style="font-size: 0.7rem; font-weight: 700; color: #7c3aed; text-transform: uppercase;">Heavy Tap Lines</div>
-                <div style="font-size: 0.95rem; font-weight: 800; color: #0f172a; margin-top: 2px;">Up to 150mm²</div>
-                <div style="font-size: 0.75rem; color: #64748b;">Sub-mains / Services</div>
+            </div>
+          </div>
+
+          <!-- 2. Anchoring / Dead-End Clamp -->
+          <div class="abc-tab-panel" id="subtab-2" role="tabpanel" aria-labelledby="subtab-2">
+            <div class="abc-panel-card">
+              <div class="abc-panel-top">
+                <span class="abc-panel-badge">Sub-Product 02 of 10</span>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Line Termination</span>
+              </div>
+              <h5 class="abc-panel-title">Anchoring / Dead-End Clamp</h5>
+              <p class="abc-panel-desc">Used to terminate and mechanically anchor ABC cables at the end of a line, corners, and poles. Provides a secure grip without damaging the insulation.</p>
+              <div class="abc-panel-specs-box">
+                <div class="abc-panel-specs-label">Available Sizes</div>
+                <div class="abc-panel-chips">
+                  <span class="abc-size-chip">16–35 mm²</span>
+                  <span class="abc-size-chip">35–70 mm²</span>
+                  <span class="abc-size-chip">70–120 mm²</span>
+                  <span class="abc-size-chip">120–150 mm²</span>
+                </div>
+              </div>
+              <div class="abc-panel-footer-nav">
+                <button type="button" class="abc-panel-nav-btn" data-target-tab="subtab-1">&larr; Prev: Suspension</button>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">2 / 10</span>
+                <button type="button" class="abc-panel-nav-btn" data-target-tab="subtab-3">Next: IPC Connector &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Insulation Piercing Connector (IPC) -->
+          <div class="abc-tab-panel" id="subtab-3" role="tabpanel" aria-labelledby="subtab-3">
+            <div class="abc-panel-card">
+              <div class="abc-panel-top">
+                <span class="abc-panel-badge">Sub-Product 03 of 10</span>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Live-Line Branching</span>
+              </div>
+              <h5 class="abc-panel-title">Insulation Piercing Connector (IPC)</h5>
+              <p class="abc-panel-desc">Provides an electrical connection to insulated aerial bundled conductors without removing the insulation. Suitable for service connections and network branching.</p>
+              <div class="abc-panel-specs-box">
+                <div class="abc-panel-specs-label">Available Sizes</div>
+                <div class="abc-panel-chips">
+                  <span class="abc-size-chip">Main cable: 16–150 mm²</span>
+                  <span class="abc-size-chip">Branch cable: 1.5–35 mm²</span>
+                </div>
+              </div>
+              <div class="abc-panel-footer-nav">
+                <button type="button" class="abc-panel-nav-btn" data-target-tab="subtab-2">&larr; Prev: Anchoring Clamp</button>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">3 / 10</span>
+                <button type="button" class="abc-panel-nav-btn" data-target-tab="subtab-4">Next: Service Clamp &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Service Connection Clamp -->
+          <div class="abc-tab-panel" id="subtab-4" role="tabpanel" aria-labelledby="subtab-4">
+            <div class="abc-panel-card">
+              <div class="abc-panel-top">
+                <span class="abc-panel-badge">Sub-Product 04 of 10</span>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Service Drop</span>
+              </div>
+              <h5 class="abc-panel-title">Service Connection Clamp</h5>
+              <p class="abc-panel-desc">Used to connect service cables to the main ABC network, providing a reliable electrical and mechanical connection.</p>
+              <div class="abc-panel-specs-box">
+                <div class="abc-panel-specs-label">Available Sizes</div>
+                <div class="abc-panel-chips">
+                  <span class="abc-size-chip">Main: 16–95 mm²</span>
+                  <span class="abc-size-chip">Service: 2.5–35 mm²</span>
+                </div>
+              </div>
+              <div class="abc-panel-footer-nav">
+                <button type="button" class="abc-panel-nav-btn" data-target-tab="subtab-3">&larr; Prev: IPC Connector</button>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">4 / 10</span>
+                <button type="button" class="abc-panel-nav-btn" data-target-tab="subtab-5">Next: Pre-Insulated Lug &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Pre-Insulated Lug -->
+          <div class="abc-tab-panel" id="subtab-5" role="tabpanel" aria-labelledby="subtab-5">
+            <div class="abc-panel-card">
+              <div class="abc-panel-top">
+                <span class="abc-panel-badge">Sub-Product 05 of 10</span>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Equipment Termination</span>
+              </div>
+              <h5 class="abc-panel-title">Pre-Insulated Lug</h5>
+              <p class="abc-panel-desc">Designed for terminating insulated aerial bundled conductors onto equipment, switchgear, and distribution boards.</p>
+              <div class="abc-panel-specs-box">
+                <div class="abc-panel-specs-label">Available Sizes</div>
+                <div class="abc-panel-chips">
+                  <span class="abc-size-chip">16–35 mm²</span>
+                  <span class="abc-size-chip">35–70 mm²</span>
+                  <span class="abc-size-chip">70–120 mm²</span>
+                  <span class="abc-size-chip">120–150 mm²</span>
+                </div>
+              </div>
+              <div class="abc-panel-footer-nav">
+                <button type="button" class="abc-panel-nav-btn" data-target-tab="subtab-4">&larr; Prev: Service Clamp</button>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">5 / 10</span>
+                <button type="button" class="abc-panel-nav-btn" data-target-tab="subtab-6">Next: Pre-Insulated Ferrule &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Pre-Insulated Ferrule -->
+          <div class="abc-tab-panel" id="subtab-6" role="tabpanel" aria-labelledby="subtab-6">
+            <div class="abc-panel-card">
+              <div class="abc-panel-top">
+                <span class="abc-panel-badge">Sub-Product 06 of 10</span>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Conductor Splice / Joint</span>
+              </div>
+              <h5 class="abc-panel-title">Pre-Insulated Ferrule</h5>
+              <p class="abc-panel-desc">Provides a reliable termination for ABC conductors while maintaining insulation and mechanical protection.</p>
+              <div class="abc-panel-specs-box">
+                <div class="abc-panel-specs-label">Available Sizes</div>
+                <div class="abc-panel-chips">
+                  <span class="abc-size-chip">16–35 mm²</span>
+                  <span class="abc-size-chip">35–70 mm²</span>
+                  <span class="abc-size-chip">70–120 mm²</span>
+                  <span class="abc-size-chip">120–150 mm²</span>
+                </div>
+              </div>
+              <div class="abc-panel-footer-nav">
+                <button type="button" class="abc-panel-nav-btn" data-target-tab="subtab-5">&larr; Prev: Pre-Insulated Lug</button>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">6 / 10</span>
+                <button type="button" class="abc-panel-nav-btn" data-target-tab="subtab-7">Next: Cable Spacer &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. Cable Spacer / Spacer Clamp -->
+          <div class="abc-tab-panel" id="subtab-7" role="tabpanel" aria-labelledby="subtab-7">
+            <div class="abc-panel-card">
+              <div class="abc-panel-top">
+                <span class="abc-panel-badge">Sub-Product 07 of 10</span>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Bundle Stability</span>
+              </div>
+              <h5 class="abc-panel-title">Cable Spacer / Spacer Clamp</h5>
+              <p class="abc-panel-desc">Maintains separation and positioning of bundled conductors, helping prevent contact and improving line stability.</p>
+              <div class="abc-panel-specs-box">
+                <div class="abc-panel-specs-label">Available Sizes</div>
+                <div class="abc-panel-chips">
+                  <span class="abc-size-chip">Suitable for common LV ABC configurations</span>
+                </div>
+              </div>
+              <div class="abc-panel-footer-nav">
+                <button type="button" class="abc-panel-nav-btn" data-target-tab="subtab-6">&larr; Prev: Ferrule</button>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">7 / 10</span>
+                <button type="button" class="abc-panel-nav-btn" data-target-tab="subtab-8">Next: Cable Tie / Strap &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. Cable Tie / Binding Strap -->
+          <div class="abc-tab-panel" id="subtab-8" role="tabpanel" aria-labelledby="subtab-8">
+            <div class="abc-panel-card">
+              <div class="abc-panel-top">
+                <span class="abc-panel-badge">Sub-Product 08 of 10</span>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Fastening &amp; Securing</span>
+              </div>
+              <h5 class="abc-panel-title">Cable Tie / Binding Strap</h5>
+              <p class="abc-panel-desc">UV-resistant fastening solution for securing ABC cables to poles and supporting hardware.</p>
+              <div class="abc-panel-specs-box">
+                <div class="abc-panel-specs-label">Available Sizes</div>
+                <div class="abc-panel-chips">
+                  <span class="abc-size-chip">Available in various lengths &amp; tensile strengths</span>
+                </div>
+              </div>
+              <div class="abc-panel-footer-nav">
+                <button type="button" class="abc-panel-nav-btn" data-target-tab="subtab-7">&larr; Prev: Cable Spacer</button>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">8 / 10</span>
+                <button type="button" class="abc-panel-nav-btn" data-target-tab="subtab-9">Next: Pole Bracket &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 9. Pole Bracket -->
+          <div class="abc-tab-panel" id="subtab-9" role="tabpanel" aria-labelledby="subtab-9">
+            <div class="abc-panel-card">
+              <div class="abc-panel-top">
+                <span class="abc-panel-badge">Sub-Product 09 of 10</span>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Pole Hardware</span>
+              </div>
+              <h5 class="abc-panel-title">Pole Bracket</h5>
+              <p class="abc-panel-desc">Heavy-duty bracket used to mount suspension and anchoring accessories securely to distribution poles.</p>
+              <div class="abc-panel-specs-box">
+                <div class="abc-panel-specs-label">Available Sizes</div>
+                <div class="abc-panel-chips">
+                  <span class="abc-size-chip">Available for standard ABC pole configurations</span>
+                </div>
+              </div>
+              <div class="abc-panel-footer-nav">
+                <button type="button" class="abc-panel-nav-btn" data-target-tab="subtab-8">&larr; Prev: Cable Tie</button>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">9 / 10</span>
+                <button type="button" class="abc-panel-nav-btn" data-target-tab="subtab-10">Next: End Cap &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 10. Protective End Cap -->
+          <div class="abc-tab-panel" id="subtab-10" role="tabpanel" aria-labelledby="subtab-10">
+            <div class="abc-panel-card">
+              <div class="abc-panel-top">
+                <span class="abc-panel-badge">Sub-Product 10 of 10</span>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Environmental Protection</span>
+              </div>
+              <h5 class="abc-panel-title">Protective End Cap</h5>
+              <p class="abc-panel-desc">Seals the end of an ABC cable to protect conductors and insulation from moisture, contamination, and environmental exposure.</p>
+              <div class="abc-panel-specs-box">
+                <div class="abc-panel-specs-label">Available Sizes</div>
+                <div class="abc-panel-chips">
+                  <span class="abc-size-chip">Available to suit standard ABC cable configurations</span>
+                </div>
+              </div>
+              <div class="abc-panel-footer-nav">
+                <button type="button" class="abc-panel-nav-btn" data-target-tab="subtab-9">&larr; Prev: Pole Bracket</button>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">10 / 10</span>
+                <button type="button" class="abc-panel-nav-btn" disabled>Next &rarr;</button>
               </div>
             </div>
           </div>
@@ -716,17 +982,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         <h4 style="font-size: 0.95rem; font-weight: 700; color: #166534; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;">Engineering Features &amp; Standards Compliance</h4>
         <ul>
-          <li><strong>Shear-Head Torque Nut:</strong> Calibrated shear-off bolt guarantees exact contact pressure without damaging individual conductor strands or puncturing too deep.</li>
-          <li><strong>IP68 Waterproof Seal:</strong> Heavy elastomeric insulating body and pre-molded seal cap pre-greased with silicone compound to eliminate water ingress and galvanic oxidation.</li>
-          <li><strong>Bi-Metallic Tooth Plates:</strong> High-tensile tinned copper or aluminum teeth allow transition between aluminum and copper conductors without corrosion.</li>
-          <li><strong>Live-Line Installation:</strong> Fully insulated body permits safe installation on energized aerial bundled cables (ABC) without stripping outer insulation.</li>
-          <li><strong>Utility Tested:</strong> Meets and exceeds NFC 33-020, EN 50483-4, and Eskom low-voltage service connection specifications.</li>
+          <li><strong>Utility Tested &amp; Approved:</strong> Meets and exceeds NFC 33-020, EN 50483-4, and Eskom distribution specifications.</li>
+          <li><strong>UV &amp; Weatherproof Integrity:</strong> High-grade carbon-black loaded polymeric housings resist intense African solar radiation and ozone weathering.</li>
+          <li><strong>Live-Line Installation Safety:</strong> Fully insulated components permit safe, efficient installation on energized low-voltage networks.</li>
+          <li><strong>Corrosion-Resistant Hardware:</strong> Hot-dip galvanized and high-tensile aluminium alloy fittings provide extended service life.</li>
         </ul>
       `
     }
   };
 
-  const STORAGE_KEY = 'bakis_product_catalog_v14';
+  const STORAGE_KEY = 'bakis_product_catalog_v20';
   let productCatalog = {};
 
   const loadCatalog = () => {
@@ -849,8 +1114,8 @@ document.addEventListener('DOMContentLoaded', () => {
         matchedIndex = i;
         break;
       }
-      if ((lower.includes('piercing') || lower.includes('ipc')) &&
-          (optVal.includes('piercing') || optVal.includes('ipc') || optText.includes('piercing') || optText.includes('ipc'))) {
+      if ((lower.includes('piercing') || lower.includes('ipc') || lower.includes('aerial bundled') || lower.includes('conductor accessories')) &&
+          (optVal.includes('piercing') || optVal.includes('ipc') || optVal.includes('aerial') || optText.includes('piercing') || optText.includes('ipc') || optText.includes('aerial'))) {
         matchedIndex = i;
         break;
       }
@@ -918,23 +1183,47 @@ document.addEventListener('DOMContentLoaded', () => {
       productModalBadge.style.borderColor = data.bgColor;
       productModalBadge.style.color = data.bgColor;
     }
-    productModalImage.src = data.image;
-    productModalImage.alt = data.title;
+
+    const imageWrap = productModalVisual ? productModalVisual.querySelector('.product-modal-image-wrap') : null;
+    if (imageWrap) {
+      if (data.secondaryImage) {
+        imageWrap.classList.add('has-multiple-images');
+        imageWrap.innerHTML = `
+          <img src="${data.modalImage || data.image}" alt="${data.title}" id="productModalImage" class="modal-primary-img">
+          <img src="${data.secondaryImage}" alt="${data.secondaryImageAlt || 'Substation Equipment'}" class="modal-secondary-img">
+        `;
+      } else {
+        imageWrap.classList.remove('has-multiple-images');
+        imageWrap.innerHTML = `
+          <img src="${data.modalImage || data.image}" alt="${data.title}" id="productModalImage">
+        `;
+      }
+    } else if (productModalImage) {
+      productModalImage.src = data.modalImage || data.image;
+      productModalImage.alt = data.title;
+    }
+
     productModalTitle.innerText = data.title;
     productModalTagline.innerText = data.tagline;
     productModalDescription.innerHTML = data.description;
 
     if (productModalSpecs) {
-      productModalSpecs.innerHTML = (data.specs || [])
-        .map(
-          spec => `
-          <div class="spec-badge">
-            <span class="spec-label">${spec.label}</span>
-            <span class="spec-value">${spec.value}</span>
-          </div>
-        `
-        )
-        .join('');
+      if (data.specs && data.specs.length > 0) {
+        productModalSpecs.style.display = 'grid';
+        productModalSpecs.innerHTML = data.specs
+          .map(
+            spec => `
+            <div class="spec-badge">
+              <span class="spec-label">${spec.label}</span>
+              <span class="spec-value">${spec.value}</span>
+            </div>
+          `
+          )
+          .join('');
+      } else {
+        productModalSpecs.style.display = 'none';
+        productModalSpecs.innerHTML = '';
+      }
     }
 
     if (productModalRfqBtn) {
@@ -976,6 +1265,82 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.target === productModal) closeProductModal();
     });
   }
+
+  // Expose on window for programmatic access and external controls
+  window.openProductModal = openProductModal;
+  window.closeProductModal = closeProductModal;
+
+  // ==========================================================================
+  // Sub-Products Interactive Tabs Controller (Event Delegation)
+  // ==========================================================================
+  document.addEventListener('click', (e) => {
+    // 1. Direct Tab Button Click
+    const tabBtn = e.target.closest('.abc-tab-btn');
+    if (tabBtn) {
+      const container = tabBtn.closest('.abc-tabs-container');
+      const targetId = tabBtn.getAttribute('data-tab');
+      if (container && targetId) {
+        // Toggle buttons
+        const allBtns = container.querySelectorAll('.abc-tab-btn');
+        allBtns.forEach(btn => {
+          const isActive = btn === tabBtn;
+          btn.classList.toggle('active', isActive);
+          btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        // Toggle panels
+        const allPanels = container.querySelectorAll('.abc-tab-panel');
+        allPanels.forEach(panel => {
+          const isTarget = panel.id === targetId;
+          panel.classList.toggle('active', isTarget);
+        });
+
+        // Smooth horizontal centering of active tab button
+        tabBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+      return;
+    }
+
+    // 2. Next / Previous Navigation Button inside Panel
+    const navBtn = e.target.closest('.abc-panel-nav-btn');
+    if (navBtn && navBtn.getAttribute('data-target-tab')) {
+      const targetId = navBtn.getAttribute('data-target-tab');
+      const container = navBtn.closest('.abc-tabs-container');
+      if (container && targetId) {
+        const targetBtn = container.querySelector(`.abc-tab-btn[data-tab="${targetId}"]`);
+        if (targetBtn) {
+          targetBtn.click();
+        }
+      }
+      return;
+    }
+  });
+
+  // Keyboard navigation for sub-product tabs (ArrowLeft / ArrowRight)
+  document.addEventListener('keydown', (e) => {
+    const activeTab = document.activeElement ? document.activeElement.closest('.abc-tab-btn') : null;
+    if (!activeTab) return;
+
+    const container = activeTab.closest('.abc-tabs-container');
+    if (!container) return;
+
+    const tabBtns = Array.from(container.querySelectorAll('.abc-tab-btn'));
+    const currentIndex = tabBtns.indexOf(activeTab);
+    if (currentIndex === -1) return;
+
+    let targetIndex = -1;
+    if (e.key === 'ArrowRight') {
+      targetIndex = (currentIndex + 1) % tabBtns.length;
+    } else if (e.key === 'ArrowLeft') {
+      targetIndex = (currentIndex - 1 + tabBtns.length) % tabBtns.length;
+    }
+
+    if (targetIndex >= 0) {
+      e.preventDefault();
+      tabBtns[targetIndex].focus();
+      tabBtns[targetIndex].click();
+    }
+  });
 
   // ==========================================================================
   // Product Management / Admin Area Controller

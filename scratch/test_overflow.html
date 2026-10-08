@@ -1,0 +1,19 @@
+<!DOCTYPE html><html><body><iframe id="f" src="http://127.0.0.1:8080/" style="width:320px;height:600px;"></iframe><script>
+  document.getElementById('f').onload = () => {
+    setTimeout(() => {
+      const win = document.getElementById('f').contentWindow;
+      const winW = win.innerWidth;
+      const bad = [];
+      win.document.querySelectorAll('*').forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.right > winW + 1) {
+          bad.push({ tag: el.tagName, cls: (el.className && typeof el.className === 'string') ? el.className : '', id: el.id, right: Math.round(r.right), width: Math.round(r.width) });
+        }
+      });
+      const p = document.createElement('pre');
+      p.id = 'res';
+      p.textContent = JSON.stringify(bad.slice(0, 20), null, 2);
+      document.body.appendChild(p);
+    }, 500);
+  };
+</script></body></html>

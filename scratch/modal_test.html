@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Modal Test</title>
+</head>
+<body style="margin: 0; padding: 0; background: #0b1528;">
+  <iframe id="appFrame" src="/index.html" style="width: 100vw; height: 100vh; border: none;"></iframe>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const prod = params.get('prod') || 'distribution-boards';
+    const frame = document.getElementById('appFrame');
+    frame.onload = () => {
+      setTimeout(() => {
+        const win = frame.contentWindow;
+        if (win && win.openProductModal) {
+          win.openProductModal(prod);
+        }
+      }, 500);
+    };
+  </script>
+</body>
+</html>
