@@ -739,7 +739,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="abc-tab-panel active" id="subtab-1" role="tabpanel" aria-labelledby="subtab-1">
             <div class="abc-panel-card">
               <div class="abc-panel-top">
-                <span class="abc-panel-badge">Sub-Product 01 of 10</span>
                 <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Suspension Assembly</span>
               </div>
               <h5 class="abc-panel-title">Suspension Clamp</h5>
@@ -765,7 +764,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="abc-tab-panel" id="subtab-2" role="tabpanel" aria-labelledby="subtab-2">
             <div class="abc-panel-card">
               <div class="abc-panel-top">
-                <span class="abc-panel-badge">Sub-Product 02 of 10</span>
                 <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Line Termination</span>
               </div>
               <h5 class="abc-panel-title">Anchoring / Dead-End Clamp</h5>
@@ -791,7 +789,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="abc-tab-panel" id="subtab-3" role="tabpanel" aria-labelledby="subtab-3">
             <div class="abc-panel-card">
               <div class="abc-panel-top">
-                <span class="abc-panel-badge">Sub-Product 03 of 10</span>
                 <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Live-Line Branching</span>
               </div>
               <h5 class="abc-panel-title">Insulation Piercing Connector (IPC)</h5>
@@ -815,7 +812,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="abc-tab-panel" id="subtab-4" role="tabpanel" aria-labelledby="subtab-4">
             <div class="abc-panel-card">
               <div class="abc-panel-top">
-                <span class="abc-panel-badge">Sub-Product 04 of 10</span>
                 <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Service Drop</span>
               </div>
               <h5 class="abc-panel-title">Service Connection Clamp</h5>
@@ -839,7 +835,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="abc-tab-panel" id="subtab-5" role="tabpanel" aria-labelledby="subtab-5">
             <div class="abc-panel-card">
               <div class="abc-panel-top">
-                <span class="abc-panel-badge">Sub-Product 05 of 10</span>
                 <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Equipment Termination</span>
               </div>
               <h5 class="abc-panel-title">Pre-Insulated Lug</h5>
@@ -865,7 +860,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="abc-tab-panel" id="subtab-6" role="tabpanel" aria-labelledby="subtab-6">
             <div class="abc-panel-card">
               <div class="abc-panel-top">
-                <span class="abc-panel-badge">Sub-Product 06 of 10</span>
                 <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Conductor Splice / Joint</span>
               </div>
               <h5 class="abc-panel-title">Pre-Insulated Ferrule</h5>
@@ -891,7 +885,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="abc-tab-panel" id="subtab-7" role="tabpanel" aria-labelledby="subtab-7">
             <div class="abc-panel-card">
               <div class="abc-panel-top">
-                <span class="abc-panel-badge">Sub-Product 07 of 10</span>
                 <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Bundle Stability</span>
               </div>
               <h5 class="abc-panel-title">Cable Spacer / Spacer Clamp</h5>
@@ -914,7 +907,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="abc-tab-panel" id="subtab-8" role="tabpanel" aria-labelledby="subtab-8">
             <div class="abc-panel-card">
               <div class="abc-panel-top">
-                <span class="abc-panel-badge">Sub-Product 08 of 10</span>
                 <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Fastening &amp; Securing</span>
               </div>
               <h5 class="abc-panel-title">Cable Tie / Binding Strap</h5>
@@ -937,7 +929,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="abc-tab-panel" id="subtab-9" role="tabpanel" aria-labelledby="subtab-9">
             <div class="abc-panel-card">
               <div class="abc-panel-top">
-                <span class="abc-panel-badge">Sub-Product 09 of 10</span>
                 <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Pole Hardware</span>
               </div>
               <h5 class="abc-panel-title">Pole Bracket</h5>
@@ -960,7 +951,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="abc-tab-panel" id="subtab-10" role="tabpanel" aria-labelledby="subtab-10">
             <div class="abc-panel-card">
               <div class="abc-panel-top">
-                <span class="abc-panel-badge">Sub-Product 10 of 10</span>
                 <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Environmental Protection</span>
               </div>
               <h5 class="abc-panel-title">Protective End Cap</h5>
@@ -979,19 +969,11 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           </div>
         </div>
-
-        <h4 style="font-size: 0.95rem; font-weight: 700; color: #166534; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;">Engineering Features &amp; Standards Compliance</h4>
-        <ul>
-          <li><strong>Utility Tested &amp; Approved:</strong> Meets and exceeds NFC 33-020, EN 50483-4, and Eskom distribution specifications.</li>
-          <li><strong>UV &amp; Weatherproof Integrity:</strong> High-grade carbon-black loaded polymeric housings resist intense African solar radiation and ozone weathering.</li>
-          <li><strong>Live-Line Installation Safety:</strong> Fully insulated components permit safe, efficient installation on energized low-voltage networks.</li>
-          <li><strong>Corrosion-Resistant Hardware:</strong> Hot-dip galvanized and high-tensile aluminium alloy fittings provide extended service life.</li>
-        </ul>
       `
     }
   };
 
-  const STORAGE_KEY = 'bakis_product_catalog_v20';
+  const STORAGE_KEY = 'bakis_product_catalog_v21';
   let productCatalog = {};
 
   const loadCatalog = () => {
